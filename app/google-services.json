@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "854865861013",
+    "firebase_url": "https://link-sdk.firebaseio.com",
+    "project_id": "link-sdk",
+    "storage_bucket": "link-sdk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854865861013:android:9a302403a961a545f97e9c",
+        "android_client_info": {
+          "package_name": "com.example.myawesomeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854865861013-as04qpfc2r78ntdd3hg23bqnviufkomd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmLFTmCTPybqj5ttVpvDkkwcLDoPcwuI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854865861013-as04qpfc2r78ntdd3hg23bqnviufkomd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "854865861013-p42of19a4gqslmocm7dv483uqkqgu1fu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.getmoneytree.sdk.MyAwesomeApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
