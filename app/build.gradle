@@ -3,12 +3,14 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
     defaultConfig {
         applicationId "com.example.myawesomeapp"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -19,11 +21,32 @@ android {
     }
 }
 
+ext {
+    ver_support = '25.3.1'
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:appcompat-v7:${ver_support}"
+
+    // Add SDK definition
+    compile(name: 'MTLinkSDK-0.0.1', ext: 'aar') /* it works after deployed to external repos {
+        transitive = true
+    } */
+
+    // Add dependencies
+    compile "com.android.support:customtabs:${ver_support}"
+    compile "com.squareup.okhttp3:okhttp:3.8.1"
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
+}
+
+// Enables to read the SDK from local dirs named libs
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
 }
