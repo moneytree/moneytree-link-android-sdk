@@ -18,7 +18,7 @@ public class AwesomeApplication extends Application {
         // Initialize MTLinkClient
         final MoneytreeLinkConfiguration configuration = new MoneytreeLinkConfiguration.Builder()
                 .isProduction(false) // true: production, false: staging
-                .appId("__SET_YOUR_MoneytreeLinkAppID__")  // set your MoneytreeLinkAppId
+                .clientId(getString(R.string.link_client_id))  // set your ClientId
                 .scopes(MoneytreeLinkScope.GuestRead) // set scopes
                 .build();
         // Set application instance and configuration that created above.
