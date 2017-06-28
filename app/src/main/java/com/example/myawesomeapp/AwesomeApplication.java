@@ -2,9 +2,9 @@ package com.example.myawesomeapp;
 
 import android.app.Application;
 
-import jp.moneytree.mtlinksdk.MTLinkClient;
-import jp.moneytree.mtlinksdk.MTLinkConfiguration;
-import jp.moneytree.mtlinksdk.MTLinkScope;
+import com.getmoneytree.MoneytreeLinkClient;
+import com.getmoneytree.MoneytreeLinkConfiguration;
+import com.getmoneytree.MoneytreeLinkScope;
 
 /**
  * @author Moneytree KK
@@ -16,12 +16,12 @@ public class AwesomeApplication extends Application {
         super.onCreate();
 
         // Initialize MTLinkClient
-        final MTLinkConfiguration configuration = new MTLinkConfiguration.Builder()
+        final MoneytreeLinkConfiguration configuration = new MoneytreeLinkConfiguration.Builder()
                 .isProduction(false) // true: production, false: staging
                 .appId("__SET_YOUR_MoneytreeLinkAppID__")  // set your MoneytreeLinkAppId
-                .scopes(MTLinkScope.GuestRead) // set scopes
+                .scopes(MoneytreeLinkScope.GuestRead) // set scopes
                 .build();
         // Set application instance and configuration that created above.
-        MTLinkClient.init(this, configuration);
+        MoneytreeLinkClient.init(this, configuration);
     }
 }
