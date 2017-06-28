@@ -10,7 +10,7 @@
 
 ## Setup
 
-1. Download `MoneytreeLinkCore-<version>.aar`.
+1. Download the latest [`MoneytreeLinkCore-<version>.aar`](https://github.com/moneytree/mt-link-android-sdk-example/releases).
 
 2. Add the library (the aar file above) to your project
     - You don't know how? Read [description](https://developer.android.com/studio/projects/android-library.html?#AddDependency).
