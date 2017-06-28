@@ -20,7 +20,6 @@
 ```xml
 <string name="link_client_id">YOUR_MONEYTREE_LINK_CLIENT_ID</string>
 ```
-
     - You might have 2 `ClientId`s - for staging and production. If so, we recommend to use `strings.xml` to control them seamlessly.
     - No naming convention for `string name`. You can name as you want.
 
@@ -78,6 +77,7 @@
     });
     ```
     The method *authorize* will open the WebView to get a token.
+
     2. You have to edit *onNewIntent* method that runs when the WebView returns a token.
     ```java
     @Override
