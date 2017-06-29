@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import jp.moneytree.mtlinksdk.MTLinkClient;
+import com.getmoneytree.MoneytreeLinkClient;
 
 /**
  * @author Moneyteee KK, 2017
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MTLinkClient.authorize();
+                MoneytreeLinkClient.authorize(MainActivity.this);
             }
         });
     }
@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onNewIntent(intent);
 
         // Check an intent has a token
-        if (MTLinkClient.hasToken(intent)) {
-            final String token = MTLinkClient.findToken(intent);
+        if (MoneytreeLinkClient.hasToken(intent)) {
+            final String token = MoneytreeLinkClient.findToken(intent);
             saveToken(token);
         }
 
