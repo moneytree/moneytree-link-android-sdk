@@ -13,15 +13,14 @@
 1. Download the latest [`MoneytreeLinkCore-<version>.aar`](https://github.com/moneytree/mt-link-android-sdk-example/releases).
 
 2. Add the library (the aar file above) to your project
-    - You don't know how? Read [description](https://developer.android.com/studio/projects/android-library.html?#AddDependency).
+    - [Integration steps](https://developer.android.com/studio/projects/android-library.html?#AddDependency).
     - Or this example app might be helpful.
 
 3. Add your `ClientId` string that is provided by Moneytree
 ```xml
-<string name="link_client_id">YOUR_MONEYTREE_LINK_CLIENT_ID</string>
+<string name="moneytree_link_client_id">YOUR_MONEYTREE_LINK_CLIENT_ID</string>
 ```
-    - You might have 2 `ClientId`s - for staging and production. If so, we recommend to use `strings.xml` to control them seamlessly.
-    - No naming convention for `string name`. You can name as you want.
+    - We recommend to use `strings.xml` to differentiate `moneytree_link_client_id` between staging and production. i.e. `debug/strings.xml` and `main/strings.xml`
 
 4. Configure the `manifest` file to receive the token from web view.
 
@@ -44,12 +43,12 @@
     </intent-filter>
     ```
 
-    3. (*Not for all users*) If you don't use [`Chrome Custom Tabs`](https://developer.chrome.com/multidevice/android/customtabs) in your app, you have to add `INTERNET` permission to the `manifest` file properly.
+    3. (*Not for all users*) If you don't use [`Chrome Custom Tabs`](https://developer.chrome.com/multidevice/android/customtabs) in your app, `INTERNET` permission is required.
     ```xml
     <uses-permission android:name="android.permission.INTERNET" />
     ```
 
-5. Initialize `MoneyTreeLinkClient` at your `Application` class like this
+5. Initialize `MoneytreeLinkClient` from the `Application` class
    ```java
    @Override
    public void onCreate() {
@@ -57,8 +56,8 @@
 
        final MoneytreeLinkConfiguration conf = new MoneytreeLinkConfiguration.Builder()
            .isProduction(false) // or true if production
-           .clientId("__YOUR_MONEYTREE_LINK_CLIENT_ID__")
-           .scopes(MoneyTreeLinkClient.GuestRead, ...)
+           .clientId(R.string.moneytree_link_client_id) // your MoneytreeLinkClientId
+           .scopes(MoneyTreeLinkClient.GuestRead, ...) // scope(s)
            .build();
        MoneyTreeLinkClient.init(this, conf);
    }
@@ -66,7 +65,7 @@
 
 6. Edit your activity to enable to call `MoneytreeLink` and get a token from `MoneytreeLink`
 
-    1. You can put a button to open `MoneytreeLink` like this.
+    1. Call *authorize* to start the authorization flow
     ```java
     final Button button = (Button) findViewById(R.id.login_button);
     button.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +77,7 @@
     ```
     The method *authorize* will open the WebView to get a token.
 
-    2. You have to edit *onNewIntent* method that runs when the WebView returns a token.
+    2. Override *onNewIntent* to get a token
     ```java
     @Override
     protected void onNewIntent(Intent intent) {
