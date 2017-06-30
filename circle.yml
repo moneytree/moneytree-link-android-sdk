@@ -48,5 +48,4 @@ deployment:
   production:
     branch: 'production'
     commands:
-      - bundle exec fastlane build_sdk
       - bundle exec fastlane distribute_release
