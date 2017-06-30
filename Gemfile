@@ -3,4 +3,4 @@
 # Circle CI.
 source "https://rubygems.org"
 
-gem 'fastlane', '2.41.0'
+gem 'fastlane', '2.43.0'
