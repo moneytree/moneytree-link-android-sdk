@@ -30,6 +30,11 @@ xcode-select --install
 
 # Available Actions
 ## Android
+### android clean
+```
+fastlane android clean
+```
+Clean everything
 ### android test
 ```
 fastlane android test
@@ -39,7 +44,7 @@ Runs all the tests
 ```
 fastlane android build_sdk
 ```
-
+Build the SDK
 ### android distribute_release
 ```
 fastlane android distribute_release
