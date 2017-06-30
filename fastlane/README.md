@@ -30,11 +30,6 @@ xcode-select --install
 
 # Available Actions
 ## Android
-### android a
-```
-fastlane android a
-```
-
 ### android test
 ```
 fastlane android test
