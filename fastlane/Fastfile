@@ -16,8 +16,10 @@ fastlane_version "2.41.0"
 default_platform :android
 
 platform :android do
-  before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+
+  desc "Clean everything"
+  lane :clean do
+    gradle(task: "clean")
   end
 
   desc "Runs all the tests"
@@ -25,36 +27,60 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
+  desc "Build the SDK"
+  lane :build_sdk do
     gradle(task: "assembleRelease")
-    crashlytics
-
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
+    if is_ci
+      sh "cp -r $BUILD_DIR/sdk/build/outputs $CIRCLE_ARTIFACTS"
+    end
   end
 
-  desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "assembleRelease")
-    supply
+  desc "Deploy a new version as the Release"
+  lane :distribute_release do
+    ## Prerequesties
+    build_sdk
+    archive_file = sdk_path
+
+    ## Create Github Release
+    release_name = version_code
+    set_git_identity_when_needed
+    github_release = set_github_release(
+      repository_name: 'moneytree/mt-link-android-sdk-example',
+      name: "v#{release_name}",
+      tag_name: "v#{release_name}",
+      description: "<TBD>",
+      upload_assets: [archive_file]
+    )
+
+    UI.message("Release: #{github_release}.".yellow)
   end
 
-  # You can define as many lanes as you want
-
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
+  ### Private lanes ###
+  private_lane :set_git_identity_when_needed do
+    if is_ci
+      sh 'git config user.name "MTService"'
+      sh 'git config user.email "support@moneytree.jp"'
+    end
   end
 
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
+  def sdk_path
+    version = version_code
+    if is_ci
+      result = Actions.sh("echo $BUILD_DIR/app/libs/MoneytreeLinkCore-#{version}.aar")
+    else
+      result = Actions.sh("echo #{File.expand_path("..", Dir.pwd)}/app/libs/MoneytreeLinkCore-#{version}.aar")
+    end
+    result.strip
+  end
+
+  def version_code
+    # Extract from aar package because the example should have the same number.
+    if is_ci
+      result = Actions.sh("find $BUILD_DIR/app/libs -type f -regex '.*aar' | sed -r 's/.*-(.*).aar/\\1/'")
+    else
+      result = Actions.sh("find ../app/libs -type f -regex '.*aar' | sed -r 's/.*-(.*).aar/\\1/'")
+    end
+    result.strip
   end
 end
 
@@ -62,5 +88,5 @@ end
 # More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
 # All available actions: https://docs.fastlane.tools/actions
 
-# fastlane reports which actions are used. No personal data is recorded. 
+# fastlane reports which actions are used. No personal data is recorded.
 # Learn more at https://github.com/fastlane/fastlane#metrics

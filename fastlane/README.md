@@ -30,21 +30,26 @@ xcode-select --install
 
 # Available Actions
 ## Android
+### android clean
+```
+fastlane android clean
+```
+Clean everything
 ### android test
 ```
 fastlane android test
 ```
 Runs all the tests
-### android beta
+### android build_sdk
 ```
-fastlane android beta
+fastlane android build_sdk
 ```
-Submit a new Beta Build to Crashlytics Beta
-### android deploy
+Build the SDK
+### android distribute_release
 ```
-fastlane android deploy
+fastlane android distribute_release
 ```
-Deploy a new version to the Google Play
+Deploy a new version as the Release
 
 ----
 
