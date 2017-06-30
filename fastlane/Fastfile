@@ -31,7 +31,7 @@ platform :android do
   lane :build_sdk do
     gradle(task: "assembleRelease")
     if is_ci
-      sh "cp -r $BUILD_DIR/sdk/build/outputs $CIRCLE_ARTIFACTS"
+      sh "cp -r $BUILD_DIR/app/build/outputs $CIRCLE_ARTIFACTS"
     end
   end
 
