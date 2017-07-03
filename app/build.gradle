@@ -29,7 +29,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:${ver_support}"
 
     // Add SDK definition
-    compile(name: 'MoneytreeLinkCore-0.0.2', ext: 'aar')
+    compile(name: 'MoneytreeLinkCore-0.0.3', ext: 'aar')
 
     // Add dependencies
     compile "com.android.support:customtabs:${ver_support}"
