@@ -33,7 +33,7 @@
          (snip)
     ```
 
-    2. Add `intent-filter` to the same activity. Note that the vaule of `android:scheme` should be `mtlink` + **first 5 chars of your ClientId**. If your `AppId` is `abcde1234567890moneytree`, it should be `mtlinkabcde` like the following example.
+    2. Add `intent-filter` to the same activity. Note that the vaule of `android:scheme` should be `mtlink` + **first 5 chars of your ClientId**. If your `ClientId` is `abcde1234567890moneytree`, it should be `mtlinkabcde` like the following example.
     ```xml
     <intent-filter>
         <action android:name="android.intent.action.VIEW" />
@@ -71,7 +71,7 @@
     button.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            MoneytreeLinkClient.authorize(MainActivity.this);
+            MoneytreeLinkClient.authorize();
         }
     });
     ```
