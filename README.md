@@ -43,7 +43,7 @@
     </intent-filter>
     ```
 
-    3. (*Not for all users*) If you don't use [`Chrome Custom Tabs`](https://developer.chrome.com/multidevice/android/customtabs) in your app, `INTERNET` permission is required.
+    3. (*Not for all users*) If your app can't use [`Chrome Custom Tabs`](https://developer.chrome.com/multidevice/android/customtabs), `INTERNET` permission is required.
     ```xml
     <uses-permission android:name="android.permission.INTERNET" />
     ```
