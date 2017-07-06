@@ -1,6 +1,5 @@
 package com.example.myawesomeapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.getmoneytree.MoneytreeLinkClient;
+import com.getmoneytree.token.TokenHandler;
 
 /**
  * @author Moneyteee KK, 2017
@@ -24,23 +24,19 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLinkClient.authorize();
+                MoneytreeLinkClient.client().authorize(new TokenHandler() {
+                    @Override
+                    public void onSuccess(String token) {
+                        saveToken(token);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                });
             }
         });
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
-        // Check an intent has a token
-        if (MoneytreeLinkClient.hasToken(intent)) {
-            final String token = MoneytreeLinkClient.findToken(intent);
-            saveToken(token);
-        }
-
-        // Need to call on singleTask activity to work `getIntent()` in other methods
-        setIntent(intent);
     }
 
     private void saveToken(@NonNull String token) {
