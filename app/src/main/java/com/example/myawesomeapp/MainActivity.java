@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.getmoneytree.MoneytreeLinkClient;
+import com.getmoneytree.MoneytreeLink;
 import com.getmoneytree.token.TokenHandler;
 
 /**
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLinkClient.client().authorize(new TokenHandler() {
+                MoneytreeLink.client().authorize(new TokenHandler() {
                     @Override
                     public void onSuccess(String token) {
                         saveToken(token);

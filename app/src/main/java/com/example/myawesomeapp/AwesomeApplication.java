@@ -2,7 +2,7 @@ package com.example.myawesomeapp;
 
 import android.app.Application;
 
-import com.getmoneytree.MoneytreeLinkClient;
+import com.getmoneytree.MoneytreeLink;
 import com.getmoneytree.MoneytreeLinkConfiguration;
 import com.getmoneytree.MoneytreeLinkScope;
 
@@ -22,6 +22,6 @@ public class AwesomeApplication extends Application {
                 .scopes(MoneytreeLinkScope.GuestRead) // set scopes
                 .build();
         // Set application instance and configuration that created above.
-        MoneytreeLinkClient.init(this, configuration);
+        MoneytreeLink.init(this, configuration);
     }
 }
