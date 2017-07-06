@@ -19,15 +19,14 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     - [Integration steps](https://developer.android.com/studio/projects/android-library.html?#AddDependency).
     - Or this example app might be helpful.
 
-3. Add your `ClientId` string that is provided by Moneytree
+3. Add your `ClientId` string that is provided by Moneytree. Note that there is per environment.
 ```xml
 <string name="moneytree_link_client_id">YOUR_MONEYTREE_LINK_CLIENT_ID</string>
 ```
-    - We recommend to use `strings.xml` to differentiate `moneytree_link_client_id` between staging and production. i.e. `debug/strings.xml` and `main/strings.xml`
 
-4. Configure the `manifest` file to receive the token from web view.
+4. Configure the `manifest` file to receive an auth token from WebView.
 
-    1. Add `CustomTabActivity` as the following example. It receives a callback which has a token when your `authorize` request for the `MoneytreeLink` class finishes successfully.
+    1. Add `CustomTabActivity` as the following example. It will receive a callback which has an auth token when your `authorize` request for the `MoneytreeLink` class finishes successfully.
     ```xml
     <activity android:name="com.getmoneytree.token.CustomTabActivity">
         <intent-filter>
@@ -41,7 +40,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     </activity>
     ```
 
-    2. Replace `YOUR_SCHEME_NAME` in `android:scheme`. It should be `mtlink` + **first 5 chars of your ClientId**. If your `ClientId` is `abcde1234567890moneytree`, your scheme will be `mtlinkabcde` like as follows.
+    2. Update a value of `YOUR_SCHEME_NAME` in the above xml. It should be `mtlink` + **first 5 chars of your ClientId**. If your `ClientId` is `abcde1234567890moneytree`, your scheme will be `mtlinkabcde` like as follows.
     ```xml
     <data android:scheme="mtlinkabcde" />
     ```
@@ -66,7 +65,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
    }
    ```
 
-6. Edit your activity to enable to call `MoneytreeLink` and get a token from `MoneytreeLink`
+6. Edit your activity to enable to call `MoneytreeLink` and get an auth token from `MoneytreeLink`
 
     1. Call *authorize* to start the authorization flow
     ```java
@@ -77,7 +76,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
           MoneytreeLink.client().authorize(new TokenHandler() {
               @Override
               public void onSuccess(String token) {
-                  // Your method; Save a token to secure place.
+                  // Your method; Save an auth token to secure place.
                   saveToken(token);
               }
 
@@ -90,6 +89,6 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
         }
     });
     ```
-    The method *authorize* will open the WebView to get a token.
+    The method *authorize* will open the WebView to get an auth token.
 
     2. A method of `TokenHandler` instance (*onSuccess* or *onFailure*) will be fired based on the result of requests.
