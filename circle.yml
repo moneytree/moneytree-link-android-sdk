@@ -40,6 +40,12 @@ test:
     - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 
 deployment:
+  # remove later
+  changelog:
+    branch: 'changelog'
+    commands:
+      - bundle exec fastlane generate_changelog
+
   staging:
     branch: 'master'
     commands:
