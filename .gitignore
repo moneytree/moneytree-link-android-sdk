@@ -1,4 +1,5 @@
-# Created by https://www.gitignore.io/api/java,macos,android,androidstudio
+
+# Created by https://www.gitignore.io/api/java,macos,android,androidstudio,fastlane
 
 ### Android ###
 # Built application files
@@ -169,6 +170,22 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
+### fastlane ###
+# fastlane - A streamlined workflow tool for Cocoa deployment
+
+# fastlane specific
+fastlane/report.xml
+
+# deliver temporary files
+fastlane/Preview.html
+
+# snapshot generated screenshots
+fastlane/screenshots/**/*.png
+fastlane/screenshots/screenshots.html
+
+# scan temporary files
+fastlane/test_output
+
 ### Java ###
 # Compiled class file
 
@@ -210,4 +227,4 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# End of https://www.gitignore.io/api/java,macos,android,androidstudio
+# End of https://www.gitignore.io/api/java,macos,android,androidstudio,fastlane
