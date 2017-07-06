@@ -50,6 +50,11 @@ Build the SDK
 fastlane android distribute_release
 ```
 Deploy a new version as the Release
+### android generate_changelog
+```
+fastlane android generate_changelog
+```
+Generate CHANGELOG and create commit
 
 ----
 
