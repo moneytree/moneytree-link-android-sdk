@@ -55,6 +55,45 @@ platform :android do
     UI.message("Release: #{github_release}.".yellow)
   end
 
+  desc "Generate CHANGELOG and create commit"
+  lane :generate_changelog do
+    sh "bundle exec github_changelog_generator"
+
+    changelog = "CHANGELOG.md"
+    # CHANGELOG.md is generated $BUILD_DIR/fastlane. So it brings to $BUILD_DIR
+    prefix = is_ci ? "$BUILD_DIR" : File.expand_path("..", Dir.pwd)
+    sh "mv #{prefix}/fastlane/#{changelog} #{prefix}/#{changelog}"
+
+    if !is_ci
+      next
+    end
+
+    # Create a commit to add CHANGELOG
+    branch_name = "new-changelog"
+    sh "git checkout -b #{branch_name}"
+    set_git_identity_when_needed
+    git_add(path: "#{changelog}")
+
+    message = "[CI] Updated #{changelog}"
+    git_commit(
+      path: "#{changelog}",
+      message: message
+    )
+
+    push_to_git_remote(
+      local_branch: branch_name,
+      remote_branch: branch_name,
+      tags: false
+    )
+
+    create_pull_request(
+      repo: 'moneytree/mt-link-android-sdk-example',
+      title: message,
+      head: branch_name,
+      base: 'master'
+    )
+  end
+
   ### Private lanes ###
   private_lane :set_git_identity_when_needed do
     if is_ci
