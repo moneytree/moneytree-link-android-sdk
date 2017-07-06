@@ -49,3 +49,4 @@ deployment:
     branch: 'production'
     commands:
       - bundle exec fastlane distribute_release
+      - bundle exec fastlane generate_changelog
