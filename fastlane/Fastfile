@@ -69,7 +69,7 @@ platform :android do
     end
 
     # Create a commit to add CHANGELOG
-    branch_name = "changelog"
+    branch_name = "new-changelog"
     sh "git checkout -b #{branch_name}"
     set_git_identity_when_needed
     git_add(path: "#{changelog}")
