@@ -19,7 +19,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     - [Integration steps](https://developer.android.com/studio/projects/android-library.html?#AddDependency).
     - Or this example app might be helpful.
 
-3. Add your `ClientId` string that is provided by Moneytree. Note that there is per environment.
+3. Add your `ClientId` string that is provided by Moneytree. The `ClientId` is different for each environment. *Staging*, and *Production*.
 ```xml
 <string name="moneytree_link_client_id">YOUR_MONEYTREE_LINK_CLIENT_ID</string>
 ```
@@ -45,7 +45,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     <data android:scheme="mtlinkabcde" />
     ```
 
-    3. (*Not for all users*) If your app can't use [`Chrome Custom Tabs`](https://developer.chrome.com/multidevice/android/customtabs), don't forget to define `INTERNET` permission.
+    3. (*Not for all users*) If your app can't use [`Chrome Custom Tabs`](https://developer.chrome.com/multidevice/android/customtabs), `INTERNET` permission is required.
     ```xml
     <uses-permission android:name="android.permission.INTERNET" />
     ```
