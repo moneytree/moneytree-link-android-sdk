@@ -40,7 +40,9 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     </activity>
     ```
 
-    2. Update a value of `YOUR_SCHEME_NAME` in the above xml. It should be `mtlink` + **first 5 chars of your ClientId**. If your `ClientId` is `abcde1234567890moneytree`, your scheme will be `mtlinkabcde` like as follows.
+    2. Replace `YOUR_SCHEME_NAME` with `mtlink`+ **first 5 chars of your ClientId**
+       e.g. If the `ClientId` is `abcde1234567890moneytree`, the scheme is `mtlinkabcde`:
+
     ```xml
     <data android:scheme="mtlinkabcde" />
     ```
