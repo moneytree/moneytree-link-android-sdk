@@ -23,7 +23,6 @@
 
         <activity android:name="com.getmoneytree.token.CustomTabActivity">
             <intent-filter>
-                <!-- receive a token -->
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
