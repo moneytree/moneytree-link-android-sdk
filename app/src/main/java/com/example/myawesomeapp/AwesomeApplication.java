@@ -20,6 +20,7 @@ public class AwesomeApplication extends Application {
                 .isProduction(false) // true: production, false: staging
                 .clientId(getString(R.string.link_client_id))  // set your ClientId
                 .scopes(MoneytreeLinkScope.GuestRead) // set scopes
+                //.scopes("customized_scope", "new_scope") // You can add scopes using String as well.
                 .build();
         // Set application instance and configuration that created above.
         MoneytreeLink.init(this, configuration);

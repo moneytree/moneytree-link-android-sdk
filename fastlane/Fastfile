@@ -57,7 +57,7 @@ platform :android do
 
   desc "Generate CHANGELOG and create commit"
   lane :generate_changelog do
-    sh "bundle exec github_changelog_generator"
+    sh "bundle exec github_changelog_generator --no-author"
 
     changelog = "CHANGELOG.md"
     # CHANGELOG.md is generated $BUILD_DIR/fastlane. So it brings to $BUILD_DIR
