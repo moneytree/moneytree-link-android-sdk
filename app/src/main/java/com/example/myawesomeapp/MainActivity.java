@@ -8,7 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.getmoneytree.MoneytreeLink;
-import com.getmoneytree.token.TokenHandler;
+import com.getmoneytree.auth.OAuthAccessToken;
+import com.getmoneytree.auth.OAuthCode;
+import com.getmoneytree.auth.OAuthHandler;
 
 /**
  * @author Moneyteee KK, 2017
@@ -16,34 +18,53 @@ import com.getmoneytree.token.TokenHandler;
 public class MainActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button button = (Button) findViewById(R.id.login_button);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button implicitButton = (Button) findViewById(R.id.implicit_button);
+        implicitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLink.client().authorize(new TokenHandler() {
+                MoneytreeLink.client().authorize(new OAuthHandler<OAuthAccessToken>() {
+
                     @Override
-                    public void onSuccess(String token) {
-                        saveToken(token);
+                    public void onSuccess(OAuthAccessToken payload) {
+                        displayResult("token: " + payload.getAccessToken());
                     }
 
                     @Override
                     public void onFailure(Throwable throwable) {
                         throwable.printStackTrace();
+                        displayResult(throwable.getMessage());
+                    }
+                });
+            }
+        });
+
+        final Button codeButton = (Button) findViewById(R.id.code_button);
+        codeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MoneytreeLink.client().authorize(new OAuthHandler<OAuthCode>() {
+
+                    @Override
+                    public void onSuccess(OAuthCode payload) {
+                        displayResult("code: " + payload.getCode());
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        throwable.printStackTrace();
+                        displayResult(throwable.getMessage());
                     }
                 });
             }
         });
     }
 
-    private void saveToken(@NonNull String token) {
-        // You should save a token to DB in secure way.
-
-        // FIXME: Remove in your production code
-        final TextView view = (TextView) findViewById(R.id.token_string);
-        view.setText(token);
+    private void displayResult(@NonNull String value) {
+        final TextView textView = (TextView) findViewById(R.id.result_text);
+        textView.setText(value);
     }
 }
