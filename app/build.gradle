@@ -27,7 +27,7 @@ ext {
 
 dependencies {
     compile "com.android.support:appcompat-v7:${ver_support}"
-    compile (name: 'MoneytreeLinkCore-0.1.1', ext: 'aar')
+    compile (name: 'MoneytreeLinkCore-0.2.0', ext: 'aar')
 
     // Add dependencies
     compile "com.android.support:customtabs:${ver_support}"
