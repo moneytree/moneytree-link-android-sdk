@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.getmoneytree.token.CustomTabActivity">
+        <activity android:name="com.getmoneytree.auth.CustomTabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
