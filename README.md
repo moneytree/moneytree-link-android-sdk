@@ -3,6 +3,7 @@
 ## Requirements
 
 - `minSdkVersion` of your app should be >= 19 (Android 4.4, `KitKat`)
+- Need to include **Kotlin Runtime** into your app. Read `Setup` section to know how to do that.
 
 ## Recommendations
 
@@ -13,10 +14,25 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
 
 ## Setup
 
+### Kotlin Runtime
+*Need to include Kotlin Runtime into your app if your app doesn't have yet. Don't worry - it doesn't effect your existing code.*
+
+1. Open `Android Studio` and your app project. Then, select `Tools > Kotlin > Configure Kotlin in Project`
+  ![](./img/configure_kotlin.png)
+
+2. Select `Android and Gradle` and click `OK`
+  ![](./img/dialog_kotlin.png)
+
+3. It updates your `build.gradle` files automatically. That's it.
+
+*If you couldn't find the menu on Android Studio because of old version, you should edit `build.gradle` manually. See `build.gradle` in this example project to know how you update. Don't forget to edit both in root dir and in app dir.*
+
+### setup and configure SDK
+
 1. Download the latest [`MoneytreeLinkCore-<version>.aar`](https://github.com/moneytree/mt-link-android-sdk-example/releases).
 
 2. Add the library (the aar file above) to your project
-    - [Integration steps](https://developer.android.com/studio/projects/android-library.html?#AddDependency).
+    - See also [Integration steps](https://developer.android.com/studio/projects/android-library.html?#AddDependency).
     - Or this example app might be helpful.
 
 3. Add your `ClientId` string that is provided by Moneytree. The `ClientId` is different for each environment. *Staging*, and *Production*.
@@ -28,7 +44,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
 
     1. Add `CustomTabActivity` as the following example. It will receive a callback which has an auth token when your `authorize` request for the `MoneytreeLink` class finishes successfully.
     ```xml
-    <activity android:name="com.getmoneytree.token.CustomTabActivity">
+    <activity android:name="com.getmoneytree.auth.CustomTabActivity">
         <intent-filter>
             <action android:name="android.intent.action.VIEW" />
 
@@ -67,24 +83,24 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
    }
    ```
 
-6. Edit your activity to enable to call `MoneytreeLink` and get an auth token from `MoneytreeLink`
+6. Edit your activity to enable to call `MoneytreeLink` and get an access token from `MoneytreeLink`
 
-    1. Call *authorize* to start the authorization flow
+    1. Call *authorize* and set **OAuthHandler&lt;OAuthAccessToken&gt;** to start an implicit token flow
     ```java
     button.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
-          MoneytreeLink.client().authorize(new TokenHandler() {
+          MoneytreeLink.client().authorize(new OAuthHandler<OAuthAccessToken>() {
               @Override
-              public void onSuccess(String token) {
-                  // Your method; Save an auth token to secure place.
-                  saveToken(token);
+              public void onSuccess(OAuthAccessToken payload) {
+                  // Your method
+                  saveToken(payload.getAccessToken());
               }
 
               @Override
               public void onFailure(Throwable throwable) {
-                  // Your method; Let users know there was an error.
+                  // Your method
                   displayErrorMessage(throwable);
               }
           });
@@ -93,4 +109,8 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     ```
     The method *authorize* will open the WebView to get an auth token.
 
-    2. A method of `TokenHandler` instance (*onSuccess* or *onFailure*) will be fired based on the result of requests.
+    2. A method of **OAuthHandler** instance (*onSuccess* or *onFailure*) will be fired based on the result of requests.
+    3. If you want to get a `code` instead of a `token`, set **OAuthHandler&lt;OAuthCode&gt;** as an argument of *authorize* request like below.
+    ```java
+    MoneytreeLink.client().authorize(new OAuthHandler<OAuthCode>() {
+    ```
