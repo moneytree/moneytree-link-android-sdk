@@ -27,7 +27,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- FIXME: It's dummy value -->
+                <!-- FIXME: Replace with your value -->
                 <data android:scheme="mtlinkaf84f" />
             </intent-filter>
         </activity>
