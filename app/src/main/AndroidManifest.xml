@@ -27,8 +27,8 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- FIXME -->
-                <data android:scheme="mtlinkabcde" />
+                <!-- FIXME: It's dummy value -->
+                <data android:scheme="mtlinkaf84f" />
             </intent-filter>
         </activity>
     </application>
