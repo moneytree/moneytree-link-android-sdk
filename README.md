@@ -3,7 +3,6 @@
 ## Requirements
 
 - `minSdkVersion` of your app should be >= 19 (Android 4.4, `KitKat`)
-- Need to include **Kotlin Runtime** into your app. Read `Setup` section to know how to do that.
 
 ## Recommendations
 
@@ -13,19 +12,6 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
 ```
 
 ## Setup
-
-### Kotlin Runtime
-*Need to include Kotlin Runtime into your app if your app doesn't have yet. Don't worry - it doesn't effect your existing code.*
-
-1. Open `Android Studio` and your app project. Then, select `Tools > Kotlin > Configure Kotlin in Project`
-  ![](./img/configure_kotlin.png)
-
-2. Select `Android and Gradle` and click `OK`
-  ![](./img/dialog_kotlin.png)
-
-3. It updates your `build.gradle` files automatically. That's it.
-
-*If you couldn't find the menu on Android Studio because of old version, you should edit `build.gradle` manually. See `build.gradle` in this example project to know how you update. Don't forget to edit both in root dir and in app dir.*
 
 ### setup and configure SDK
 
