@@ -3,26 +3,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/implicit_button"
+    <TextView
+        android:id="@+id/response_radio_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Authorize (Implicit)" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:text="Response Type" />
+
+    <RadioGroup
+        android:id="@+id/response_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/response_radio_title"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_token"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Implicit" />
+
+        <RadioButton
+            android:id="@+id/radio_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Code" />
+    </RadioGroup>
 
     <Button
-        android:id="@+id/code_button"
+        android:id="@+id/auth_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/implicit_button"
-        android:layout_centerInParent="true"
-        android:text="Authorize (Code)" />
+        android:layout_below="@id/response_radio_group"
+        android:layout_centerHorizontal="true"
+        android:text="Authorize" />
+
+    <Button
+        android:id="@+id/vault_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/auth_button"
+        android:layout_centerHorizontal="true"
+        android:text="Vault" />
 
     <TextView
         android:id="@+id/result_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/code_button"
+        android:layout_below="@+id/vault_button"
         android:layout_centerHorizontal="true"
         android:layout_margin="16dp" />
 
