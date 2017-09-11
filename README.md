@@ -89,7 +89,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
         }
     });
     ```
-    Note that this *oAuthHandler* is a singleton, so you may override when you call twice. And make sure to call *setOAuthHandler* on the activity where it calles *MoneytreeClient*.
+    Note that this *oAuthHandler* is a singleton, so you may override when you call twice. And make sure to call *setOAuthHandler* on the activity where it calls *MoneytreeClient*.
     
     2. Call *authorize* to start an authorization flow
     ```java
