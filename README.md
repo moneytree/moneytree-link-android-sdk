@@ -63,40 +63,38 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
        final MoneytreeLinkConfiguration conf = new MoneytreeLinkConfiguration.Builder()
            .isProduction(false) // or true if production
            .clientId(R.string.moneytree_link_client_id) // your ClientId
-           .scopes(MoneyTreeLinkClient.GuestRead, ...) // scope(s)
+           .scopes(MoneyTreeLinkClient.GuestRead, ...)  // scope(s)
+           .perferredGrantType(OAuthGrantType.Implicit) // or .Scope
            .build();
        MoneyTreeLink.init(this, conf);
    }
    ```
 
-6. Edit your activity to enable to call `MoneytreeLink` and get an access token from `MoneytreeLink`
+6. Update your activity class to enable to use `MoneytreeLink` and get an access token or code.
 
-    1. Call *authorize* and set **OAuthHandler&lt;OAuthAccessToken&gt;** to start an implicit token flow
+    1. Register your **OAuthHandler** instance. The following case is about to `Implicit`. Use **&lt;OAuthAccessCode&gt;** when you expect *code*.
     ```java
-    button.setOnClickListener(new View.OnClickListener() {
+    MoneytreeLink.client().setOAuthHandler(
+      new OAuthHandler<OAuthAccessToken>() {
         @Override
-        public void onClick(View v) {
-
-          MoneytreeLink.client().authorize(new OAuthHandler<OAuthAccessToken>() {
-              @Override
-              public void onSuccess(OAuthAccessToken payload) {
-                  // Your method
-                  saveToken(payload.getAccessToken());
-              }
-
-              @Override
-              public void onFailure(Throwable throwable) {
-                  // Your method
-                  displayErrorMessage(throwable);
-              }
-          });
+        public void onSuccess(OAuthAccessToken payload) {
+          // Your method
+          saveToken(payload.getAccessToken());
+        }
+                                           
+        @Override
+        public void onFailure(Throwable throwable) {
+          // Your method
+          displayErrorMessage(throwable);
         }
     });
     ```
-    The method *authorize* will open the WebView to get an auth token.
-
-    2. A method of **OAuthHandler** instance (*onSuccess* or *onFailure*) will be fired based on the result of requests.
-    3. If you want to get a `code` instead of a `token`, set **OAuthHandler&lt;OAuthCode&gt;** as an argument of *authorize* request like below.
+    Note that this *oAuthHandler* is a singleton, so you may override when you call twice. And make sure to call *setOAuthHandler* on the activity where it calls *MoneytreeClient*.
+    
+    2. Call *authorize* to start an authorization flow
     ```java
-    MoneytreeLink.client().authorize(new OAuthHandler<OAuthCode>() {
+    MoneytreeLink.client().authorize();
     ```
+    It will open the *chromeTabs* to get an auth token.
+
+    3. An **OAuthHandler** instance that you set in advance will be fired when the guest completes authorization process.
