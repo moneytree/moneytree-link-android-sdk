@@ -2,10 +2,22 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk-example/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk-example/compare/v0.2.2...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk-example/compare/v0.2.3...HEAD)
 
 **Merged pull requests:**
 
+- v0.2.3 [\#35](https://github.com/moneytree/mt-link-android-sdk-example/pull/35)
+
+## [v0.2.3](https://github.com/moneytree/mt-link-android-sdk-example/tree/v0.2.3) (2017-09-12)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk-example/compare/v0.2.2...v0.2.3)
+
+**Implemented enhancements:**
+
+- Updated aar and added more buttons to test other APIs easily [\#34](https://github.com/moneytree/mt-link-android-sdk-example/pull/34)
+
+**Merged pull requests:**
+
+- \[CI\] Updated CHANGELOG.md [\#33](https://github.com/moneytree/mt-link-android-sdk-example/pull/33)
 - v0.2.2 [\#32](https://github.com/moneytree/mt-link-android-sdk-example/pull/32)
 
 ## [v0.2.2](https://github.com/moneytree/mt-link-android-sdk-example/tree/v0.2.2) (2017-09-11)
