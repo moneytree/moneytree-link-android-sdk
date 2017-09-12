@@ -24,7 +24,7 @@ import static com.getmoneytree.OAuthGrantType.Code;
 import static com.getmoneytree.OAuthGrantType.Implicit;
 
 /**
- * @author Moneyteee KK, 2017
+ * @author Moneyteee KK
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         final RadioGroup group = (RadioGroup) findViewById(R.id.response_radio_group);
         group.check(defaultGrantType);
 
-        // Strongly recommend to initialize MoneytreeLink client at Application class if you don't want to use both 'Implicit' and 'Code' at the same time or you don't want to set different scopes dynamically. This AwesomeApp is a show case app to demonstrate what the SDK provides, so it gives capability to change configuration after the app initializes once. That's why there are no initialization phase here.
+        // Strongly recommend to initialize MoneytreeLink client at Application class if you don't want to use both 'Implicit' and 'Code' at the same time or you don't want to set different scopes dynamically. This AwesomeApp is a show case app to demonstrate what the SDK provides, so it gives capability to change configuration after the app initializes once.
 
         // Set up MoneytreeLink client once, but it might be overridden when you change the response type.
         MoneytreeLink.init(getApplicationContext(), getConfiguration(defaultGrantType));
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                // Do re-initialize MoneytreeLink client
+                // Initialize MoneytreeLink client again
                 MoneytreeLink.init(getApplicationContext(), getConfiguration(checkedId));
                 MoneytreeLink.client().setOAuthHandler(getHandler(checkedId));
 
@@ -62,6 +62,22 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT
                         )
                         .show();
+            }
+        });
+
+        final Button signUpButton = (Button) findViewById(R.id.signup_button);
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MoneytreeLink.client().signup();
+            }
+        });
+
+        final Button loginButton = (Button) findViewById(R.id.login_button);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MoneytreeLink.client().login();
             }
         });
 
@@ -78,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MoneytreeLink.client().openVault();
+            }
+        });
+
+        final Button settingButton = (Button) findViewById(R.id.settings_button);
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MoneytreeLink.client().openSettings();
             }
         });
     }
