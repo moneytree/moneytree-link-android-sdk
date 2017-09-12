@@ -34,10 +34,26 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/auth_button"
+        android:id="@+id/signup_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/response_radio_group"
+        android:layout_centerHorizontal="true"
+        android:text="Sign Up" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signup_button"
+        android:layout_centerHorizontal="true"
+        android:text="Log In" />
+
+    <Button
+        android:id="@+id/auth_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_button"
         android:layout_centerHorizontal="true"
         android:text="Authorize" />
 
@@ -49,11 +65,19 @@
         android:layout_centerHorizontal="true"
         android:text="Vault" />
 
+    <Button
+        android:id="@+id/settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vault_button"
+        android:layout_centerHorizontal="true"
+        android:text="Settings" />
+
     <TextView
         android:id="@+id/result_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/vault_button"
+        android:layout_below="@+id/settings_button"
         android:layout_centerHorizontal="true"
         android:layout_margin="16dp" />
 
