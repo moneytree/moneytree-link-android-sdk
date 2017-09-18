@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: '../../dependencies.gradle'
 
 android {
     compileSdkVersion 25
@@ -27,8 +28,20 @@ ext {
 
 dependencies {
     compile "com.android.support:appcompat-v7:${ver_support}"
-    compile (name: 'MoneytreeLinkCore-0.2.3', ext: 'aar')
+    compile (name: 'MoneytreeLinkCore-0.2.5', ext: 'aar')
+    compile (name: 'MoneytreeIsshoTsucho-release', ext: 'aar')
+    compile 'com.google.code.gson:gson:2.8.1'
 
+    // local file aar don't ship transitive dependencies
+    // So we have to include them here.
+    // to include transitive dependencies we need to ship an aar to maven.
+    // https://github.com/twitter/twitter-kit-android show what the client
+    // need to put in the build.gradle to download transitive dependencies
+    // For now just include them manually
+    compile libraries.kotlin
+    compile libraries.okHttp
+    compile libraries.retrofit
+    compile libraries.retrofitConverterGson
     // Add dependencies
     compile "com.android.support:customtabs:${ver_support}"
 

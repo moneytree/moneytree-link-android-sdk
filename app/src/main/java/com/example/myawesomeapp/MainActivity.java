@@ -14,14 +14,16 @@ import android.widget.Toast;
 import com.getmoneytree.MoneytreeLink;
 import com.getmoneytree.MoneytreeLinkConfiguration;
 import com.getmoneytree.MoneytreeLinkScope;
-import com.getmoneytree.OAuthGrantType;
 import com.getmoneytree.auth.OAuthAccessToken;
 import com.getmoneytree.auth.OAuthCode;
 import com.getmoneytree.auth.OAuthHandler;
 import com.getmoneytree.auth.OAuthPayload;
+import com.getmoneytree.auth.OAuthResponseType;
+import com.getmoneytree.it.IsshoTsucho;
 
-import static com.getmoneytree.OAuthGrantType.Code;
-import static com.getmoneytree.OAuthGrantType.Implicit;
+import static com.getmoneytree.auth.OAuthResponseType.Code;
+import static com.getmoneytree.auth.OAuthResponseType.Token;
+
 
 /**
  * @author Moneyteee KK
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // Strongly recommend to initialize MoneytreeLink client at Application class if you don't want to use both 'Implicit' and 'Code' at the same time or you don't want to set different scopes dynamically. This AwesomeApp is a show case app to demonstrate what the SDK provides, so it gives capability to change configuration after the app initializes once.
 
         // Set up MoneytreeLink client once, but it might be overridden when you change the response type.
-        MoneytreeLink.init(getApplicationContext(), getConfiguration(defaultGrantType));
+        IsshoTsucho.init(getApplicationContext(), getConfiguration(defaultGrantType));
 
         // Make sure to set the default OAuth handler (Implicit).
         MoneytreeLink.client().setOAuthHandler(getHandler(defaultGrantType));
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLink.client().signup();
+                IsshoTsucho.client().startIsshoTsucho();
             }
         });
 
@@ -112,13 +114,13 @@ public class MainActivity extends AppCompatActivity {
      * @return {@link MoneytreeLinkConfiguration}
      */
     private MoneytreeLinkConfiguration getConfiguration(@IdRes int checkedId) {
-        final OAuthGrantType grantType = checkedId == R.id.radio_token ? Implicit : Code;
+        final OAuthResponseType grantType = checkedId == R.id.radio_token ? Token : Code;
         return new MoneytreeLinkConfiguration.Builder()
                 .isProduction(false)                            // true: production, false: staging
                 .clientId(getString(R.string.link_client_id))   // set your ClientId
                 .scopes(MoneytreeLinkScope.GuestRead)           // set scopes
                 //.scopes("customized_scope", "new_scope")      // You can add scopes using String as well.
-                .preferredGrantType(grantType)                  // Implicit(token) or Code
+                .responseType(grantType)                  // Token(token) or Code
                 .build();
     }
 
