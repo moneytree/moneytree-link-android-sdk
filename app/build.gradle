@@ -31,6 +31,7 @@ dependencies {
     compile (name: 'MoneytreeLinkCore-0.2.5', ext: 'aar')
     compile (name: 'MoneytreeIsshoTsucho-release', ext: 'aar')
     compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.android.support:customtabs:25.3.1'
 
     // local file aar don't ship transitive dependencies
     // So we have to include them here.
@@ -38,7 +39,7 @@ dependencies {
     // https://github.com/twitter/twitter-kit-android show what the client
     // need to put in the build.gradle to download transitive dependencies
     // For now just include them manually
-    compile libraries.kotlin
+    compile libraries.kotlinStd
     compile libraries.okHttp
     compile libraries.retrofit
     compile libraries.retrofitConverterGson
