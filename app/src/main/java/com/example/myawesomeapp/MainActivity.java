@@ -24,7 +24,6 @@ import com.getmoneytree.it.IsshoTsucho;
 import static com.getmoneytree.auth.OAuthResponseType.Code;
 import static com.getmoneytree.auth.OAuthResponseType.Token;
 
-
 /**
  * @author Moneyteee KK
  */
@@ -114,21 +113,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MoneytreeLink.client().openSettings();
-            }
-        });
-
-        final Button registerDeviceTokenButton = (Button) findViewById(R.id.register_device_button);
-        registerDeviceTokenButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MoneytreeLink.client().registerDeviceToken("foobar /* should provide proper token */");
-            }
-        });
-        final Button unregisterDeviceTokenButton = (Button) findViewById(R.id.unregister_device_button);
-        unregisterDeviceTokenButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MoneytreeLink.client().unregisterDeviceToken("foobar /* should provide proper token */");
             }
         });
     }

@@ -7,7 +7,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="24dp"
+        android:paddingTop="24dp">
 
         <Button
             android:id="@+id/issho_tsucho_button"
@@ -18,13 +20,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/response_radio_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
             android:text="Response Type" />
 
         <RadioGroup
@@ -86,13 +89,15 @@
             android:id="@+id/register_device_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register DeviceToken" />
+            android:enabled="false"
+            android:text="Register DeviceToken (Work in progress)" />
 
         <Button
             android:id="@+id/unregister_device_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Unregister DeviceToken" />
+            android:enabled="false"
+            android:text="Unregister DeviceToken (Work in progress)" />
 
     </LinearLayout>
 </ScrollView>
