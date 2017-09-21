@@ -35,6 +35,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Set up a click listener for Issho Tsucho
+        final Button isshoTsuchoButton = (Button) findViewById(R.id.issho_tsucho_button);
+        isshoTsuchoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IsshoTsucho.init(getApplicationContext(), getConfiguration(R.id.radio_code));
+                IsshoTsucho.client().startIsshoTsucho();
+            }
+        });
+
         // Set Implicit as default
         @IdRes final int defaultGrantType = R.id.radio_token;
         final RadioGroup group = (RadioGroup) findViewById(R.id.response_radio_group);
@@ -43,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         // Strongly recommend to initialize MoneytreeLink client at Application class if you don't want to use both 'Implicit' and 'Code' at the same time or you don't want to set different scopes dynamically. This AwesomeApp is a show case app to demonstrate what the SDK provides, so it gives capability to change configuration after the app initializes once.
 
         // Set up MoneytreeLink client once, but it might be overridden when you change the response type.
-        IsshoTsucho.init(getApplicationContext(), getConfiguration(defaultGrantType));
+        MoneytreeLink.init(getApplicationContext(), getConfiguration(defaultGrantType));
 
         // Make sure to set the default OAuth handler (Implicit).
         MoneytreeLink.client().setOAuthHandler(getHandler(defaultGrantType));
@@ -71,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IsshoTsucho.client().startIsshoTsucho();
+                MoneytreeLink.client().signup();
             }
         });
 
@@ -104,6 +114,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MoneytreeLink.client().openSettings();
+            }
+        });
+
+        final Button registerDeviceTokenButton = (Button) findViewById(R.id.register_device_button);
+        registerDeviceTokenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MoneytreeLink.client().registerDeviceToken("foobar /* should provide proper token */");
+            }
+        });
+        final Button unregisterDeviceTokenButton = (Button) findViewById(R.id.unregister_device_button);
+        unregisterDeviceTokenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MoneytreeLink.client().unregisterDeviceToken("foobar /* should provide proper token */");
             }
         });
     }
