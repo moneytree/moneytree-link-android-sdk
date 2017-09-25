@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.getmoneytree.auth.SchemaHandlerActivity">
+        <activity android:name="com.getmoneytree.auth.SchemeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

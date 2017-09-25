@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
         // Strongly recommend to initialize MoneytreeLink client at Application class if you don't want to use both 'Implicit' and 'Code' at the same time or you don't want to set different scopes dynamically. This AwesomeApp is a show case app to demonstrate what the SDK provides, so it gives capability to change configuration after the app initializes once.
 
         // Set up MoneytreeLink client once, but it might be overridden when you change the response type.
-        MoneytreeLink.init(getApplicationContext(), getConfiguration(defaultGrantType));
+        MoneytreeLink
+                .init(getApplicationContext(), getConfiguration(defaultGrantType))
+                .setRootView(this);
 
         // Make sure to set the default OAuth handler (Implicit).
         MoneytreeLink.client().setOAuthHandler(getHandler(defaultGrantType));
@@ -62,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 // Initialize MoneytreeLink client again
-                MoneytreeLink.init(getApplicationContext(), getConfiguration(checkedId));
+                MoneytreeLink
+                        .init(getApplicationContext(), getConfiguration(checkedId))
+                        .setRootView(MainActivity.this);
                 MoneytreeLink.client().setOAuthHandler(getHandler(checkedId));
 
                 final RadioButton selectedButton = (RadioButton) findViewById(checkedId);
