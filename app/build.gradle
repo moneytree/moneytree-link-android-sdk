@@ -29,22 +29,15 @@ dependencies {
     compile "com.android.support:appcompat-v7:${ver_support}"
     compile (name: 'MoneytreeLinkCore-2.0.0b', ext: 'aar')
     compile (name: 'MoneytreeIsshoTsucho-2.0.0b', ext: 'aar')
-    compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.android.support:customtabs:25.3.1'
 
     // Add dependencies
     compile "com.android.support:customtabs:${ver_support}"
     // Add dependencies for the SDK
-    // TODO: local file aar don't ship transitive dependencies
-    // So we have to include them here.
-    // to include transitive dependencies we need to ship an aar to maven.
-    // https://github.com/twitter/twitter-kit-android show what the client
-    // need to put in the build.gradle to download transitive dependencies
-    // For now just include them manually
-    //compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:1.1.4-3"
-    compile "com.squareup.okhttp3:okhttp:3.9.0"
-    compile "com.squareup.retrofit2:retrofit:2.3.0"
-    compile "com.squareup.retrofit2:converter-gson:2.3.0"
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

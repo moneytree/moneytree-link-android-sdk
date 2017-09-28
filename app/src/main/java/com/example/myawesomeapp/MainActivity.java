@@ -174,7 +174,9 @@ public class MainActivity extends AppCompatActivity {
         final OAuthResponseType grantType = checkedId == R.id.radio_token ? Token : Code;
         return new MoneytreeLinkConfiguration.Builder()
                 .isProduction(false)                            // true: production, false: staging
-                .clientId(getString(R.string.link_client_id))   // set your ClientId
+                //.clientId("")                                 // set your ClientId
+                .clientId("af84f08f40970caf17f2e53b31771ceb50d0f32f7d44b826753982e809395290")
+                                                                // It's for the example app. DON'T USE FOR YOUR APP!
                 .scopes(
                         MoneytreeLinkScope.GuestRead,
                         MoneytreeLinkScope.AccountsRead,
