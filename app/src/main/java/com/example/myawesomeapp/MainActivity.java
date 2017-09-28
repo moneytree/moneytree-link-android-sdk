@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.getmoneytree.MoneytreeLink;
 import com.getmoneytree.MoneytreeLinkConfiguration;
+import com.getmoneytree.MoneytreeLinkException;
 import com.getmoneytree.MoneytreeLinkScope;
 import com.getmoneytree.auth.OAuthAccessToken;
 import com.getmoneytree.auth.OAuthCode;
@@ -25,24 +26,67 @@ import static com.getmoneytree.auth.OAuthResponseType.Code;
 import static com.getmoneytree.auth.OAuthResponseType.Token;
 
 /**
+ * A showcase app that introduces what the SDK can do.
+ *
  * @author Moneyteee KK
  */
 public class MainActivity extends AppCompatActivity {
+
+    @NonNull
+    private TextView textView;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textView = (TextView) findViewById(R.id.result_text);
 
-        // Set up a click listener for Issho Tsucho
+        ////// Set up Issho Tsucho //////
+
+        // Initialize Issho Tsucho (NOTE: WE RECOMMEND TO INITIALIZE AT 'Application' CLASS)
+        IsshoTsucho.init(getApplicationContext(), getConfiguration(R.id.radio_code));
+
         final Button isshoTsuchoButton = (Button) findViewById(R.id.issho_tsucho_button);
         isshoTsuchoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IsshoTsucho.init(getApplicationContext(), getConfiguration(R.id.radio_code));
-                IsshoTsucho.client().startIsshoTsucho();
+                // Start Issho Tsucho
+                textView.setText("");
+                IsshoTsucho.client().startIsshoTsucho(new IsshoTsucho.CompletionHandler() {
+                    @Override
+                    public void onLaunchedIsshoTsucho() {
+                        textView.setText("Launched Issho Tsucho successfully!");
+
+                        // It runs when Issho Tsucho launches successfully.
+                        // So the server side can accept device token if the guest already has.
+                        /*
+                        IsshoTsucho
+                                .linkClient()
+                                .registerDeviceToken("Guest_Device_Token", new MoneytreeLink.CompletionHandler() {
+
+                                    @Override
+                                    public void onCompleted() {
+                                        // It runs if the device token is accepted.
+                                    }
+
+                                    @Override
+                                    public void onFailed(Throwable throwable) {
+                                        // It runs if the device token is not accepted.
+                                    }
+                                });*/
+                    }
+
+                    @Override
+                    public void onFailedToLaunch(MoneytreeLinkException e) {
+                        e.printStackTrace();
+                        textView.setText(e.getLocalizedMessage());
+                        // You should error message and identify why launch process failed.
+                    }
+                });
             }
         });
+
+        ////// Set up VaaS (If you use Issho Tsucho, you don't have to implement the below code) //////
 
         // Set Implicit as default
         @IdRes final int defaultGrantType = R.id.radio_token;
@@ -51,12 +95,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Strongly recommend to initialize MoneytreeLink client at Application class if you don't want to use both 'Implicit' and 'Code' at the same time or you don't want to set different scopes dynamically. This AwesomeApp is a show case app to demonstrate what the SDK provides, so it gives capability to change configuration after the app initializes once.
 
-        // Set up MoneytreeLink client once, but it might be overridden when you change the response type.
+        // Set up MoneytreeLink client once, but it might be overridden when you change the response type (in this app).
         MoneytreeLink
                 .init(getApplicationContext(), getConfiguration(defaultGrantType))
                 .setRootView(this);
 
-        // Make sure to set the default OAuth handler (Implicit).
+        // Set the default OAuth handler (Implicit).
         MoneytreeLink.client().setOAuthHandler(getHandler(defaultGrantType));
 
         // Set up click listeners
@@ -131,9 +175,13 @@ public class MainActivity extends AppCompatActivity {
         return new MoneytreeLinkConfiguration.Builder()
                 .isProduction(false)                            // true: production, false: staging
                 .clientId(getString(R.string.link_client_id))   // set your ClientId
-                .scopes(MoneytreeLinkScope.GuestRead)           // set scopes
+                .scopes(
+                        MoneytreeLinkScope.GuestRead,
+                        MoneytreeLinkScope.AccountsRead,
+                        MoneytreeLinkScope.TransactionsRead
+                )                                               // set scopes
                 //.scopes("customized_scope", "new_scope")      // You can add scopes using String as well.
-                .responseType(grantType)                  // Token(token) or Code
+                .responseType(grantType)                        // Token(token) or Code
                 .build();
     }
 
@@ -147,38 +195,28 @@ public class MainActivity extends AppCompatActivity {
             return new OAuthHandler<OAuthAccessToken>() {
                 @Override
                 public void onSuccess(OAuthAccessToken payload) {
-                    displayResult("token: " + payload.getAccessToken());
+                    textView.setText("token: " + payload.getAccessToken());
                 }
 
                 @Override
                 public void onFailure(Throwable throwable) {
                     throwable.printStackTrace();
-                    displayResult(throwable.getMessage());
+                    textView.setText(throwable.getMessage());
                 }
             };
         } else {
             return new OAuthHandler<OAuthCode>() {
                 @Override
                 public void onSuccess(OAuthCode payload) {
-                    displayResult("code: " + payload.getCode());
+                    textView.setText("code: " + payload.getCode());
                 }
 
                 @Override
                 public void onFailure(Throwable throwable) {
                     throwable.printStackTrace();
-                    displayResult(throwable.getMessage());
+                    textView.setText(throwable.getMessage());
                 }
             };
         }
-    }
-
-    /**
-     * Display response value on the view
-     *
-     * @param value response
-     */
-    private void displayResult(@NonNull String value) {
-        final TextView textView = (TextView) findViewById(R.id.result_text);
-        textView.setText(value);
     }
 }

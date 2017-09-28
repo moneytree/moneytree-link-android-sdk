@@ -11,11 +11,20 @@
         android:paddingBottom="24dp"
         android:paddingTop="24dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="20dp"
+            android:text="Issho Tsucho"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/issho_tsucho_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Launch Issho Tsucho (PFM)" />
+            android:text="Launch Issho Tsucho" />
 
         <View
             android:layout_width="match_parent"
@@ -23,6 +32,15 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="20dp"
+            android:text="VaaS"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/response_radio_title"
@@ -79,25 +97,20 @@
             android:layout_height="wrap_content"
             android:text="Settings" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray" />
+
         <TextView
             android:id="@+id/result_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp" />
-
-        <Button
-            android:id="@+id/register_device_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="Register DeviceToken (Work in progress)" />
-
-        <Button
-            android:id="@+id/unregister_device_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="Unregister DeviceToken (Work in progress)" />
+            android:layout_margin="16dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </ScrollView>
