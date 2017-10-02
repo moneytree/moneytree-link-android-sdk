@@ -25,7 +25,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     - See also [Integration steps](https://developer.android.com/studio/projects/android-library.html?#AddDependency).
     - Or this example app might be helpful.
 
-1. In `app/build.gradle`, you have to add some dependencies from the Issho Tsucho SDK.
+1. In `app/build.gradle`, you have to add some dependencies that the SDK requires.
     ```groovy
     compile "com.google.code.gson:gson:2.8.1"
     compile "com.squareup.okhttp3:okhttp:3.9.0"
