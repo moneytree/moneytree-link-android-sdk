@@ -1,36 +1,43 @@
-# Moneytree Link SDK Example App
+# Moneytree Link SDK (Android) Set Up Instructions
+
+## Table Of Contents
+1. [Requirements](#requirements)
+2. [Update Configurations](#update-configurations)
+3. [Update Code](#update-code)
+    1. [How to use MoneytreeLink Library](#how-to-use-moneytreelink-library)
+    2. [How to use Issho Tsucho Library](#how-to-use-issho-tsucho-library)
+    3. [Set up notification](#set-up-notification)
 
 ## Requirements
 
 - `minSdkVersion` of your app should be >= 19 (Android 4.4, `KitKat`)
+- Add [`Chrome Custom Tabs`](https://developer.chrome.com/multidevice/android/customtabs) to your project
 
-## Recommendations
-
-- Add [`Chrome Custom Tabs`](https://developer.chrome.com/multidevice/android/customtabs) to your project. It provides the better UX, no side effects.
 ```groovy
 compile "com.android.support:customtabs:<LATEST_VERSION>"
 ```
 
-## Setup
+## Update Configurations
 
-### setup and configure SDK
+1. Get the latest [`MoneytreeLinkCore-<version>.aar`](https://github.com/moneytree/mt-link-android-sdk-example/releases) and [`MoneytreeLinkIsshoTsucho-<version>.aar`](https://github.com/moneytree/mt-link-android-sdk-example/releases).
 
-1. Download the latest [`MoneytreeLinkCore-<version>.aar`](https://github.com/moneytree/mt-link-android-sdk-example/releases).
-
-2. Add the library (the aar file above) to your project
+1. Add libraries (the aar file above) to your project
     - See also [Integration steps](https://developer.android.com/studio/projects/android-library.html?#AddDependency).
     - Or this example app might be helpful.
 
-3. Add your `ClientId` string that is provided by Moneytree. The `ClientId` is different for each environment. *Staging*, and *Production*.
-```xml
-<string name="moneytree_link_client_id">YOUR_MONEYTREE_LINK_CLIENT_ID</string>
-```
+1. In `app/build.gradle`, you have to add some dependencies that the SDK requires.
+    ```groovy
+    compile "com.google.code.gson:gson:2.8.1"
+    compile "com.squareup.okhttp3:okhttp:3.9.0"
+    compile "com.squareup.retrofit2:retrofit:2.3.0"
+    compile "com.squareup.retrofit2:converter-gson:2.3.0"
+    ```
 
-4. Configure the `manifest` file to receive an auth token from WebView.
+1. Configure `AndroidManifest.xml` to receive an authorized response from the server.
 
-    1. Add `CustomTabActivity` as the following example. It will receive a callback which has an auth token when your `authorize` request for the `MoneytreeLink` class finishes successfully.
+    1. Add `SchemeHandlerActivity` as the following example. It will receive an authorized response when the guest gives permission to access to their data from your app.
     ```xml
-    <activity android:name="com.getmoneytree.auth.CustomTabActivity">
+    <activity android:name="com.getmoneytree.auth.SchemeHandlerActivity">
         <intent-filter>
             <action android:name="android.intent.action.VIEW" />
 
@@ -42,59 +49,94 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     </activity>
     ```
 
-    2. Replace `YOUR_SCHEME_NAME` with `mtlink`+ **first 5 chars of your ClientId**
-       e.g. If the `ClientId` is `abcde1234567890moneytree`, the scheme is `mtlinkabcde`:
+    1. Edit `YOUR_SCHEME_NAME` in the example above and replace with `mtlink`+ **first 5 chars of your ClientId**
+       e.g. If your `ClientId` is `abcde1234567890moneytree`, the scheme would be `mtlinkabcde`.
 
     ```xml
     <data android:scheme="mtlinkabcde" />
     ```
 
-    3. (*Not for all users*) If your app can't use [`Chrome Custom Tabs`](https://developer.chrome.com/multidevice/android/customtabs), `INTERNET` permission is required.
+    1. Make sure `INTERNET` permission is declared.
     ```xml
     <uses-permission android:name="android.permission.INTERNET" />
     ```
 
-5. Initialize `MoneytreeLink` from the `Application` class
-   ```java
-   @Override
-   public void onCreate() {
+## Update Code
+
+### How to use MoneytreeLink Library
+
+**If you're going to use Issho Tsucho Library, you can skip this section**
+
+1. Initialize `MoneytreeLinkConfiguration` at your `Application` class
+    ```java
+    @Override
+    public void onCreate() {
        super.onCreate();
 
        final MoneytreeLinkConfiguration conf = new MoneytreeLinkConfiguration.Builder()
-           .isProduction(false) // or true if production
-           .clientId(R.string.moneytree_link_client_id) // your ClientId
+           .isProduction(false)                         // or true if production
+           .clientId("1234567890abcde...")              // your ClientId
            .scopes(MoneyTreeLinkClient.GuestRead, ...)  // scope(s)
-           .perferredGrantType(OAuthGrantType.Implicit) // or .Scope
+           .perferredGrantType(OAuthGrantType.Code)     // or .Implicit. But it doesn't matter IsshoTsucho authorization process.
            .build();
-       MoneyTreeLink.init(this, conf);
-   }
-   ```
-
-6. Update your activity class to enable to use `MoneytreeLink` and get an access token or code.
-
-    1. Register your **OAuthHandler** instance. The following case is about to `Implicit`. Use **&lt;OAuthAccessCode&gt;** when you expect *code*.
-    ```java
-    MoneytreeLink.client().setOAuthHandler(
-      new OAuthHandler<OAuthAccessToken>() {
-        @Override
-        public void onSuccess(OAuthAccessToken payload) {
-          // Your method
-          saveToken(payload.getAccessToken());
-        }
-                                           
-        @Override
-        public void onFailure(Throwable throwable) {
-          // Your method
-          displayErrorMessage(throwable);
-        }
-    });
     ```
-    Note that this *oAuthHandler* is a singleton, so you may override when you call twice. And make sure to call *setOAuthHandler* on the activity where it calls *MoneytreeClient*.
-    
-    2. Call *authorize* to start an authorization flow
-    ```java
-    MoneytreeLink.client().authorize();
-    ```
-    It will open the *chromeTabs* to get an auth token.
 
-    3. An **OAuthHandler** instance that you set in advance will be fired when the guest completes authorization process.
+    TIPS: Ideally, a boolean value for `isProduction` and a string value for `clientId` can be managed easily using [`resource`](https://developer.android.com/guide/topics/resources/more-resources.html#Bool) and [`Build Variants`](https://developer.android.com/studio/build/build-variants.html) in Android. You don't have to define them in code directly.
+
+1. And then, initialize `MoneytreeLink` using the configuration file.
+    ```java
+    // at your Application class
+    MoneytreeLink.init(this, conf);
+    ```
+
+1. Update your activity class to enable to use `MoneytreeLink`. Make sure to call `setRootView` in advance. If you want to call `authorize`, you have to call `setOAuthHandler` as well.
+
+    ```java
+    // at your activity class
+    final MoneytreLink client = MoneytreeLink.client();
+    client.setRootView(this);
+    client.setOAuthHandler( /* set handler instance */ ); // see example code
+    client.authorize();
+    ```
+
+    `OAuthHandler` will be used when you want to handle callback in a result of authorization request.
+
+### How to use Issho Tsucho Library
+
+1. Initialize `MoneytreeLinkConfiguration` at your `Application` class. See the above section to know how to initialize.
+
+1. And then, initialize `IsshoTsucho` using the configuration file.
+    ```java
+    // at your Application class
+    IsshoTsucho.init(this, conf);
+    ```
+
+1. Update your activity class to start `IsshoTsucho` whenever you want.
+
+    ```java
+    IsshoTsucho.client().startIsshoTsucho(
+      new IsshoTsucho.CompletionHandler() {/* implement */}
+    );
+    ```
+
+    `IsshoTsucho.CompletionHandler` is an optional instance, so you may set `null` if you don't need. It will describe sample usage in the later section.
+
+1. `MoneytreeLink` instance is initialized when you initialize `IsshoTsucho`, so you can get it like
+
+    ```java
+    final MoneytreeLink linkClient = IsshoTsucho.linkClient();
+    ```
+
+    And you can see what `MoneytreeLink` (and `IsshoTsucho`) can by reading Javadoc.
+
+### Set up notification
+
+If you want to register device token, it should be after the guest gives permission to access their data from your app. In this section, it proposes when the best timing to register device token is.
+
+- If you don't use `Issho Tsucho` library:
+
+    `OAuthHandler` would be the best timing. See [the above section](#how-to-use-moneytreelink-library).
+
+- If you use `Issho Tsucho` library:
+
+    `IsshoTsucho.CompletionHandler` would be the best. See an example code in this project.
