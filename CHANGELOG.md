@@ -2,10 +2,24 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk-example/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk-example/compare/v0.2.3...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk-example/compare/v2.0.0...HEAD)
 
 **Merged pull requests:**
 
+- 2.0.0 \(2\) [\#40](https://github.com/moneytree/mt-link-android-sdk-example/pull/40)
+
+## [v2.0.0](https://github.com/moneytree/mt-link-android-sdk-example/tree/v2.0.0) (2017-10-03)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk-example/compare/v0.2.3...v2.0.0)
+
+**Fixed bugs:**
+
+- Fixed packaging script [\#39](https://github.com/moneytree/mt-link-android-sdk-example/pull/39)
+
+**Merged pull requests:**
+
+- Sample project 2.0.0 [\#38](https://github.com/moneytree/mt-link-android-sdk-example/pull/38)
+- Updated readme and sample code that introduces Issho Tsucho [\#37](https://github.com/moneytree/mt-link-android-sdk-example/pull/37)
+- \[CI\] Updated CHANGELOG.md [\#36](https://github.com/moneytree/mt-link-android-sdk-example/pull/36)
 - v0.2.3 [\#35](https://github.com/moneytree/mt-link-android-sdk-example/pull/35)
 
 ## [v0.2.3](https://github.com/moneytree/mt-link-android-sdk-example/tree/v0.2.3) (2017-09-12)
