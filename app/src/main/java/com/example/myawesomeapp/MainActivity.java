@@ -18,6 +18,7 @@ import com.getmoneytree.MoneytreeLinkScope;
 import com.getmoneytree.auth.OAuthCode;
 import com.getmoneytree.auth.OAuthCredential;
 import com.getmoneytree.auth.OAuthHandler;
+import com.getmoneytree.auth.OAuthImplicitToken;
 import com.getmoneytree.auth.OAuthPayload;
 import com.getmoneytree.auth.OAuthResponseType;
 import com.getmoneytree.it.IsshoTsucho;
@@ -196,9 +197,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private OAuthHandler<? extends OAuthPayload> getHandler(@IdRes int checkedId) {
         if (checkedId == R.id.radio_token) {
-            return new OAuthHandler<OAuthCredential>() {
+            return new OAuthHandler<OAuthImplicitToken>() {
                 @Override
-                public void onSuccess(OAuthCredential payload) {
+                public void onSuccess(OAuthImplicitToken payload) {
                     textView.setText("token: " + payload.accessToken);
                 }
 
