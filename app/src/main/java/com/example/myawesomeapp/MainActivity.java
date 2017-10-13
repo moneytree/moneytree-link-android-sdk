@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Throwable throwable) {
+                public void onError(Throwable throwable) {
                     throwable.printStackTrace();
                     textView.setText(throwable.getMessage());
                 }
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Throwable throwable) {
+                public void onError(Throwable throwable) {
                     throwable.printStackTrace();
                     textView.setText(throwable.getMessage());
                 }
