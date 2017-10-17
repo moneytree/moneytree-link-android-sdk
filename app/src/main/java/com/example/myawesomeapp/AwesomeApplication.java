@@ -26,37 +26,86 @@ public class AwesomeApplication extends Application {
         this.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                Log.i(TAG, String.format("onActivityCreated %s", activity));
+                Log.i(
+                        TAG,
+                        String.format(
+                                "onActivityCreated %s@%s",
+                                activity.getClass().getSimpleName(),
+                                Integer.toHexString(activity.hashCode())
+                        )
+                );
             }
 
             @Override
             public void onActivityStarted(Activity activity) {
-                Log.i(TAG, String.format("onActivityStarted %s", activity));
+                Log.i(
+                        TAG,
+                        String.format(
+                                "onActivityStarted %s@%s",
+                                activity.getClass().getSimpleName(),
+                                Integer.toHexString(activity.hashCode())
+                        )
+                );
             }
 
             @Override
             public void onActivityResumed(Activity activity) {
-                Log.i(TAG, String.format("onActivityResumed %s", activity));
+                Log.i(
+                        TAG,
+                        String.format(
+                                "onActivityResumed %s@%s",
+                                activity.getClass().getSimpleName(),
+                                Integer.toHexString(activity.hashCode())
+                        )
+                );
             }
 
             @Override
             public void onActivityPaused(Activity activity) {
-                Log.i(TAG, String.format("onActivityPaused %s", activity));
+                Log.i(
+                        TAG,
+                        String.format(
+                                "onActivityPaused %s@%s",
+                                activity.getClass().getSimpleName(),
+                                Integer.toHexString(activity.hashCode())
+                        )
+                );
             }
 
             @Override
             public void onActivityStopped(Activity activity) {
-                Log.i(TAG, String.format("onActivityStopped %s", activity));
+                Log.i(
+                        TAG,
+                        String.format(
+                                "onActivityStopped %s@%s",
+                                activity.getClass().getSimpleName(),
+                                Integer.toHexString(activity.hashCode())
+                        )
+                );
             }
 
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-                Log.i(TAG, String.format("onActivitySaveInstanceState %s", activity));
+                Log.i(
+                        TAG,
+                        String.format(
+                                "onActivitySaveInstanceState %s@%s",
+                                activity.getClass().getSimpleName(),
+                                Integer.toHexString(activity.hashCode())
+                        )
+                );
             }
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-                Log.i(TAG, String.format("onActivityDestroyed %s", activity));
+                Log.i(
+                        TAG,
+                        String.format(
+                                "onActivityDestroyed %s@%s",
+                                activity.getClass().getSimpleName(),
+                                Integer.toHexString(activity.hashCode())
+                        )
+                );
             }
         });
     }
