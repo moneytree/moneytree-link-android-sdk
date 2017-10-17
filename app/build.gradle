@@ -27,8 +27,15 @@ ext {
 
 dependencies {
     compile "com.android.support:appcompat-v7:${ver_support}"
-    compile (name: 'MoneytreeLinkCore-2.0.0', ext: 'aar')
-    compile (name: 'MoneytreeLinkIsshoTsucho-2.0.0', ext: 'aar')
+
+    compile (name: 'MoneytreeLinkCore-2.0.2', ext: 'aar')
+    compile (name: 'MoneytreeLinkIsshoTsucho-2.0.2', ext: 'aar')
+
+    // debugCompile project(path: ':core', configuration: 'debug')
+    // debugCompile project(path: ':it', configuration: 'debug')
+    // releaseCompile project(path: ':core', configuration: 'release')
+    // releaseCompile project(path: ':it', configuration: 'release')
+
     compile 'com.android.support:customtabs:25.3.1'
 
     // Add dependencies
