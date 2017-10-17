@@ -21,6 +21,7 @@ import com.getmoneytree.auth.OAuthHandler;
 import com.getmoneytree.auth.OAuthImplicitToken;
 import com.getmoneytree.auth.OAuthPayload;
 import com.getmoneytree.auth.OAuthResponseType;
+import com.getmoneytree.auth.OAuthToken;
 import com.getmoneytree.it.IsshoTsucho;
 
 import static com.getmoneytree.auth.OAuthResponseType.Code;
@@ -197,9 +198,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private OAuthHandler<? extends OAuthPayload> getHandler(@IdRes int checkedId) {
         if (checkedId == R.id.radio_token) {
-            return new OAuthHandler<OAuthImplicitToken>() {
+            return new OAuthHandler<OAuthToken>() {
                 @Override
-                public void onSuccess(OAuthImplicitToken payload) {
+                public void onSuccess(OAuthToken payload) {
                     textView.setText("token: " + payload.accessToken);
                 }
 
