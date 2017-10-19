@@ -15,11 +15,13 @@ import com.getmoneytree.MoneytreeLink;
 import com.getmoneytree.MoneytreeLinkConfiguration;
 import com.getmoneytree.MoneytreeLinkException;
 import com.getmoneytree.MoneytreeLinkScope;
-import com.getmoneytree.auth.OAuthAccessToken;
 import com.getmoneytree.auth.OAuthCode;
+import com.getmoneytree.auth.OAuthCredential;
 import com.getmoneytree.auth.OAuthHandler;
+import com.getmoneytree.auth.OAuthImplicitToken;
 import com.getmoneytree.auth.OAuthPayload;
 import com.getmoneytree.auth.OAuthResponseType;
+import com.getmoneytree.auth.OAuthToken;
 import com.getmoneytree.it.IsshoTsucho;
 
 import static com.getmoneytree.auth.OAuthResponseType.Code;
@@ -173,17 +175,19 @@ public class MainActivity extends AppCompatActivity {
     private MoneytreeLinkConfiguration getConfiguration(@IdRes int checkedId) {
         final OAuthResponseType grantType = checkedId == R.id.radio_token ? Token : Code;
         return new MoneytreeLinkConfiguration.Builder()
-                .isProduction(false)                            // true: production, false: staging
-                //.clientId("")                                 // set your ClientId
+                // true: production, false: staging
+                .isProduction(false)
+                // It's for the example app. DON'T USE FOR YOUR APP!
                 .clientId("af84f08f40970caf17f2e53b31771ceb50d0f32f7d44b826753982e809395290")
-                                                                // It's for the example app. DON'T USE FOR YOUR APP!
+                // You can add scopes using String as well.
+                //.scopes("customized_scope", "new_scope")
                 .scopes(
                         MoneytreeLinkScope.GuestRead,
                         MoneytreeLinkScope.AccountsRead,
                         MoneytreeLinkScope.TransactionsRead
-                )                                               // set scopes
-                //.scopes("customized_scope", "new_scope")      // You can add scopes using String as well.
-                .responseType(grantType)                        // Token(token) or Code
+                )
+                // Token(token) or Code
+                .responseType(grantType)
                 .build();
     }
 
@@ -194,14 +198,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private OAuthHandler<? extends OAuthPayload> getHandler(@IdRes int checkedId) {
         if (checkedId == R.id.radio_token) {
-            return new OAuthHandler<OAuthAccessToken>() {
+            return new OAuthHandler<OAuthToken>() {
                 @Override
-                public void onSuccess(OAuthAccessToken payload) {
-                    textView.setText("token: " + payload.getAccessToken());
+                public void onSuccess(OAuthToken payload) {
+                    textView.setText("token: " + payload.accessToken);
                 }
 
                 @Override
-                public void onFailure(Throwable throwable) {
+                public void onError(Throwable throwable) {
                     throwable.printStackTrace();
                     textView.setText(throwable.getMessage());
                 }
@@ -214,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Throwable throwable) {
+                public void onError(Throwable throwable) {
                     throwable.printStackTrace();
                     textView.setText(throwable.getMessage());
                 }

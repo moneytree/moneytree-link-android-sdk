@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: '../mtlink_dependencies.gradle'
 
 android {
     compileSdkVersion 25
@@ -27,8 +28,15 @@ ext {
 
 dependencies {
     compile "com.android.support:appcompat-v7:${ver_support}"
-    compile (name: 'MoneytreeLinkCore-2.0.0', ext: 'aar')
-    compile (name: 'MoneytreeLinkIsshoTsucho-2.0.0', ext: 'aar')
+
+    compile (name: "MoneytreeLinkCore-${mtLinkSdk.version}", ext: 'aar')
+    compile (name: "MoneytreeLinkIsshoTsucho-${mtLinkSdk.version}", ext: 'aar')
+
+    // debugCompile project(path: ':core', configuration: 'debug')
+    // debugCompile project(path: ':it', configuration: 'debug')
+    // releaseCompile project(path: ':core', configuration: 'release')
+    // releaseCompile project(path: ':it', configuration: 'release')
+
     compile 'com.android.support:customtabs:25.3.1'
 
     // Add dependencies
