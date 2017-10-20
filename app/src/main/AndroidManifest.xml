@@ -1,7 +1,16 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myawesomeapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <service
+        android:name=".fcm.AppInstanceIDListenerService">
+        <intent-filter>
+            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+        </intent-filter>
+    </service>
+
 
     <application
         android:name=".AwesomeApplication"
@@ -32,4 +41,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
