@@ -5,6 +5,10 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.example.myawesomeapp"
         minSdkVersion 19
@@ -24,6 +28,7 @@ android {
 
 ext {
     ver_support = '25.3.1'
+    ver_fcm     = '11.4.2'
 }
 
 dependencies {
@@ -32,15 +37,24 @@ dependencies {
     compile (name: "MoneytreeLinkCore-${mtLinkSdk.version}", ext: 'aar')
     compile (name: "MoneytreeLinkIsshoTsucho-${mtLinkSdk.version}", ext: 'aar')
 
-    // debugCompile project(path: ':core', configuration: 'debug')
-    // debugCompile project(path: ':it', configuration: 'debug')
-    // releaseCompile project(path: ':core', configuration: 'release')
-    // releaseCompile project(path: ':it', configuration: 'release')
-
-    compile 'com.android.support:customtabs:25.3.1'
+    /**
+     * @MTI: This needs to stay as is, otherwise we lose the capability to debug the
+     * classes inside the SDK for some reason.
+     *
+     * Uncomment this for local development.
+     */
+//    debugCompile project(path: ':core', configuration: 'debug')
+//    debugCompile project(path: ':it', configuration: 'debug')
+//    releaseCompile project(path: ':core', configuration: 'release')
+//    releaseCompile project(path: ':it', configuration: 'release')
 
     // Add dependencies
-    compile "com.android.support:customtabs:${ver_support}"
+    compile "com.android.support:customtabs:$ver_support"
+
+    // FCM
+    compile "com.google.firebase:firebase-core:$ver_fcm"
+    compile "com.google.firebase:firebase-messaging:$ver_fcm"
+
     // Add dependencies for the SDK
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
@@ -58,5 +72,12 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+
     mavenCentral()
+    maven {
+        // Google's Maven repository
+        url "https://maven.google.com"
+    }
 }
+
+apply plugin: 'com.google.gms.google-services'
