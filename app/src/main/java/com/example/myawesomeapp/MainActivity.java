@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
         binding.vaultButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLink.client().openVault();
+                MoneytreeLink.client().openVaultFrom(MainActivity.this);
             }
         });
 
@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
                             }
 
                             @Override
-                            public void onError(Throwable throwable) {
+                            public void onError(@NonNull Throwable throwable) {
                                 Toast
                                         .makeText(MainActivity.this, "Failed!", Toast.LENGTH_LONG)
                                         .show();
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
                             }
 
                             @Override
-                            public void onError(Throwable throwable) {
+                            public void onError(@NonNull Throwable throwable) {
                                 Toast
                                         .makeText(MainActivity.this, "Failed!", Toast.LENGTH_LONG)
                                         .show();
