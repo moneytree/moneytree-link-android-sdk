@@ -110,14 +110,24 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
         binding.authButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLink.client().authorize();
+                MoneytreeLink.client().authorizeFrom(MainActivity.this);
             }
         });
 
         binding.settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLink.client().openSettings();
+                MoneytreeLink.client().openSettingsFrom(MainActivity.this);
+            }
+        });
+
+        binding.institutionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MoneytreeLink.client().openInstitutionFrom(
+                        MainActivity.this,
+                        "fauxbank_test_bank"
+                );
             }
         });
 
