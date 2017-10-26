@@ -1,116 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="24dp"
-        android:paddingTop="24dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="20dp"
-            android:text="Issho Tsucho"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/issho_tsucho_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Launch Issho Tsucho" />
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray" />
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="20dp"
-            android:text="VaaS"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="24dp"
+            android:paddingTop="24dp">
 
-        <TextView
-            android:id="@+id/response_radio_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Response Type" />
-
-        <RadioGroup
-            android:id="@+id/response_radio_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radio_token"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Implicit" />
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
+                android:text="Issho Tsucho"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-            <RadioButton
-                android:id="@+id/radio_code"
+            <Button
+                android:id="@+id/issho_tsucho_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Code" />
-        </RadioGroup>
+                android:text="Launch Issho Tsucho" />
 
-        <Button
-            android:id="@+id/signup_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign Up" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray" />
 
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log In" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
+                android:text="VaaS"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/auth_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Authorize" />
+            <Button
+                android:id="@+id/vault_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Launch Vault" />
 
-        <Button
-            android:id="@+id/vault_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vault" />
+            <TextView
+                android:id="@+id/response_radio_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Response Type" />
 
-        <Button
-            android:id="@+id/settings_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings" />
+            <RadioGroup
+                android:id="@+id/response_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray" />
+                <RadioButton
+                    android:id="@+id/radio_token"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Implicit" />
 
-        <TextView
-            android:id="@+id/result_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/radio_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Code" />
+            </RadioGroup>
 
-    </LinearLayout>
-</ScrollView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/auth_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Authorize" />
+
+
+                <Button
+                    android:id="@+id/settings_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Settings" />
+
+                <Button
+                    android:id="@+id/institution_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Test Institution" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
+                android:text="Notification"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/register_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Register" />
+
+                <Button
+                    android:id="@+id/deregister_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deregister" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/result_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textSize="18sp"
+                android:text="Status"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

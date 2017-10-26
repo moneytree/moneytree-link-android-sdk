@@ -1,5 +1,6 @@
 package com.example.myawesomeapp;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -11,18 +12,19 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myawesomeapp.databinding.ActivityMainBinding;
+import com.example.myawesomeapp.fcm.TokenRegistrar;
 import com.getmoneytree.MoneytreeLink;
 import com.getmoneytree.MoneytreeLinkConfiguration;
 import com.getmoneytree.MoneytreeLinkException;
 import com.getmoneytree.MoneytreeLinkScope;
 import com.getmoneytree.auth.OAuthCode;
-import com.getmoneytree.auth.OAuthCredential;
 import com.getmoneytree.auth.OAuthHandler;
-import com.getmoneytree.auth.OAuthImplicitToken;
 import com.getmoneytree.auth.OAuthPayload;
 import com.getmoneytree.auth.OAuthResponseType;
 import com.getmoneytree.auth.OAuthToken;
 import com.getmoneytree.it.IsshoTsucho;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import static com.getmoneytree.auth.OAuthResponseType.Code;
 import static com.getmoneytree.auth.OAuthResponseType.Token;
@@ -32,59 +34,26 @@ import static com.getmoneytree.auth.OAuthResponseType.Token;
  *
  * @author Moneyteee KK
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TokenRegistrar {
 
     @NonNull
-    private TextView textView;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        textView = (TextView) findViewById(R.id.result_text);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         ////// Set up Issho Tsucho //////
 
         // Initialize Issho Tsucho (NOTE: WE RECOMMEND TO INITIALIZE AT 'Application' CLASS)
         IsshoTsucho.init(getApplicationContext(), getConfiguration(R.id.radio_code));
 
-        final Button isshoTsuchoButton = (Button) findViewById(R.id.issho_tsucho_button);
-        isshoTsuchoButton.setOnClickListener(new View.OnClickListener() {
+        binding.isshoTsuchoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start Issho Tsucho
-                textView.setText("");
-                IsshoTsucho.client().startIsshoTsucho(new IsshoTsucho.CompletionHandler() {
-                    @Override
-                    public void onLaunchedIsshoTsucho() {
-                        textView.setText("Launched Issho Tsucho successfully!");
-
-                        // It runs when Issho Tsucho launches successfully.
-                        // So the server side can accept device token if the guest already has.
-                        /*
-                        IsshoTsucho
-                                .linkClient()
-                                .registerDeviceToken("Guest_Device_Token", new MoneytreeLink.CompletionHandler() {
-
-                                    @Override
-                                    public void onCompleted() {
-                                        // It runs if the device token is accepted.
-                                    }
-
-                                    @Override
-                                    public void onFailed(Throwable throwable) {
-                                        // It runs if the device token is not accepted.
-                                    }
-                                });*/
-                    }
-
-                    @Override
-                    public void onFailedToLaunch(MoneytreeLinkException e) {
-                        e.printStackTrace();
-                        textView.setText(e.getLocalizedMessage());
-                        // You should error message and identify why launch process failed.
-                    }
-                });
+                startIsshoTsucho();
             }
         });
 
@@ -92,12 +61,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Set Implicit as default
         @IdRes final int defaultGrantType = R.id.radio_token;
-        final RadioGroup group = (RadioGroup) findViewById(R.id.response_radio_group);
-        group.check(defaultGrantType);
+        final RadioGroup group = binding.responseRadioGroup;
+        binding.responseRadioGroup.check(defaultGrantType);
 
-        // Strongly recommend to initialize MoneytreeLink client at Application class if you don't want to use both 'Implicit' and 'Code' at the same time or you don't want to set different scopes dynamically. This AwesomeApp is a show case app to demonstrate what the SDK provides, so it gives capability to change configuration after the app initializes once.
+        // Strongly recommend to initialize MoneytreeLink client at Application class
+        // if you don't want to use both 'Implicit' and 'Code' at the same time or you don't want
+        // to set different scopes dynamically. This AwesomeApp is a show case app to demonstrate
+        // what the SDK provides, so it gives capability to change configuration after the app
+        // initializes once.
 
-        // Set up MoneytreeLink client once, but it might be overridden when you change the response type (in this app).
+        // Set up MoneytreeLink client once, but it might be overridden
+        // when you change the response type (in this app).
         MoneytreeLink
                 .init(getApplicationContext(), getConfiguration(defaultGrantType))
                 .setRootView(this);
@@ -126,45 +100,54 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button signUpButton = (Button) findViewById(R.id.signup_button);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        binding.vaultButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLink.client().signup();
+                MoneytreeLink.client().openVaultFrom(MainActivity.this);
             }
         });
 
-        final Button loginButton = (Button) findViewById(R.id.login_button);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        binding.authButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLink.client().login();
+                MoneytreeLink.client().authorizeFrom(MainActivity.this);
             }
         });
 
-        final Button authButton = (Button) findViewById(R.id.auth_button);
-        authButton.setOnClickListener(new View.OnClickListener() {
+        binding.settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLink.client().authorize();
+                MoneytreeLink.client().openSettingsFrom(MainActivity.this);
             }
         });
 
-        final Button vaultButton = (Button) findViewById(R.id.vault_button);
-        vaultButton.setOnClickListener(new View.OnClickListener() {
+        binding.institutionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLink.client().openVault();
+                MoneytreeLink.client().openInstitutionFrom(
+                        MainActivity.this,
+                        "fauxbank_test_bank"
+                );
             }
         });
 
-        final Button settingButton = (Button) findViewById(R.id.settings_button);
-        settingButton.setOnClickListener(new View.OnClickListener() {
+        binding.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MoneytreeLink.client().openSettings();
+                registerToken();
             }
         });
+
+        binding.deregisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deregisterToken();
+            }
+        });
+
+        getStatusTextView().setText(
+                MoneytreeLink.client().isLoggedIn() ? "Logged In" : "Unauthorized"
+        );
     }
 
     /**
@@ -192,6 +175,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Start the Issho Tsucho
+     */
+    private void startIsshoTsucho() {
+        getStatusTextView().setText("Launching...");
+        IsshoTsucho.client().startIsshoTsucho(new IsshoTsucho.CompletionHandler() {
+            @Override
+            public void onLaunchedIsshoTsucho() {
+                getStatusTextView().setText("Launched Issho Tsucho successfully!");
+            }
+
+            @Override
+            public void onFailedToLaunch(MoneytreeLinkException e) {
+                getStatusTextView().setText(e.getLocalizedMessage());
+                e.printStackTrace();
+
+                // FIXME: Identify why launch process failed
+            }
+        });
+    }
+
+    /**
+     * Register the current token (from MT Server)
+     */
+    private void registerToken() {
+        final String token = FirebaseInstanceId.getInstance().getToken();
+        if (token == null) {
+            Toast.makeText(this, "No Token", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        registerToken(token);
+    }
+
+    /**
+     * Remove the current token (from MT Server)
+     */
+    private void deregisterToken() {
+        final String token = FirebaseInstanceId.getInstance().getToken();
+        if (token == null) {
+            Toast.makeText(this, "No Token", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        deregisterToken(token);
+    }
+
+    private TextView getStatusTextView() {
+        return binding.resultText;
+    }
+
+    /**
      * Provide appropriate handler class that consumes response.
      *
      * @return handler instance
@@ -200,29 +234,101 @@ public class MainActivity extends AppCompatActivity {
         if (checkedId == R.id.radio_token) {
             return new OAuthHandler<OAuthToken>() {
                 @Override
-                public void onSuccess(OAuthToken payload) {
-                    textView.setText("token: " + payload.accessToken);
+                public void onSuccess(@NonNull OAuthToken payload) {
+                    getStatusTextView().setText("Token: " + payload.accessToken);
                 }
 
                 @Override
-                public void onError(Throwable throwable) {
-                    throwable.printStackTrace();
-                    textView.setText(throwable.getMessage());
+                public void onError(@NonNull Throwable error) {
+                    error.printStackTrace();
+                    getStatusTextView().setText("Error: " + error.getMessage());
                 }
             };
         } else {
             return new OAuthHandler<OAuthCode>() {
                 @Override
-                public void onSuccess(OAuthCode payload) {
-                    textView.setText("code: " + payload.getCode());
+                public void onSuccess(@NonNull OAuthCode payload) {
+                    getStatusTextView().setText("Code: " + payload.getCode());
+
                 }
 
                 @Override
-                public void onError(Throwable throwable) {
-                    throwable.printStackTrace();
-                    textView.setText(throwable.getMessage());
+                public void onError(@NonNull Throwable error) {
+                    error.printStackTrace();
+                    getStatusTextView().setText("Error: " + error.getMessage());
                 }
             };
         }
     }
+
+    @Override
+    public void registerToken(@NonNull String token) {
+        getStatusTextView().setText(token);
+        if (!MoneytreeLink.client().isLoggedIn()) {
+            Toast.makeText(this, "Unauthorized Yet", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // It runs when Issho Tsucho launches successfully.
+        // So the server side can accept device token if the guest already has.
+        MoneytreeLink
+                .client()
+                .registerDeviceToken(
+                        token,
+                        new MoneytreeLink.ApiCompletionHandler() {
+                            @Override
+                            public void onSuccess() {
+                                Toast
+                                        .makeText(MainActivity.this, "Success!", Toast.LENGTH_LONG)
+                                        .show();
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable throwable) {
+                                Toast
+                                        .makeText(MainActivity.this, "Failed!", Toast.LENGTH_LONG)
+                                        .show();
+
+                                MainActivity
+                                        .this
+                                        .getStatusTextView()
+                                        .setText(throwable.getMessage());
+                            }
+                        });
+    }
+
+    @Override
+    public void deregisterToken(@NonNull String token) {
+        getStatusTextView().setText(token);
+        if (!MoneytreeLink.client().isLoggedIn()) {
+            Toast.makeText(this, "Unauthorized Yet", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        MoneytreeLink
+                .client()
+                .unregisterDeviceToken(
+                        token,
+                        new MoneytreeLink.ApiCompletionHandler() {
+                            @Override
+                            public void onSuccess() {
+                                Toast
+                                        .makeText(MainActivity.this, "Success!", Toast.LENGTH_LONG)
+                                        .show();
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable throwable) {
+                                Toast
+                                        .makeText(MainActivity.this, "Failed!", Toast.LENGTH_LONG)
+                                        .show();
+
+                                MainActivity
+                                        .this
+                                        .getStatusTextView()
+                                        .setText(throwable.getMessage());
+                            }
+                        });
+    }
+
 }
