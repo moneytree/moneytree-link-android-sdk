@@ -11,22 +11,23 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
  */
 public class AppInstanceIDListenerService extends FirebaseInstanceIdService {
 
-    @Nullable
-    static TokenRegistrar registrar = null;
+  @Nullable
+  static TokenRegistrar registrar = null;
 
-    private static String TAG = "AppInstanceIDListener";
+  private static final String TAG = "AppInstanceIDListener";
 
-    @Override
-    public void onTokenRefresh() {
-        super.onTokenRefresh();
-
-        final String token = FirebaseInstanceId.getInstance().getToken();
-        if (token == null) {
-            Log.e(TAG, "Token is null");
-            return;
-        }
-
-        registrar.registerToken(token);
+  @Override
+  public void onTokenRefresh() {
+    super.onTokenRefresh();
+    if (registrar == null) {
+      return;
     }
 
+    final String token = FirebaseInstanceId.getInstance().getToken();
+    if (token == null) {
+      Log.e(TAG, "Token is null");
+      return;
+    }
+    registrar.registerToken(token);
+  }
 }
