@@ -96,7 +96,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     final MoneytreLink client = MoneytreeLink.client();
     client.setRootView(this);
     client.setAuthzTokenHandler( /* set handler instance */ ); // see example code
-    client().authorizeFrom(this);
+    client.authorizeFrom(this);
     ```
 
     `OAuthHandler` will be used when you want to handle callback in a result of authorization request.
