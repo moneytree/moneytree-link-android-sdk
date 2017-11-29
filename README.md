@@ -77,7 +77,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
            .isProduction(false)                         // or true if production
            .clientId("1234567890abcde...")              // your ClientId
            .scopes(MoneyTreeLinkClient.GuestRead, ...)  // scope(s)
-           .perferredGrantType(OAuthGrantType.Code)     // or .Implicit. But it doesn't matter IsshoTsucho authorization process.
+           .perferredGrantType(OAuthResponseType.Token)
            .build();
     ```
 
@@ -86,7 +86,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
 1. And then, initialize `MoneytreeLink` using the configuration file.
     ```java
     // at your Application class
-    MoneytreeLink.init(this, conf);
+    MoneytreeLink.init(this, configuration);
     ```
 
 1. Update your activity class to enable to use `MoneytreeLink`. Make sure to call `setRootView` in advance. If you want to call `authorize`, you have to call `setOAuthHandler` as well.
@@ -95,8 +95,8 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     // at your activity class
     final MoneytreLink client = MoneytreeLink.client();
     client.setRootView(this);
-    client.setOAuthHandler( /* set handler instance */ ); // see example code
-    client.authorize();
+    client.setAuthzTokenHandler( /* set handler instance */ ); // see example code
+    client.authorizeFrom(this);
     ```
 
     `OAuthHandler` will be used when you want to handle callback in a result of authorization request.
@@ -135,7 +135,7 @@ If you want to register device token, it should be after the guest gives permiss
 
 - If you don't use `Issho Tsucho` library:
 
-    `OAuthHandler` would be the best timing. See [the above section](#how-to-use-moneytreelink-library).
+    `MoneytreeLink#setAuthzTokenHandler` would be the best timing. See [the above section](#how-to-use-moneytreelink-library).
 
 - If you use `Issho Tsucho` library:
 
