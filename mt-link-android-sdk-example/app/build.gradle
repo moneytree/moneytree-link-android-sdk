@@ -1,0 +1,79 @@
+apply plugin: 'com.android.application'
+apply from: '../mtlink_dependencies.gradle'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.2"
+
+    defaultConfig {
+        applicationId "com.example.myawesomeapp"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext {
+    ver_support = '27.0.2'
+    ver_fcm     = '11.6.2'
+}
+
+dependencies {
+    compile "com.android.support:appcompat-v7:${ver_support}"
+
+//    compile (name: "MoneytreeLinkCore-${mtLinkSdk.version}", ext: 'aar')
+//    compile (name: "MoneytreeLinkIsshoTsucho-${mtLinkSdk.version}", ext: 'aar')
+
+    /**
+     * @MTI: This needs to stay as is, otherwise we lose the capability to debug the
+     * classes inside the SDK for some reason.
+     *
+     * Uncomment this for local development.
+     */
+    debugCompile project(path: ':core', configuration: 'debug')
+    debugCompile project(path: ':it', configuration: 'debug')
+    releaseCompile project(path: ':core', configuration: 'release')
+    releaseCompile project(path: ':it', configuration: 'release')
+
+    // Add dependencies
+    compile "com.android.support:customtabs:$ver_support"
+
+    // FCM
+    compile "com.google.firebase:firebase-core:$ver_fcm"
+    compile "com.google.firebase:firebase-messaging:$ver_fcm"
+
+    // Add dependencies for the SDK
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+}
+
+// Need to read local aar file
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+
+    mavenCentral()
+    maven {
+        // Google's Maven repository
+        url "https://maven.google.com"
+    }
+}
+
+apply plugin: 'com.google.gms.google-services'

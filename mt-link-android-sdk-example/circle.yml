@@ -1,0 +1,40 @@
+machine:
+  java:
+    version: oraclejdk8
+  timezone: Asia/Tokyo
+  environment:
+    BUILD_DIR: $HOME/$CIRCLE_PROJECT_REPONAME
+    PATH: "~/$CIRCLE_PROJECT_REPONAME/gradle-3.3/bin:$PATH"
+    ADB_INSTALL_TIMEOUT: "10"
+    QEMU_AUDIO_DRV: none
+    GRADLE_OPTS: -Dorg.gradle.parallel=false -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xms2048m -Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"
+    _JAVA_OPTIONS: -Dfile.encoding=UTF-8 -Xms2048m -Xmx2048m
+  post:
+    - sudo service mysql stop
+    - sudo service postgresql stop
+
+checkout:
+  post:
+    - chmod +x ./gradlew
+
+dependencies:
+  cache_directories:
+    - ~/.gradle
+    - ~/.android
+    - ~/.vendor/bundle
+    - /usr/local/android-sdk-linux/tools
+    - /usr/local/android-sdk-linux/build-tools
+    - /usr/local/android-sdk-linux/extras
+  pre:
+    #- bundle install
+    - mkdir $ANDROID_HOME/licenses && cp ./licenses/* $ANDROID_HOME/licenses
+    # Need to get the latest platform-tools to pass lint check
+    - echo y | android update sdk --no-ui --all --filter platform-tools
+    - wget "https://services.gradle.org/distributions/gradle-3.3-bin.zip"; unzip gradle-3.3-bin.zip
+
+test:
+  override:
+    - bundle exec fastlane test
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
