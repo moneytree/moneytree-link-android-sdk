@@ -2,12 +2,8 @@ apply plugin: 'com.android.application'
 apply from: '../mtlink_dependencies.gradle'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
-
-    dataBinding {
-        enabled = true
-    }
+    compileSdkVersion 27
+    buildToolsVersion "27.0.2"
 
     defaultConfig {
         applicationId "com.example.myawesomeapp"
@@ -27,15 +23,15 @@ android {
 }
 
 ext {
-    ver_support = '25.3.1'
-    ver_fcm     = '11.4.2'
+    ver_support = '27.0.2'
+    ver_fcm     = '11.6.2'
 }
 
 dependencies {
     compile "com.android.support:appcompat-v7:${ver_support}"
 
-    compile (name: "MoneytreeLinkCore-${mtLinkSdk.version}", ext: 'aar')
-    compile (name: "MoneytreeLinkIsshoTsucho-${mtLinkSdk.version}", ext: 'aar')
+//    compile (name: "MoneytreeLinkCore-${mtLinkSdk.version}", ext: 'aar')
+//    compile (name: "MoneytreeLinkIsshoTsucho-${mtLinkSdk.version}", ext: 'aar')
 
     /**
      * @MTI: This needs to stay as is, otherwise we lose the capability to debug the
@@ -43,10 +39,10 @@ dependencies {
      *
      * Uncomment this for local development.
      */
-//    debugCompile project(path: ':core', configuration: 'debug')
-//    debugCompile project(path: ':it', configuration: 'debug')
-//    releaseCompile project(path: ':core', configuration: 'release')
-//    releaseCompile project(path: ':it', configuration: 'release')
+    debugCompile project(path: ':core', configuration: 'debug')
+    debugCompile project(path: ':it', configuration: 'debug')
+    releaseCompile project(path: ':core', configuration: 'release')
+    releaseCompile project(path: ':it', configuration: 'release')
 
     // Add dependencies
     compile "com.android.support:customtabs:$ver_support"
