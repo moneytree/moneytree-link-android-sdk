@@ -8,7 +8,6 @@ import android.util.Log;
 import com.getmoneytree.MoneytreeLink;
 import com.getmoneytree.MoneytreeLinkConfiguration;
 import com.getmoneytree.MoneytreeLinkScope;
-import com.getmoneytree.auth.OAuthResponseType;
 import com.getmoneytree.it.IsshoTsucho;
 
 /**
@@ -30,8 +29,6 @@ public class AwesomeApplication extends Application {
           MoneytreeLinkScope.AccountsRead,
           MoneytreeLinkScope.TransactionsRead
       )
-      // Token(token)
-      .responseType(OAuthResponseType.Token)
       .build();
 
   @Override
