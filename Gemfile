@@ -3,5 +3,4 @@
 # Circle CI.
 source "https://rubygems.org"
 
-gem 'fastlane', '2.44.1'
 gem 'github_changelog_generator', '1.14.1'
