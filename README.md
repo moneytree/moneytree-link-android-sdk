@@ -7,6 +7,7 @@
     1. [How to use MoneytreeLink Library](#how-to-use-moneytreelink-library)
     2. [How to use Issho Tsucho Library](#how-to-use-issho-tsucho-library)
     3. [Set up notification](#set-up-notification)
+4. [Breaking Changes since version 2](#breaking-changes-since-version-2)
 
 ## Requirements
 
@@ -33,7 +34,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     compile "com.squareup.retrofit2:converter-gson:2.3.0"
     ```
 
-1. Configure `AndroidManifest.xml` to receive an authorized response from the server.
+1. Configure `AndroidManifest.xml` to receive a callback response from the server.
 
     1. Add `SchemeHandlerActivity` as the following example. It will receive an authorized response when the guest gives permission to access to their data from your app.
     ```xml
@@ -69,6 +70,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
 
 1. Initialize `MoneytreeLinkConfiguration` at your `Application` class
     ```java
+    // Application class
     @Override
     public void onCreate() {
        super.onCreate();
@@ -79,24 +81,40 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
            .scopes(MoneyTreeLinkClient.GuestRead, ...)  // scope(s)
            .perferredGrantType(OAuthResponseType.Token)
            .build();
+    }
     ```
 
     TIPS: Ideally, a boolean value for `isProduction` and a string value for `clientId` can be managed easily using [`resource`](https://developer.android.com/guide/topics/resources/more-resources.html#Bool) and [`Build Variants`](https://developer.android.com/studio/build/build-variants.html) in Android. You don't have to define them in code directly.
 
 1. And then, initialize `MoneytreeLink` using the configuration file.
     ```java
-    // at your Application class
+    // Application class
     MoneytreeLink.init(this, configuration);
     ```
 
-1. Update your activity class to enable to use `MoneytreeLink`. Make sure to call `setRootView` in advance. If you want to call `authorize`, you have to call `setOAuthHandler` as well.
+1. Update your activity class to enable to use `MoneytreeLink`.  All you have to do first is making a path to `authorize` for the guests. Every operations except `authorize` require the access token where the server provides when the guest agrees to authorize. Example is follows.
 
     ```java
-    // at your activity class
-    final MoneytreLink client = MoneytreeLink.client();
-    client.setRootView(this);
-    client.setAuthzTokenHandler( /* set handler instance */ ); // see example code
-    client.authorizeFrom(this);
+     // Activity class
+     findViewById(R.id.open_link_button).setOnClickListener(new View.OnClickListener() {
+       @Override
+       public void onClick(View v) {
+         // Authorize
+         MoneytreeLink.client().authorizeFrom(YourActivity.this, new Authorization.OnCompletionListener() {
+           @Override
+           public void onSuccess(@NonNull final String accessToken) {
+             // It runs when the SDK gets token. 
+             // You can implement as you want (open vault etc.)
+           }
+    
+           @Override
+           public void onError(@NonNull final MoneytreeLinkException exception) {
+             // It runs when the SDK gets error during authorization.
+             // See the JavaDoc regarding MoneytreeLinkException
+           }
+         });
+       }
+     });
     ```
 
     `OAuthHandler` will be used when you want to handle callback in a result of authorization request.
@@ -115,11 +133,11 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
 
     ```java
     IsshoTsucho.client().startIsshoTsucho(
-      new IsshoTsucho.CompletionHandler() {/* implement */}
+      new IsshoTsucho.OnCompletionListener() { /* implement */ }
     );
     ```
 
-    `IsshoTsucho.CompletionHandler` is an optional instance, so you may set `null` if you don't need. It will describe sample usage in the later section.
+    `IsshoTsucho.OnCompletionListener` is an optional instance, so you may set `null` if you don't need. It will describe sample usage in the later section.
 
 1. `MoneytreeLink` instance is initialized when you initialize `IsshoTsucho`, so you can get it like
 
@@ -135,8 +153,51 @@ If you want to register device token, it should be after the guest gives permiss
 
 - If you don't use `Issho Tsucho` library:
 
-    `MoneytreeLink#setAuthzTokenHandler` would be the best timing. See [the above section](#how-to-use-moneytreelink-library).
+    After authorization flow would be the best timing. Example is follows.
+    
+    ```java
+     // Authorize
+     MoneytreeLink.client().authorizeFrom(YourActivity.this, new Authorization.OnCompletionListener() {
+       @Override
+       public void onSuccess(@NonNull final String accessToken) {
+          final String deviceToken = ... // You should provide the device token
+          // Registration method
+          MoneytreeLink
+            .client()
+            .registerDeviceToken(
+              deviceToken,
+              new Api.OnCompletionListener() {
+                @Override
+                public void onSuccess() {
+                  // It runs registering device token finishes successfully.
+                }
+      
+                @Override
+                public void onError(@NonNull MoneytreeLinkException exception) {
+                  // It runs registering device token fails.
+                }
+              }
+            );
+       }
+     
+       @Override
+       public void onError(@NonNull final MoneytreeLinkException exception) { /* snip*/ }
+     });
+    ```
+    
+    `MoneytreeLink.clint().unregisterDeviceToken(...)` is used to unregister device token.
 
 - If you use `Issho Tsucho` library:
 
-    `IsshoTsucho.CompletionHandler` would be the best. See an example code in this project.
+    `IsshoTsucho.OnCompletionListener` would be the best. See above regarding the sample code.
+
+## Breaking Changes since version 2
+
+MoneytreeLink SDK v3 brings some breaking changes regarding class name. The following is just an example, see also MainActivity.java in the Awesome app code and JavaDoc.
+
+| Old Class Name  | New Class Name | Note |
+| --------------- | -------------- | ---- |
+|CompletionHandler| Authorization.OnCompletionListener| Methods for authorization|
+| (same as above) | Action.OnCompletionListener| Used for openSettings, openInstitution|
+|MoneytreeLink.ApiCompletionHandler|Api.OnCompletionListener| Renamed |
+|IsshoTsucho.CompletionHandler|IsshoTsucho.OnCompletionListener| Renamed |
