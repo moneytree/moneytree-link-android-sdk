@@ -2,12 +2,8 @@ apply plugin: 'com.android.application'
 apply from: '../mtlink_dependencies.gradle'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
-
-    dataBinding {
-        enabled = true
-    }
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "com.example.myawesomeapp"
@@ -27,8 +23,8 @@ android {
 }
 
 ext {
-    ver_support = '25.3.1'
-    ver_fcm     = '11.4.2'
+    ver_support = '27.0.2'
+    ver_fcm     = '11.8.0'
 }
 
 dependencies {
@@ -36,13 +32,8 @@ dependencies {
 
     compile (name: "MoneytreeLinkCore-${mtLinkSdk.version}", ext: 'aar')
     compile (name: "MoneytreeLinkIsshoTsucho-${mtLinkSdk.version}", ext: 'aar')
-
-    /**
-     * @MTI: This needs to stay as is, otherwise we lose the capability to debug the
-     * classes inside the SDK for some reason.
-     *
-     * Uncomment this for local development.
-     */
+    
+    // For Moneytree internal use. You can delete below.
 //    debugCompile project(path: ':core', configuration: 'debug')
 //    debugCompile project(path: ':it', configuration: 'debug')
 //    releaseCompile project(path: ':core', configuration: 'release')
@@ -50,6 +41,9 @@ dependencies {
 
     // Add dependencies
     compile "com.android.support:customtabs:$ver_support"
+
+    // Enable if your app doesn't use Kotlin
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.10'
 
     // FCM
     compile "com.google.firebase:firebase-core:$ver_fcm"
