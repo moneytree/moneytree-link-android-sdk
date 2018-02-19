@@ -2,7 +2,53 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.5...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.8...HEAD)
+
+**Merged pull requests:**
+
+- ci: Bumped versionCode to 3.0.8 [\#177](https://github.com/moneytree/mt-link-android-sdk/pull/177)
+
+## [v3.0.8](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.8) (2018-02-19)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.7...v3.0.8)
+
+**Implemented enhancements:**
+
+- Added comments about unsupported browser [\#173](https://github.com/moneytree/mt-link-android-sdk/pull/173)
+- Fires `onError` if Chrome Custom Tabs is unavailable [\#171](https://github.com/moneytree/mt-link-android-sdk/pull/171)
+
+**Fixed bugs:**
+
+- Check length of Android ID during creating a private key [\#174](https://github.com/moneytree/mt-link-android-sdk/pull/174)
+
+**Merged pull requests:**
+
+- v3.0.8 [\#176](https://github.com/moneytree/mt-link-android-sdk/pull/176)
+- Delete token on logout when chrome tabs not available [\#175](https://github.com/moneytree/mt-link-android-sdk/pull/175)
+- Copied configuration files from mt-android [\#172](https://github.com/moneytree/mt-link-android-sdk/pull/172)
+- ci: Bumped versionCode to 3.0.7 [\#169](https://github.com/moneytree/mt-link-android-sdk/pull/169)
+
+## [v3.0.7](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.7) (2018-02-09)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.6...v3.0.7)
+
+**Implemented enhancements:**
+
+- Force Logout [\#165](https://github.com/moneytree/mt-link-android-sdk/pull/165)
+- add  a parameter in authorize method to show signup page [\#164](https://github.com/moneytree/mt-link-android-sdk/pull/164)
+
+**Fixed bugs:**
+
+- Make sure to return the guest token in the guest handler [\#163](https://github.com/moneytree/mt-link-android-sdk/pull/163)
+
+**Merged pull requests:**
+
+- v3.0.7 [\#168](https://github.com/moneytree/mt-link-android-sdk/pull/168)
+- Force logout status update, \(Clear showing old token\) [\#167](https://github.com/moneytree/mt-link-android-sdk/pull/167)
+- Use LocalBroadcastManager to propagate events in the app [\#166](https://github.com/moneytree/mt-link-android-sdk/pull/166)
+- Added json file for firebase [\#162](https://github.com/moneytree/mt-link-android-sdk/pull/162)
+- ci: Bumped versionCode to 3.0.6 [\#161](https://github.com/moneytree/mt-link-android-sdk/pull/161)
+
+## [v3.0.6](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.6) (2018-01-23)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.5...v3.0.6)
 
 **Fixed bugs:**
 

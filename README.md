@@ -1,13 +1,16 @@
 # Moneytree Link SDK (Android) Set Up Instructions
 
 ## Table Of Contents
+
 1. [Requirements](#requirements)
 2. [Update Configurations](#update-configurations)
 3. [Update Code](#update-code)
     1. [How to use MoneytreeLink Library](#how-to-use-moneytreelink-library)
     2. [How to use Issho Tsucho Library](#how-to-use-issho-tsucho-library)
     3. [Set up notification](#set-up-notification)
-4. [Breaking Changes since version 2](#breaking-changes-since-version-2)
+4. [Breaking Changes](#breaking-changes)
+    1. [v3](#v3)
+    2. [v3.0.8](#v308)
 
 ## Requirements
 
@@ -194,7 +197,9 @@ If you want to register device token, it should be after the guest gives permiss
 
     `IsshoTsucho.OnCompletionListener` would be the best. See above regarding the sample code.
 
-## Breaking Changes since version 2
+## Breaking Changes
+
+### v3
 
 1. MoneytreeLink SDK v3 brings some breaking changes regarding class name. The following is just an example, see also MainActivity.java in the Awesome app code and JavaDoc.
 
@@ -209,4 +214,18 @@ If you want to register device token, it should be after the guest gives permiss
 
 ```groovy
 compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.21'
+```
+
+### v3.0.8
+
+We **don't** support a browser that doesn't implement `Custom Chrome Tabs` anymore. The SDK returns `MoneytreeLinkException.Error.BROWSER_NOT_SUPPORTED` at `onError` of `OnCompletionHandler` from every possible methods to require `Custom Chrome Tabs` if a device doesn't have it. So, you can handle the error like this.
+
+```java
+// Any completionHandler code
+@Override
+public void onError(@NonNull MoneytreeLinkException exception) {
+  if (exception.getError() == MoneytreeLinkException.Error.BROWSER_NOT_SUPPORTED) {
+    // You can ask user to [install Android System WebView] or [change default browser to Google Chrome] here
+  }
+}
 ```
