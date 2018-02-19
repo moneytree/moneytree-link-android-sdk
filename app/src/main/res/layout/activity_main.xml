@@ -140,6 +140,12 @@
             android:layout_height="wrap_content"
             android:text="Delete credentials"/>
 
+        <Button
+            android:id="@+id/logout_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

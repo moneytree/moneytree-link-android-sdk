@@ -28,7 +28,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
 
 1. In `app/build.gradle`, you have to add some dependencies that the SDK requires.
     ```groovy
-    compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.20"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.21"
     compile "com.google.code.gson:gson:2.8.1"
     compile "com.squareup.okhttp3:okhttp:3.9.0"
     compile "com.squareup.retrofit2:retrofit:2.3.0"
@@ -208,5 +208,5 @@ If you want to register device token, it should be after the guest gives permiss
 2. You should add the following dependency to `build.gradle` if your app doesn't use Kotlin yet.
 
 ```groovy
-compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.20'
+compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.21'
 ```

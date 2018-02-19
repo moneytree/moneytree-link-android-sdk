@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
       public void onClick(View v) {
         MoneytreeLink.client().authorizeFrom(
             MainActivity.this,
+            true,
             new Authorization.OnCompletionListener() {
               @Override
               public void onSuccess(@NonNull final String accessToken) {
@@ -180,6 +181,32 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
         getStatusTextView().setText("Deleted token in the SDK.");
       }
     });
+
+    findViewById(R.id.logout_button).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        MoneytreeLink.client().logoutFrom(
+            MainActivity.this,
+            new Action.OnCompletionListener() {
+              @Override
+              public void onSuccess() {
+                // Logout success, change status to authorization required.
+                getStatusTextView().setText("Logged out");
+              }
+
+              @Override
+              public void onError(@NonNull final MoneytreeLinkException exception) {
+                if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
+                  getStatusTextView().setText("Error in Logout");
+                } else {
+                  getStatusTextView().setText(exception.getMessage());
+                }
+              }
+            }
+        );
+      }
+    });
+
   }
 
   /**

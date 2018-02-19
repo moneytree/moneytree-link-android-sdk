@@ -43,7 +43,7 @@ dependencies {
     compile "com.android.support:customtabs:$ver_support"
 
     // Enable if your app doesn't use Kotlin
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.20'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.21'
 
     // FCM
     compile "com.google.firebase:firebase-core:$ver_fcm"
