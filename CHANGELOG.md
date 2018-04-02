@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- v3.0.9 [\#179](https://github.com/moneytree/mt-link-android-sdk/pull/179)
+- Fix cobrand\_client\_id parameter in authorization request [\#178](https://github.com/moneytree/mt-link-android-sdk/pull/178)
 - ci: Bumped versionCode to 3.0.8 [\#177](https://github.com/moneytree/mt-link-android-sdk/pull/177)
 
 ## [v3.0.8](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.8) (2018-02-19)
