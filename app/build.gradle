@@ -2,76 +2,78 @@ apply plugin: 'com.android.application'
 apply from: '../mtlink_dependencies.gradle'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+  compileSdkVersion 27
+  buildToolsVersion "27.0.3"
 
-    defaultConfig {
-        applicationId "com.example.myawesomeapp"
-        minSdkVersion 19
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+  defaultConfig {
+    applicationId "com.example.myawesomeapp"
+    minSdkVersion 19
+    targetSdkVersion 25
+    versionCode 1
+    versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+  }
 }
 
 ext {
-    ver_support = '27.0.2'
-    ver_fcm     = '11.8.0'
+  ver_support = '27.1.1'
+  ver_firebase_core = '16.0.1'
+  ver_fcm = '17.0.0'
 }
 
 dependencies {
-    compile "com.android.support:appcompat-v7:${ver_support}"
+  implementation "com.android.support:appcompat-v7:$ver_support"
 
-    compile (name: "MoneytreeLinkCore-${mtLinkSdk.version}", ext: 'aar')
-    compile (name: "MoneytreeLinkIsshoTsucho-${mtLinkSdk.version}", ext: 'aar')
-    
-    // For Moneytree internal use. You can delete below.
+  implementation(name: "MoneytreeLinkCore-${mtLinkSdk.version}", ext: 'aar')
+  implementation(name: "MoneytreeLinkIsshoTsucho-${mtLinkSdk.version}", ext: 'aar')
+
+  // For Moneytree internal use. You can delete below.
 //    debugCompile project(path: ':core', configuration: 'debug')
 //    debugCompile project(path: ':it', configuration: 'debug')
 //    releaseCompile project(path: ':core', configuration: 'release')
 //    releaseCompile project(path: ':it', configuration: 'release')
 
-    // Add dependencies
-    compile "com.android.support:customtabs:$ver_support"
+  // Add dependencies
 
-    // Enable if your app doesn't use Kotlin
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.21'
+  implementation "com.android.support:customtabs:$ver_support"
 
-    // FCM
-    compile "com.google.firebase:firebase-core:$ver_fcm"
-    compile "com.google.firebase:firebase-messaging:$ver_fcm"
+  // Enable if your app doesn't use Kotlin
+  implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.50'
 
-    // Add dependencies for the SDK
-    compile 'com.google.code.gson:gson:2.8.1'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+  // FCM
+  implementation "com.google.firebase:firebase-core:$ver_firebase_core"
+  implementation "com.google.firebase:firebase-messaging:$ver_fcm"
 
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile 'junit:junit:4.12'
+  // Add dependencies for the SDK
+  implementation 'com.google.code.gson:gson:2.8.5'
+  implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+  implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+  implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+  androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+  testImplementation 'junit:junit:4.12'
 }
 
 // Need to read local aar file
 repositories {
-    flatDir {
-        dirs 'libs'
-    }
+  flatDir {
+    dirs 'libs'
+  }
 
-    mavenCentral()
-    maven {
-        // Google's Maven repository
-        url "https://maven.google.com"
-    }
+  mavenCentral()
+  maven {
+    // Google's Maven repository
+    url "https://maven.google.com"
+  }
 }
 
 apply plugin: 'com.google.gms.google-services'
