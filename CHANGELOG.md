@@ -2,7 +2,18 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.8...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.9...HEAD)
+
+**Merged pull requests:**
+
+- Set version for the next release [\#186](https://github.com/moneytree/mt-link-android-sdk/pull/186)
+- Update libs and to use gradle plugin 3 [\#184](https://github.com/moneytree/mt-link-android-sdk/pull/184)
+- Reformat [\#182](https://github.com/moneytree/mt-link-android-sdk/pull/182)
+- Gradlew [\#181](https://github.com/moneytree/mt-link-android-sdk/pull/181)
+- ci: Bumped versionCode to 3.0.9 [\#180](https://github.com/moneytree/mt-link-android-sdk/pull/180)
+
+## [v3.0.9](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.9) (2018-03-23)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.8...v3.0.9)
 
 **Merged pull requests:**
 
