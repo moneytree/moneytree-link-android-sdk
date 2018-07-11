@@ -10,7 +10,42 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingBottom="24dp"
-        android:paddingTop="24dp">
+        android:paddingTop="12dp">
+
+        <TextView
+            android:id="@+id/patch_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="If your device is KitKat, you should have the latest Security Patch given by Google Play Services. Click below once before you start."
+            android:textColor="@android:color/holo_red_dark"/>
+
+        <Button
+            android:id="@+id/patch_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Apply Security Patch"/>
+
+        <TextView
+            android:id="@+id/patch_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Status"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/patch_border"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -163,5 +198,4 @@
             android:textStyle="bold"/>
 
     </LinearLayout>
-
 </ScrollView>

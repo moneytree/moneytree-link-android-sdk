@@ -2,7 +2,19 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.9...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.10...HEAD)
+
+**Implemented enhancements:**
+
+- Support TLSv1.2 on KitKat [\#192](https://github.com/moneytree/mt-link-android-sdk/pull/192)
+
+**Merged pull requests:**
+
+- v3.0.11 [\#193](https://github.com/moneytree/mt-link-android-sdk/pull/193)
+- \[CI\] Bumped version to 3.0.11 [\#191](https://github.com/moneytree/mt-link-android-sdk/pull/191)
+
+## [v3.0.10](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.10) (2018-07-03)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.9...v3.0.10)
 
 **Implemented enhancements:**
 

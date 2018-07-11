@@ -35,13 +35,10 @@ dependencies {
   implementation(name: "MoneytreeLinkIsshoTsucho-${mtLinkSdk.version}", ext: 'aar')
 
   // For Moneytree internal use. You can delete below.
-//    debugCompile project(path: ':core', configuration: 'debug')
-//    debugCompile project(path: ':it', configuration: 'debug')
-//    releaseCompile project(path: ':core', configuration: 'release')
-//    releaseCompile project(path: ':it', configuration: 'release')
+//  implementation project(':core')
+//  implementation project(':it')
 
   // Add dependencies
-
   implementation "com.android.support:customtabs:$ver_support"
 
   // Enable if your app doesn't use Kotlin
