@@ -11,6 +11,7 @@
 4. [Breaking Changes](#breaking-changes)
     1. [v3](#v3)
     2. [v3.0.8](#v308)
+5. [Note for KitKat device](#note-for-kitkat-device)
 
 ## Requirements
 
@@ -229,3 +230,13 @@ public void onError(@NonNull MoneytreeLinkException exception) {
   }
 }
 ```
+
+## Note for KitKat device
+
+We have to protect guests as much as possible even though they use old devices so we're going to update our server-side configuration to only allow `TLSv1.2` (ask our representatives about schedule). Then Android 4.4, `KitKat`, will be required to make sure it has the latest security patches from `Google Play Services`. So, you have to run this code snippet in your app if their device is KitKat.
+
+```java
+ProviderInstaller.installIfNeeded()
+```
+
+See also [an official document](https://developer.android.com/training/articles/security-gms-provider?hl=en) about this.
