@@ -15,7 +15,9 @@ import com.getmoneytree.listener.Action;
 import com.getmoneytree.listener.Api;
 import com.getmoneytree.listener.Authorization;
 import com.google.android.gms.security.ProviderInstaller;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 /**
  * A showcase app that introduces what the SDK can do.
@@ -60,13 +62,13 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
 
           @Override
           public void onSuccess(@NonNull final String accessToken) {
-            getStatusTextView().setText("Token: " + accessToken);
+            getStatusTextView().setText(getString(R.string.token_message, accessToken));
           }
 
           @Override
           public void onError(@NonNull final MoneytreeLinkException exception) {
             if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
-              getStatusTextView().setText("No token in the SDK. Need to authorize first.");
+              getStatusTextView().setText(R.string.error_no_token);
             } else {
               getStatusTextView().setText(exception.getMessage());
             }
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
             public void onError(@NonNull final MoneytreeLinkException exception) {
               if (exception.getError() ==
                   MoneytreeLinkException.Error.UNAUTHORIZED) {
-                getStatusTextView().setText("No token in the SDK. Need to authorize first.");
+                getStatusTextView().setText(R.string.error_no_token);
               } else {
                 getStatusTextView().setText(exception.getMessage());
               }
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
           new Authorization.OnCompletionListener() {
             @Override
             public void onSuccess(@NonNull final String accessToken) {
-              getStatusTextView().setText("Authorized and got token: " + accessToken);
+              getStatusTextView().setText(getString(R.string.token_message, accessToken));
             }
 
             @Override
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
             public void onError(@NonNull final MoneytreeLinkException exception) {
               if (exception.getError() ==
                   MoneytreeLinkException.Error.UNAUTHORIZED) {
-                getStatusTextView().setText("No token in the SDK. Need to authorize first.");
+                getStatusTextView().setText(R.string.error_no_token);
               } else {
                 getStatusTextView().setText(exception.getMessage());
               }
@@ -160,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
             @Override
             public void onError(@NonNull final MoneytreeLinkException exception) {
               if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
-                getStatusTextView().setText("No token in the SDK. Need to authorize first.");
+                getStatusTextView().setText(R.string.error_no_token);
               } else {
                 getStatusTextView().setText(exception.getMessage());
               }
@@ -192,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
       @Override
       public void onClick(final View view) {
         MoneytreeLink.client().deleteCredentials();
-        getStatusTextView().setText("Deleted token in the SDK.");
+        getStatusTextView().setText(R.string.deleted_token);
       }
     });
 
@@ -205,13 +207,13 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
             @Override
             public void onSuccess() {
               // Logout success, change status to authorization required.
-              getStatusTextView().setText("Logged out");
+              getStatusTextView().setText(R.string.logout);
             }
 
             @Override
             public void onError(@NonNull final MoneytreeLinkException exception) {
               if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
-                getStatusTextView().setText("Error in Logout");
+                getStatusTextView().setText(R.string.error_general);
               } else {
                 getStatusTextView().setText(exception.getMessage());
               }
@@ -227,10 +229,10 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
         try {
           ProviderInstaller.installIfNeeded(MainActivity.this);
           findViewById(R.id.patch_result).setVisibility(View.VISIBLE);
-          ((TextView) findViewById(R.id.patch_result)).setText("Done applying security patch.");
+          ((TextView) findViewById(R.id.patch_result)).setText(R.string.kitkat_patch_done);
         } catch (Exception e) {
           findViewById(R.id.patch_result).setVisibility(View.VISIBLE);
-          ((TextView) findViewById(R.id.patch_result)).setText("Can't use Google Play Service.");
+          ((TextView) findViewById(R.id.patch_result)).setText(R.string.kitkat_patch_error);
         }
       }
     });
@@ -240,11 +242,11 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
    * Start the Issho Tsucho
    */
   private void startIsshoTsucho() {
-    getStatusTextView().setText("Launching...");
+    getStatusTextView().setText(R.string.it_launching);
     IsshoTsucho.client().startIsshoTsucho(new IsshoTsucho.OnCompletionListener() {
       @Override
       public void onLaunchedIsshoTsucho() {
-        getStatusTextView().setText("Launched Issho Tsucho successfully!");
+        getStatusTextView().setText(R.string.it_success);
       }
 
       @Override
@@ -259,26 +261,37 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
    * Register the current token (from MT Server)
    */
   private void registerToken() {
-    final String token = FirebaseInstanceId.getInstance().getToken();
-    if (token == null) {
-      getStatusTextView().setText("Can't get a device token from the device.");
-      return;
-    }
-
-    registerToken(token);
+    FirebaseInstanceId
+      .getInstance()
+      .getInstanceId()
+      .addOnSuccessListener(
+        new OnSuccessListener<InstanceIdResult>() {
+          @Override
+          public void onSuccess(final InstanceIdResult instanceIdResult) {
+            final String deviceToken = instanceIdResult.getToken();
+            registerToken(deviceToken);
+          }
+        }
+      );
   }
 
   /**
    * Remove the current token (from MT Server)
    */
   private void deregisterToken() {
-    final String token = FirebaseInstanceId.getInstance().getToken();
-    if (token == null) {
-      getStatusTextView().setText("Can't get a device token from the device.");
-      return;
-    }
+    FirebaseInstanceId
+      .getInstance()
+      .getInstanceId()
+      .addOnSuccessListener(
+        new OnSuccessListener<InstanceIdResult>() {
 
-    deregisterToken(token);
+          @Override
+          public void onSuccess(final InstanceIdResult instanceIdResult) {
+            final String deviceToken = instanceIdResult.getToken();
+            deregisterToken(deviceToken);
+          }
+        }
+      );
   }
 
   private TextView getStatusTextView() {
@@ -289,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
   public void registerToken(@NonNull String token) {
     getStatusTextView().setText(token);
     if (!MoneytreeLink.client().isLoggedIn()) {
-      getStatusTextView().setText("Need to authorize first.");
+      getStatusTextView().setText(R.string.error_no_token);
       return;
     }
 
@@ -301,7 +314,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
         new Api.OnCompletionListener() {
           @Override
           public void onSuccess() {
-            getStatusTextView().setText("Finished registration successfully.");
+            getStatusTextView().setText(R.string.register_token_ok);
           }
 
           @Override
@@ -316,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
   public void deregisterToken(@NonNull String token) {
     getStatusTextView().setText(token);
     if (!MoneytreeLink.client().isLoggedIn()) {
-      getStatusTextView().setText("Need to authorize first.");
+      getStatusTextView().setText(R.string.error_no_token);
       return;
     }
 
@@ -328,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
         new Api.OnCompletionListener() {
           @Override
           public void onSuccess() {
-            getStatusTextView().setText("Finished de-registration successfully.");
+            getStatusTextView().setText(R.string.unregister_token_ok);
           }
 
           @Override

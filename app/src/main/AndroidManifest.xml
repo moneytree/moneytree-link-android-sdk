@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <service
-            android:name=".fcm.AppInstanceIDListenerService"
+            android:name=".fcm.MessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
