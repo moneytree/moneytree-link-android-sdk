@@ -8,12 +8,11 @@ android {
   defaultConfig {
     applicationId "com.example.myawesomeapp"
     minSdkVersion 19
-    targetSdkVersion 25
+    targetSdkVersion 26
     versionCode 1
     versionName "1.0"
-
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
+
   buildTypes {
     release {
       minifyEnabled false
@@ -25,11 +24,12 @@ android {
 ext {
   ver_support = '27.1.1'
   ver_firebase_core = '16.0.1'
-  ver_fcm = '17.0.0'
+  ver_fcm = '17.1.0'
 }
 
 dependencies {
   implementation "com.android.support:appcompat-v7:$ver_support"
+  implementation "com.android.support:support-v4:$ver_support"
 
   implementation(name: "MoneytreeLinkCore-${mtLinkSdk.version}", ext: 'aar')
   implementation(name: "MoneytreeLinkIsshoTsucho-${mtLinkSdk.version}", ext: 'aar')
@@ -41,8 +41,8 @@ dependencies {
   // Add dependencies
   implementation "com.android.support:customtabs:$ver_support"
 
-  // Enable if your app doesn't use Kotlin
-  implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.50'
+  // Add if your app doesn't use Kotlin
+  implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.51'
 
   // FCM
   implementation "com.google.firebase:firebase-core:$ver_firebase_core"
@@ -50,27 +50,14 @@ dependencies {
 
   // Add dependencies for the SDK
   implementation 'com.google.code.gson:gson:2.8.5'
-  implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+  implementation 'com.squareup.okhttp3:okhttp:3.11.0'
   implementation 'com.squareup.retrofit2:retrofit:2.4.0'
   implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-
-  androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
-  testImplementation 'junit:junit:4.12'
 }
 
-// Need to read local aar file
 repositories {
-  flatDir {
-    dirs 'libs'
-  }
-
-  mavenCentral()
-  maven {
-    // Google's Maven repository
-    url "https://maven.google.com"
-  }
+  // Need to read local aar file
+  flatDir { dirs 'libs' }
 }
 
 apply plugin: 'com.google.gms.google-services'
