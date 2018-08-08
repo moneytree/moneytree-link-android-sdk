@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.11...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/vBETA-4.0.0...HEAD)
+
+**Implemented enhancements:**
+
+- Enables to check returned value using captor in unit tests [\#219](https://github.com/moneytree/mt-link-android-sdk/pull/219)
+- Add unit tests for validateMTToken method [\#218](https://github.com/moneytree/mt-link-android-sdk/pull/218)
+
+## [vBETA-4.0.0](https://github.com/moneytree/mt-link-android-sdk/tree/vBETA-4.0.0) (2018-08-03)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.11...vBETA-4.0.0)
 
 **Implemented enhancements:**
 
