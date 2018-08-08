@@ -143,21 +143,6 @@ fastlane/screenshots/screenshots.html
 # scan temporary files
 fastlane/test_output
 
-### Java ###
-# Compiled class file
-
-# Log file
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-
-# Package Files #
-*.zip
-*.tar.gz
-*.rar
-
 ### macOS ###
 *.DS_Store
 
