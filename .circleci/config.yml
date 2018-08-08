@@ -1,0 +1,37 @@
+version: 2
+
+jobs:
+  make-new-release:
+    docker:
+      - image: fastlanetools/fastlane:2.5
+    steps:
+      - checkout
+      - run:
+          name: "Setup fastlane"
+          command: "bundle install"
+      - run:
+          name: "Setup git user: mt-mobile"
+          command: ./.circleci/setup_git_user.sh
+      - run:
+          name: "Add github.com into known hosts file"
+          command: ./.circleci/setup_github_in_known_hosts.sh
+      - add_ssh_keys:
+          fingerprints:
+            # mt-mobile user key
+            - "0e:0e:66:f5:18:2f:bc:55:d2:b8:86:14:97:35:63:e5"
+      - run:
+          name: Release new binary
+          # Extract version string from gradle file
+          command: |
+            version=`cat mtlink_dependencies.gradle | sed -E "s/^.*'(.+)'.*$/\1/"`
+            bundle exec fastlane make_new_release version:${version}
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - make-new-release:
+          filters:
+            branches:
+              only:
+                - master
