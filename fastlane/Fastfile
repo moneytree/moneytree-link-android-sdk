@@ -1,44 +1,30 @@
-# Customise this file, documentation can be found here:
-# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
-# All available actions: https://docs.fastlane.tools/actions
-# can also be listed using the `fastlane actions` command
-
-# Change the syntax highlighting to Ruby
-# All lines starting with a # are ignored when running `fastlane`
-
-# If you want to automatically update fastlane if a new version is available:
-# update_fastlane
-
-# This is the minimum version number required.
-# Update this, if you use features of a newer version
-fastlane_version "2.41.0"
+fastlane_version "2.101.1"
 
 default_platform :android
-
 platform :android do
 
-  desc "Clean everything"
-  lane :clean do
-    gradle(task: "clean")
-  end
-
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
-
-  desc "Build the SDK"
-  lane :build_sdk do
-    gradle(task: "assembleRelease")
-    if is_ci
-      sh "cp -r $BUILD_DIR/app/build/outputs $CIRCLE_ARTIFACTS"
+  desc "Make new release item on github"
+  lane :make_new_release do |options|
+    if !options.has_key?(:version)
+      UI.error "version is required. Aborted."
+      next
     end
+
+    version = options[:version]
+    release_assets = [
+      "app/libs/MoneytreeLinkCore-#{version}.aar",
+      "app/libs/MoneytreeLinkIsshoTsucho-#{version}.aar",
+      "MoneytreeLinkCore-Javadoc.zip",
+      "MoneytreeLinkIsshoTsucho-Javadoc.zip"
+    ]
+    example_github_release = set_github_release(
+      repository_name: "moneytree/mt-link-android-sdk-example",
+      name: "#{version}",
+      tag_name: "#{version}",
+      description: "#{version}",
+      upload_assets: release_assets
+    )
+
+    UI.message "Released #{example_github_release}".yellow
   end
-
 end
-
-# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
-# All available actions: https://docs.fastlane.tools/actions
-
-# fastlane reports which actions are used. No personal data is recorded.
-# Learn more at https://github.com/fastlane/fastlane#metrics
