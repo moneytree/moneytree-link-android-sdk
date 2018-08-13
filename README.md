@@ -1,11 +1,12 @@
 # Moneytree Link SDK (Android) Set Up Instructions
+
 - [Moneytree Link SDK (Android) Set Up Instructions](#moneytree-link-sdk-android-set-up-instructions)
     - [Requirements](#requirements)
         - [Note for KitKat device](#note-for-kitkat-device)
     - [Set up dependencies and manifest](#set-up-dependencies-and-manifest)
     - [Implement](#implement)
-        - [[1a] MoneytreeLink Library (General authrization flow)](#1a-moneytreelink-library-general-authrization-flow)
-        - [[1b] MoneytreeLink Library (Partner server flow)](#1b-moneytreelink-library-partner-server-flow)
+        - [[1a] MoneytreeLink Library (PKCE)](#1a-moneytreelink-library-pkce)
+        - [[1b] MoneytreeLink Library (Authorization code grant type)](#1b-moneytreelink-library-authorization-code-grant-type)
         - [[2] Issho Tsucho Library](#2-issho-tsucho-library)
     - [Register device token for push notification](#register-device-token-for-push-notification)
     - [Breaking Changes](#breaking-changes)
@@ -84,13 +85,13 @@ First of all, you have to choose an implementation type for your app. You can't 
 
 |#| Library | Authorization flow | Misc |
 |-|------- | ------------------ |-|
-|1a| `MoneytreeLink` | General flow that saves a token into the SDK             ||
-|1b| (Same as above) | Partner server flow that saves a token into your external server | New in v4.0.0|
-|2| `IsshoTsucho`   | General flow that saves a token into the SDK             ||
+|1a| `MoneytreeLink` | PKCE; Saves a token into the SDK             ||
+|1b| (Same as above) | Authorization code grant type; Saves a token into your external server | New in v4.0.0|
+|2| `IsshoTsucho`   | PKCE; Saves a token into the SDK             ||
 
 Then you can follow the implementation guide base on the type.
 
-### [1a] MoneytreeLink Library (General authrization flow)
+### [1a] MoneytreeLink Library (PKCE)
 
 1. Initialize `MoneytreeLinkConfiguration` at your `Application` class
     ```java
@@ -147,11 +148,11 @@ Then you can follow the implementation guide base on the type.
 
     `Authorization.OnCompletionListener` will be used when you want to handle callback in a result of authorization request.
 
-### [1b] MoneytreeLink Library (Partner server flow)
+### [1b] MoneytreeLink Library (Authorization code grant type)
 
 Simply, it delegates token exchange stuff to your server in order to save an access token into your own database. Therefore, SDK has limitations under this option. For instance, `getToken` method never works or it can't register guest's device token via SDK. Because SDK doesn't have an access token. Your app has to communicate with your server to register/unregister a device token. Your server also have a responsibility refresh/revoke an access token based on guest activity.
 
-1. Initialize `MoneytreeLinkConfiguration` at your `Application` class. It's almost same as the [MoneytreeLink section](#1a-moneytreelink-library-general-authrization-flow) so you can read that instead. But don't forget to add `redirectUri` to the `MoneytreeLinkConfiguration`. It's like
+1. Initialize `MoneytreeLinkConfiguration` at your `Application` class. It's almost same as the [MoneytreeLink section](#1a-moneytreelink-library-pkce) so you can read that instead. But don't forget to add `redirectUri` to the `MoneytreeLinkConfiguration`. It's like
    ```java
     final MoneytreeLinkConfiguration conf = new MoneytreeLinkConfiguration.Builder()
         .isProduction(false)
@@ -161,7 +162,7 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
         .redirectUri("https://your.server.com/token-exchange-endpoint")
         .build();
    ```
-2. And then, initialize `MoneytreeLink` using the configuration file. See [the above section](#1a-moneytreelink-library-general-authrization-flow) since it's same.
+2. And then, initialize `MoneytreeLink` using the configuration file. See [the above section](#1a-moneytreelink-library-pkce) since it's same.
 
 3. Update your activity class to make a path to start authorization. Don't forget giving a `state` value to a request parameter for security. Your server will identify guests from this value. It should be unique per request. See also [the guideline](https://www.oauth.com/oauth2-servers/server-side-apps/authorization-code/).
 
@@ -203,7 +204,7 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
 
 ### [2] Issho Tsucho Library
 
-1. Initialize `MoneytreeLinkConfiguration` at your `Application` class. It's same as the [MoneytreeLink section](#1a-moneytreelink-library-general-authrization-flow) so you can read that instead.
+1. Initialize `MoneytreeLinkConfiguration` at your `Application` class. It's same as the [MoneytreeLink section](#1a-moneytreelink-library-pkce) so you can read that instead.
 
 2. And then, initialize `IsshoTsucho` using the configuration file.
     ```java
@@ -233,7 +234,7 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
 
 If you want to register a device token for push notification, it should be done after guests give permission to access their data from your app. In this section, it proposes when the best timing to register device token is.
 
-- If you choose [1a] option (`MoneytreeLink` with general auth flow)
+- If you choose [1a] option (`MoneytreeLink` with PKCE)
 
     After authorization flow would be the best timing. Example is follows.
 

@@ -8,53 +8,19 @@ Make sure you have the latest version of the Xcode command line tools installed:
 xcode-select --install
 ```
 
-## Choose your installation method:
-
-<table width="100%" >
-<tr>
-<th width="33%"><a href="http://brew.sh">Homebrew</a></td>
-<th width="33%">Installer Script</td>
-<th width="33%">Rubygems</td>
-</tr>
-<tr>
-<td width="33%" align="center">macOS</td>
-<td width="33%" align="center">macOS</td>
-<td width="33%" align="center">macOS or Linux with Ruby 2.0.0 or above</td>
-</tr>
-<tr>
-<td width="33%"><code>brew cask install fastlane</code></td>
-<td width="33%"><a href="https://download.fastlane.tools">Download the zip file</a>. Then double click on the <code>install</code> script (or run it in a terminal window).</td>
-<td width="33%"><code>sudo gem install fastlane -NV</code></td>
-</tr>
-</table>
+Install _fastlane_ using
+```
+[sudo] gem install fastlane -NV
+```
+or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## Android
-### android clean
+### android make_new_release
 ```
-fastlane android clean
+fastlane android make_new_release
 ```
-Clean everything
-### android test
-```
-fastlane android test
-```
-Runs all the tests
-### android build_sdk
-```
-fastlane android build_sdk
-```
-Build the SDK
-### android distribute_release
-```
-fastlane android distribute_release
-```
-Deploy a new version as the Release
-### android generate_changelog
-```
-fastlane android generate_changelog
-```
-Generate CHANGELOG and create commit
+Make new release item on github
 
 ----
 

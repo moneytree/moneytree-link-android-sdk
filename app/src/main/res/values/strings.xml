@@ -1,7 +1,27 @@
 <resources>
     <string name="app_name">Awesome</string>
-    <string name="action_settings">Settings</string>
 
+    <!-- activity_main.xml -->
+    <string name="patch_text">If your device is KitKat, you should have the latest Security Patch given by Google Play Services. Click below once before you start.</string>
+    <string name="patch_button">Apply Security Patch</string>
+    <string name="patch_result_default">Status</string>
+    <string name="issho_tsucho">Issho Tsucho</string>
+    <string name="issho_tsucho_button">Launch Issho Tsucho</string>
+    <string name="vaas">VaaS</string>
+    <string name="token_button">Get token</string>
+    <string name="vault_button">Launch Vault</string>
+    <string name="auth_button">Authorize</string>
+    <string name="settings_button">Settings</string>
+    <string name="institutions_button">Test Institution</string>
+    <string name="notification">Notification</string>
+    <string name="register_button">Register</string>
+    <string name="unregister_button">Unregister</string>
+    <string name="delete">Reset</string>
+    <string name="delete_button">Delete credentials</string>
+    <string name="logout_button">Logout</string>
+    <string name="result_default">Welcome to Awesome App!</string>
+
+    <!-- Dynamic message -->
     <string name="token_message">Token: %1$s</string>
     <string name="error_no_token">No token in the SDK. Need to authorize first.</string>
     <string name="deleted_token">Deleted token in the SDK.</string>
