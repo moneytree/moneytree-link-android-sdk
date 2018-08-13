@@ -20,7 +20,9 @@ public class AwesomeApplication extends Application {
   static final MoneytreeLinkConfiguration configuration = new MoneytreeLinkConfiguration.Builder()
     // true: production, false: staging
     .isProduction(false)
-    // It's for the example app. DON'T USE FOR YOUR APP!
+    // Awesome App ID
+    // DON'T USE IT YOUR PRODUCTION APP!
+    // You can update this if you want to test on your account.
     .clientId("af84f08f40970caf17f2e53b31771ceb50d0f32f7d44b826753982e809395290")
     // You can add scopes using String as well.
     //.scopes("customized_scope", "new_scope")
@@ -29,6 +31,10 @@ public class AwesomeApplication extends Application {
       MoneytreeLinkScope.AccountsRead,
       MoneytreeLinkScope.TransactionsRead
     )
+    // Redirect URL that used in the Auth code grant type flow of the Awesome App
+    // DON'T USE IT YOUR PRODUCTION APP!
+    // You can update this if you want to test on your account.
+    //.redirectUri("https://wf3kkdzcog.execute-api.ap-northeast-1.amazonaws.com/staging/external_client_server.json")
     .build();
 
   @Override

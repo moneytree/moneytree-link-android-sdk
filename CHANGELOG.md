@@ -2,7 +2,28 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.11...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/vBETA-4.0.0...HEAD)
+
+**Implemented enhancements:**
+
+- Added build scripts for example repo [\#223](https://github.com/moneytree/mt-link-android-sdk/pull/223)
+- Use well-known flow name for consistency [\#221](https://github.com/moneytree/mt-link-android-sdk/pull/221)
+- Just create a pr on the example repo [\#220](https://github.com/moneytree/mt-link-android-sdk/pull/220)
+- Enables to check returned value using captor in unit tests [\#219](https://github.com/moneytree/mt-link-android-sdk/pull/219)
+- Add unit tests for validateMTToken method [\#218](https://github.com/moneytree/mt-link-android-sdk/pull/218)
+
+**Merged pull requests:**
+
+- BETA-4.0.1 [\#227](https://github.com/moneytree/mt-link-android-sdk/pull/227)
+- Bumped version [\#226](https://github.com/moneytree/mt-link-android-sdk/pull/226)
+- Update Awesome App [\#225](https://github.com/moneytree/mt-link-android-sdk/pull/225)
+- fixed up gramma and use of the term user [\#222](https://github.com/moneytree/mt-link-android-sdk/pull/222)
+
+## [vBETA-4.0.0](https://github.com/moneytree/mt-link-android-sdk/tree/vBETA-4.0.0) (2018-08-03)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/vTEST-4.0.0...vBETA-4.0.0)
+
+## [vTEST-4.0.0](https://github.com/moneytree/mt-link-android-sdk/tree/vTEST-4.0.0) (2018-08-03)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.11...vTEST-4.0.0)
 
 **Implemented enhancements:**
 

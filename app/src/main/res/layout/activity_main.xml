@@ -19,7 +19,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:gravity="center"
-            android:text="If your device is KitKat, you should have the latest Security Patch given by Google Play Services. Click below once before you start."
+            android:text="@string/patch_text"
             android:textColor="@android:color/holo_red_dark"/>
 
         <Button
@@ -27,14 +27,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Apply Security Patch"/>
+            android:text="@string/patch_button"/>
 
         <TextView
             android:id="@+id/patch_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Status"
+            android:text="@string/patch_result_default"
             android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="gone"/>
@@ -48,19 +48,37 @@
             android:background="@android:color/darker_gray"/>
 
         <TextView
+            android:id="@+id/result_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/result_default"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <View
+            android:id="@+id/result_border"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="20dp"
-            android:text="Issho Tsucho"
-            android:textSize="24sp"
+            android:text="@string/issho_tsucho"
+            android:textSize="@dimen/font_default"
             android:textStyle="bold"/>
 
         <Button
             android:id="@+id/issho_tsucho_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Launch Issho Tsucho"/>
+            android:text="@string/issho_tsucho_button"/>
 
         <View
             android:layout_width="match_parent"
@@ -74,8 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="20dp"
-            android:text="VaaS"
-            android:textSize="24sp"
+            android:text="@string/vaas"
+            android:textSize="@dimen/font_default"
             android:textStyle="bold"/>
 
         <LinearLayout
@@ -86,13 +104,13 @@
                 android:id="@+id/token_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Get token"/>
+                android:text="@string/token_button"/>
 
             <Button
                 android:id="@+id/vault_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Launch Vault"/>
+                android:text="@string/vault_button"/>
         </LinearLayout>
 
         <LinearLayout
@@ -103,19 +121,19 @@
                 android:id="@+id/auth_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Authorize"/>
+                android:text="@string/auth_button"/>
 
             <Button
                 android:id="@+id/settings_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Settings"/>
+                android:text="@string/settings_button"/>
 
             <Button
                 android:id="@+id/institution_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Test Institution"/>
+                android:text="@string/institutions_button"/>
 
         </LinearLayout>
 
@@ -131,8 +149,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="20dp"
-            android:text="Notification"
-            android:textSize="24sp"
+            android:text="@string/notification"
+            android:textSize="@dimen/font_default"
             android:textStyle="bold"/>
 
         <LinearLayout
@@ -143,13 +161,13 @@
                 android:id="@+id/register_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Register"/>
+                android:text="@string/register_button"/>
 
             <Button
                 android:id="@+id/deregister_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Deregister"/>
+                android:text="@string/unregister_button"/>
 
         </LinearLayout>
 
@@ -165,37 +183,26 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="20dp"
-            android:text="Reset"
-            android:textSize="24sp"
+            android:text="@string/delete"
+            android:textSize="@dimen/font_default"
             android:textStyle="bold"/>
 
-        <Button
-            android:id="@+id/reset_button"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete credentials"/>
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/logout_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout"/>
+            <Button
+                android:id="@+id/reset_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_button"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
-            android:id="@+id/result_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Status"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
+            <Button
+                android:id="@+id/logout_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/logout_button"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
