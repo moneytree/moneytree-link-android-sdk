@@ -2,7 +2,18 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/vBETA-4.0.0...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/vBETA-4.0.1...HEAD)
+
+**Implemented enhancements:**
+
+- Polish build to make good release items [\#229](https://github.com/moneytree/mt-link-android-sdk/pull/229)
+
+**Merged pull requests:**
+
+- v4.0.0 [\#230](https://github.com/moneytree/mt-link-android-sdk/pull/230)
+
+## [vBETA-4.0.1](https://github.com/moneytree/mt-link-android-sdk/tree/vBETA-4.0.1) (2018-08-13)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/vBETA-4.0.0...vBETA-4.0.1)
 
 **Implemented enhancements:**
 
