@@ -12,7 +12,6 @@
     <string name="vault_button">Launch Vault</string>
     <string name="auth_button">Authorize</string>
     <string name="settings_button">Settings</string>
-    <string name="institutions_button">Test Institution</string>
     <string name="notification">Notification</string>
     <string name="register_button">Register</string>
     <string name="unregister_button">Unregister</string>

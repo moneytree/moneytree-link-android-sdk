@@ -2,7 +2,30 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/vBETA-4.0.1...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.0.0...HEAD)
+
+**Implemented enhancements:**
+
+- Enables to accpet email parameter [\#234](https://github.com/moneytree/mt-link-android-sdk/pull/234)
+- Update endpoints to use new vault service [\#232](https://github.com/moneytree/mt-link-android-sdk/pull/232)
+
+**Fixed bugs:**
+
+- Rename event name for delete-account [\#240](https://github.com/moneytree/mt-link-android-sdk/pull/240)
+- Ensures it invokes error when guests cancel operations at some point [\#238](https://github.com/moneytree/mt-link-android-sdk/pull/238)
+- Fixed an issue where IsshoTsucho doesn't start [\#235](https://github.com/moneytree/mt-link-android-sdk/pull/235)
+- Enables to accpet email parameter [\#234](https://github.com/moneytree/mt-link-android-sdk/pull/234)
+
+**Merged pull requests:**
+
+- v4.1.0 [\#239](https://github.com/moneytree/mt-link-android-sdk/pull/239)
+- Polished metadata [\#237](https://github.com/moneytree/mt-link-android-sdk/pull/237)
+- removed need to internal setter and tweeked builder [\#236](https://github.com/moneytree/mt-link-android-sdk/pull/236)
+- Changed parameter formats for all chrometab usage [\#233](https://github.com/moneytree/mt-link-android-sdk/pull/233)
+- \[CI\] Bumped version to 4.0.1 [\#231](https://github.com/moneytree/mt-link-android-sdk/pull/231)
+
+## [v4.0.0](https://github.com/moneytree/mt-link-android-sdk/tree/v4.0.0) (2018-08-15)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/vBETA-4.0.1...v4.0.0)
 
 **Implemented enhancements:**
 
