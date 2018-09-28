@@ -12,6 +12,7 @@
     - [Breaking Changes](#breaking-changes)
         - [v3](#v3)
         - [v3.0.8](#v308)
+        - [v4.1.0](#v410)
 
 ## Requirements
 
@@ -24,7 +25,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
 
 ### Note for KitKat device
 
-We have to protect guests as much as possible even though they use old devices so we're going to update our server-side configuration to only allow `TLSv1.2` (ask our representatives about schedule). Then Android 4.4, `KitKat`, will be required to make sure it has the latest security patches from `Google Play Services`. So, you have to run this code snippet in your app if their device is KitKat.
+We have to protect users as much as possible even though they use old devices so we're going to update our server-side configuration to only allow `TLSv1.2` (ask our representatives about schedule). Then Android 4.4, `KitKat`, will be required to make sure it has the latest security patches from `Google Play Services`. So, you have to run this code snippet in your app if their device is KitKat.
 
 ```java
 ProviderInstaller.installIfNeeded()
@@ -53,7 +54,7 @@ See also [an official document](https://developer.android.com/training/articles/
 
 4. Configure `AndroidManifest.xml` to receive a callback response from the server.
 
-    1. Add `SchemeHandlerActivity` as the following example. It will receive an authorized response when the guest gives permission to access to their data from your app.
+    1. Add `SchemeHandlerActivity` as the following example. It will receive an authorized response when the user gives permission to access to their data from your app.
     ```xml
     <activity android:name="com.getmoneytree.auth.SchemeHandlerActivity">
         <intent-filter>
@@ -116,7 +117,7 @@ Then you can follow the implementation guide base on the type.
     MoneytreeLink.init(this, configuration);
     ```
 
-3. Update your activity class to enable to use `MoneytreeLink`.  All you have to do first is making a path to `authorize` for the guests. Every operations except `authorize` require the access token where the server provides when the guest agrees to authorize. Example is follows.
+3. Update your activity class to work with `MoneytreeLink`.  All you have to do first is making a path to `authorize` for the users. Every operations except `authorize` require an access token where the server offers when the user agrees to authorize. Example is follows.
 
     ```java
      // Activity class
@@ -124,22 +125,16 @@ Then you can follow the implementation guide base on the type.
         new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Authorize
+                // Create options first
+                final MoneytreeAuthOptions options = new MoneytreeAuthOptions.Builder()
+                    .authorizationHandler(/* Your handler */)
+                    ..... // Add more options as you want
+                    .build(MoneytreeLink.client().getConfiguration());
+
+                // Start authorization
                 MoneytreeLink.client().authorizeFrom(
                     YourActivity.this,
-                    new Authorization.OnCompletionListener() {
-                        @Override
-                        public void onSuccess(@NonNull final String accessToken) {
-                            // It runs when the SDK gets token.
-                            // You can implement as you want (open vault etc.)
-                        }
-
-                        @Override
-                        public void onError(@NonNull final MoneytreeLinkException exception) {
-                            // It runs when the SDK gets error during authorization.
-                            // See the JavaDoc regarding MoneytreeLinkException
-                        }
-                    }
+                    options
                 );
             }
         }
@@ -150,7 +145,7 @@ Then you can follow the implementation guide base on the type.
 
 ### [1b] MoneytreeLink Library (Authorization code grant type)
 
-Simply, it delegates token exchange stuff to your server in order to save an access token into your own database. Therefore, SDK has limitations under this option. For instance, `getToken` method never works or it can't register guest's device token via SDK. Because SDK doesn't have an access token. Your app has to communicate with your server to register/unregister a device token. Your server also have a responsibility refresh/revoke an access token based on guest activity.
+Simply, it delegates token exchange stuff to your server in order to save an access token into your own database. Therefore, SDK has limitations under this option. For instance, `getToken` method never works or it can't register user's device token via SDK. Because SDK doesn't have an access token. Your app has to communicate with your server to register/unregister a device token. Your server also have a responsibility refresh/revoke an access token based on user activity.
 
 1. Initialize `MoneytreeLinkConfiguration` at your `Application` class. It's almost same as the [MoneytreeLink section](#1a-moneytreelink-library-pkce) so you can read that instead. But don't forget to add `redirectUri` to the `MoneytreeLinkConfiguration`. It's like
    ```java
@@ -164,7 +159,7 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
    ```
 2. And then, initialize `MoneytreeLink` using the configuration file. See [the above section](#1a-moneytreelink-library-pkce) since it's same.
 
-3. Update your activity class to make a path to start authorization. Don't forget giving a `state` value to a request parameter for security. Your server will identify guests from this value. It should be unique per request. See also [the guideline](https://www.oauth.com/oauth2-servers/server-side-apps/authorization-code/).
+3. Update your activity class to make a path to start authorization. Don't forget giving a `state` value to an option instance for security. Your server will identify users from this value. It should be unique per request. See also [the guideline](https://www.oauth.com/oauth2-servers/server-side-apps/authorization-code/).
 
     ```java
      // Activity class
@@ -172,25 +167,21 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
         new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Create options
+                final MoneytreeAuthOptions options = new MoneytreeAuthOptions.Builder()
+                    .codeGrantTypeOptions(
+                        new MoneytreeAuthOptions.CodeGrantTypeOptions.Builder()
+                            .setState(/* Your state */)
+                            .completionHandler(/* Yourh handler */)
+                            .build()
+                    )
+                    .... // Set other parameters
+                    .build(MoneytreeLink.client().getConfiguration());
+
                 // Authorize
                 MoneytreeLink.client().authorizeFrom(
                     YourActivity.this,
-                    // Note that it's different type in the above section
-                    // since SDK never gets an access token.
-                    new Action.OnCompletionListener() {
-                        @Override
-                        public void onSuccess() {
-                            // It runs when your server makes a proper callback event.
-                        }
-
-                        @Override
-                        public void onError(@NonNull final MoneytreeLinkException exception) {
-                            // It runs when the SDK gets error during authorization.
-                            // See the JavaDoc regarding MoneytreeLinkException
-                        }
-                    },
-                    // state value
-                    "unique-value-per-request"
+                    options
                 );
             }
         }
@@ -232,41 +223,45 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
 
 ## Register device token for push notification
 
-If you want to register a device token for push notification, it should be done after guests give permission to access their data from your app. In this section, it proposes when the best timing to register device token is.
+If you want to register a device token for push notification, it should be done after users give permission to access their data from your app. In this section, it proposes when the best timing to register device token is.
 
 - If you choose [1a] option (`MoneytreeLink` with PKCE)
 
-    After authorization flow would be the best timing. Example is follows.
+    In the `onSuccess` method that runs after authorization flow finishes would be the best. Example is follows.
 
     ```java
-     // Authorize
-     MoneytreeLink.client().authorizeFrom(
-         YourActivity.this,
-         new Authorization.OnCompletionListener() {
-             @Override
-             public void onSuccess(@NonNull final String accessToken) {
-                 final String deviceToken = ... // You should provide the device token
-                 // Registration method
-                 MoneytreeLink.client().registerDeviceToken(
-                     deviceToken,
-                     new Api.OnCompletionListener() {
-                         @Override
-                         public void onSuccess() {
-                             // It runs registering device token finishes successfully.
-                         }
+     // Authorization option
+     final MoneytreeAuthOptions options = new MoneytreeAuthOptions.Builder()
+        .authorizationHandler(
+            new Authorization.OnCompletionListener() {
+                @Override
+                public void onSuccess(@NonNull final String accessToken) {
+                    final String deviceToken = ... // You should set the device token here
+                    // Registration method
+                    MoneytreeLink.client().registerDeviceToken(
+                        deviceToken,
+                        new Api.OnCompletionListener() {
+                            @Override
+                            public void onSuccess() {
+                                // It runs registering device token finishes successfully.
+                            }
 
-                         @Override
-                         public void onError(@NonNull MoneytreeLinkException exception) {
-                             // It runs registering device token fails.
-                         }
-                     }
-                 );
-             }
+                            @Override
+                            public void onError(@NonNull MoneytreeLinkException exception) {
+                                // It runs registering device token fails.
+                            }
+                        }
+                    );
+                }
 
-             @Override
-             public void onError(@NonNull final MoneytreeLinkException exception) { /* snip*/ }
-        }
-     );
+                @Override
+                public void onError(@NonNull final MoneytreeLinkException exception) {
+                    getStatusTextView().setText(exception.getMessage());
+                }
+            }
+        )
+        ....
+        .build(MoneytreeLink.client().getConfiguration());
     ```
 
     `MoneytreeLink.clint().unregisterDeviceToken(...)` is used to unregister device token.
@@ -301,3 +296,7 @@ public void onError(@NonNull MoneytreeLinkException exception) {
     }
 }
 ```
+
+### v4.1.0
+
+We introduced `MoneytreeAuthOptions` class that replaces array of variables against `authorizeFrom` method. You can refactor your existing code by following the examples above. As described in Javadoc, existing contracts of `authorizeFrom` will be removed in the next version.

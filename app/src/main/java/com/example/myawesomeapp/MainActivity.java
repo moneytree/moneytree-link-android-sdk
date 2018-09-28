@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.myawesomeapp.fcm.TokenRegistrar;
+import com.getmoneytree.MoneytreeAuthOptions;
 import com.getmoneytree.MoneytreeLink;
 import com.getmoneytree.MoneytreeLinkException;
 import com.getmoneytree.it.IsshoTsucho;
@@ -105,21 +106,28 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
     findViewById(R.id.auth_button).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        MoneytreeLink.client().authorizeFrom(
-          MainActivity.this,
-          true,
-          new Authorization.OnCompletionListener() {
-            @Override
-            public void onSuccess(@NonNull final String accessToken) {
-              getStatusTextView().setText(getString(R.string.token_message, accessToken));
-            }
+        final MoneytreeAuthOptions options = new MoneytreeAuthOptions.Builder()
+          // If you want to show the Login page (not Signup), set false or skip it
+          .presentSignUp(true)
+          // AuthorizationHandler is required for PKCE flow. Otherwise an app will get crashed.
+          .authorizationHandler(
+            new Authorization.OnCompletionListener() {
+              @Override
+              public void onSuccess(@NonNull final String accessToken) {
+                getStatusTextView().setText(getString(R.string.token_message, accessToken));
+              }
 
-            @Override
-            public void onError(@NonNull final MoneytreeLinkException exception) {
-              getStatusTextView().setText(exception.getMessage());
+              @Override
+              public void onError(@NonNull final MoneytreeLinkException exception) {
+                getStatusTextView().setText(exception.getMessage());
+              }
             }
-          }
-        );
+          )
+          // You can set default email address for the Signup/Login form if you know
+          // .email("guest@email.com")
+          .build(MoneytreeLink.client().getConfiguration());
+
+        MoneytreeLink.client().authorizeFrom(MainActivity.this, options);
       }
     });
 
@@ -138,30 +146,6 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
             public void onError(@NonNull final MoneytreeLinkException exception) {
               if (exception.getError() ==
                   MoneytreeLinkException.Error.UNAUTHORIZED) {
-                getStatusTextView().setText(R.string.error_no_token);
-              } else {
-                getStatusTextView().setText(exception.getMessage());
-              }
-            }
-          }
-        );
-      }
-    });
-
-    findViewById(R.id.institution_button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        MoneytreeLink.client().openInstitutionFrom(
-          MainActivity.this,
-          "fauxbank_test_bank",
-          new Action.OnCompletionListener() {
-            @Override
-            public void onSuccess() {
-            }
-
-            @Override
-            public void onError(@NonNull final MoneytreeLinkException exception) {
-              if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
                 getStatusTextView().setText(R.string.error_no_token);
               } else {
                 getStatusTextView().setText(exception.getMessage());
@@ -198,28 +182,31 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
       }
     });
 
+    // Set logout handler.
+    MoneytreeLink.client().setLogoutHandler(
+      this,
+      new Action.OnCompletionListener() {
+        @Override
+        public void onSuccess() {
+          // Logout success, change status to authorization required.
+          getStatusTextView().setText(R.string.logout);
+        }
+
+        @Override
+        public void onError(@NonNull final MoneytreeLinkException exception) {
+          if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
+            getStatusTextView().setText(R.string.error_general);
+          } else {
+            getStatusTextView().setText(exception.getMessage());
+          }
+        }
+      }
+    );
+
     findViewById(R.id.logout_button).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        MoneytreeLink.client().logoutFrom(
-          MainActivity.this,
-          new Action.OnCompletionListener() {
-            @Override
-            public void onSuccess() {
-              // Logout success, change status to authorization required.
-              getStatusTextView().setText(R.string.logout);
-            }
-
-            @Override
-            public void onError(@NonNull final MoneytreeLinkException exception) {
-              if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
-                getStatusTextView().setText(R.string.error_general);
-              } else {
-                getStatusTextView().setText(exception.getMessage());
-              }
-            }
-          }
-        );
+        MoneytreeLink.client().logoutFrom(MainActivity.this);
       }
     });
 

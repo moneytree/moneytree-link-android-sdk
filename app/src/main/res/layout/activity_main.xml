@@ -129,12 +129,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/settings_button"/>
 
-            <Button
-                android:id="@+id/institution_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/institutions_button"/>
-
         </LinearLayout>
 
         <View
