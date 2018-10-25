@@ -2,7 +2,28 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.0.0...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.0...HEAD)
+
+**Implemented enhancements:**
+
+- Allows to login in the flow of openVault or openSettings when MT token doesn't exist [\#243](https://github.com/moneytree/mt-link-android-sdk/pull/243)
+- Don’t check if an access token \(not MT\) exists when opening Vault [\#242](https://github.com/moneytree/mt-link-android-sdk/pull/242)
+
+**Fixed bugs:**
+
+- Use the previous URL for authorization [\#247](https://github.com/moneytree/mt-link-android-sdk/pull/247)
+- Enable to show Vault from the button on IT [\#246](https://github.com/moneytree/mt-link-android-sdk/pull/246)
+- Don’t check if an access token \\(not MT\\) exists when opening Vault [\#242](https://github.com/moneytree/mt-link-android-sdk/pull/242)
+
+**Merged pull requests:**
+
+- version 4.1.1 [\#248](https://github.com/moneytree/mt-link-android-sdk/pull/248)
+- Use existing vault [\#245](https://github.com/moneytree/mt-link-android-sdk/pull/245)
+- Added api\_version to the request for IT [\#244](https://github.com/moneytree/mt-link-android-sdk/pull/244)
+- \[CI\] Bumped version to 4.1.1 [\#241](https://github.com/moneytree/mt-link-android-sdk/pull/241)
+
+## [v4.1.0](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.0) (2018-09-28)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.0.0...v4.1.0)
 
 **Implemented enhancements:**
 

@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply from: '../mtlink_dependencies.gradle'
 
 android {
-  compileSdkVersion 27
-  buildToolsVersion "27.0.3"
+  compileSdkVersion 28
+  buildToolsVersion "28.0.3"
 
   defaultConfig {
     applicationId "com.example.myawesomeapp"
@@ -22,9 +22,9 @@ android {
 }
 
 ext {
-  ver_support = '27.1.1'
-  ver_firebase_core = '16.0.1'
-  ver_fcm = '17.1.0'
+  ver_support = '28.0.0'
+  ver_firebase_core = '16.0.4'
+  ver_fcm = '17.3.3'
 }
 
 dependencies {
@@ -42,7 +42,7 @@ dependencies {
   implementation "com.android.support:customtabs:$ver_support"
 
   // Add if your app doesn't use Kotlin
-  implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.51'
+  implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.71'
 
   // FCM
   implementation "com.google.firebase:firebase-core:$ver_firebase_core"
