@@ -63,11 +63,13 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
 
           @Override
           public void onSuccess(@NonNull final String accessToken) {
+            // Runs when the SDK can offer a stored token to your app.
             getStatusTextView().setText(getString(R.string.token_message, accessToken));
           }
 
           @Override
           public void onError(@NonNull final MoneytreeLinkException exception) {
+            // Runs in cases other than the situation described in `onSuccess`.
             if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
               getStatusTextView().setText(R.string.error_no_token);
             } else {
@@ -86,11 +88,13 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
           new Authorization.OnCompletionListener() {
             @Override
             public void onSuccess(@NonNull final String accessToken) {
-              // Nothing
+              // Runs when an user who is already authorized closes the WebView
+              // from the top left button (or hardware back button).
             }
 
             @Override
             public void onError(@NonNull final MoneytreeLinkException exception) {
+              // Runs in cases other than the situation described in `onSuccess`.
               if (exception.getError() ==
                   MoneytreeLinkException.Error.UNAUTHORIZED) {
                 getStatusTextView().setText(R.string.error_no_token);
@@ -114,11 +118,13 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
             new Authorization.OnCompletionListener() {
               @Override
               public void onSuccess(@NonNull final String accessToken) {
+                // Runs after an user completes authorization flow (only in PKCE).
                 getStatusTextView().setText(getString(R.string.token_message, accessToken));
               }
 
               @Override
               public void onError(@NonNull final MoneytreeLinkException exception) {
+                // Runs in cases other than the situation described in `onSuccess`.
                 getStatusTextView().setText(exception.getMessage());
               }
             }
@@ -139,11 +145,13 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
           new Action.OnCompletionListener() {
             @Override
             public void onSuccess() {
-              // Nothing
+              // Runs when an user closes the WebView
+              // from the top left button (or hardware back button).
             }
 
             @Override
             public void onError(@NonNull final MoneytreeLinkException exception) {
+              // Runs in cases other than the situation described in `onSuccess`.
               if (exception.getError() ==
                   MoneytreeLinkException.Error.UNAUTHORIZED) {
                 getStatusTextView().setText(R.string.error_no_token);

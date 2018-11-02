@@ -13,6 +13,7 @@
         - [v3](#v3)
         - [v3.0.8](#v308)
         - [v4.1.0](#v410)
+        - [v4.1.1](#v411)
 
 ## Requirements
 
@@ -43,7 +44,7 @@ See also [an official document](https://developer.android.com/training/articles/
 
 3. In `app/build.gradle`, you have to add some dependencies that the SDK requires.
     ```groovy
-    compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.51"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.71"
     compile "com.google.code.gson:gson:2.8.5"
     compile "com.squareup.okhttp3:okhttp:3.11.0"
     compile "com.squareup.retrofit2:retrofit:2.4.0"
@@ -300,3 +301,7 @@ public void onError(@NonNull MoneytreeLinkException exception) {
 ### v4.1.0
 
 We introduced `MoneytreeAuthOptions` class that replaces array of variables against `authorizeFrom` method. You can refactor your existing code by following the examples above. As described in Javadoc, existing contracts of `authorizeFrom` will be removed in the next version.
+
+### v4.1.1
+
+The timing of callbacks that belong to `openVault` and `openSettings` has been changed. In the previous version, it runs when the WebView opens, but since v4.1.1 it runs when users close the WebView from the top left button (or hardware back button)

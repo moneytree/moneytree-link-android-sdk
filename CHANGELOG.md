@@ -2,7 +2,17 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.0...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.1...HEAD)
+
+**Merged pull requests:**
+
+- v4.1.2 [\#252](https://github.com/moneytree/mt-link-android-sdk/pull/252)
+- Improved unit tests and comments [\#251](https://github.com/moneytree/mt-link-android-sdk/pull/251)
+- Change the timing to fire completionHandler when the WebView is closed [\#250](https://github.com/moneytree/mt-link-android-sdk/pull/250)
+- \[CI\] Bumped version to 4.1.2 [\#249](https://github.com/moneytree/mt-link-android-sdk/pull/249)
+
+## [v4.1.1](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.1) (2018-10-25)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.0...v4.1.1)
 
 **Implemented enhancements:**
 
