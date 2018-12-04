@@ -2,7 +2,24 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.1...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.2...HEAD)
+
+**Implemented enhancements:**
+
+- Allow chrome package name without verifying customtabs connection [\#255](https://github.com/moneytree/mt-link-android-sdk/pull/255)
+- Use new vault [\#254](https://github.com/moneytree/mt-link-android-sdk/pull/254)
+
+**Fixed bugs:**
+
+- Allow chrome package name without verifying customtabs connection [\#255](https://github.com/moneytree/mt-link-android-sdk/pull/255)
+
+**Merged pull requests:**
+
+- v4.1.3 [\#256](https://github.com/moneytree/mt-link-android-sdk/pull/256)
+- \[CI\] Bumped version to 4.1.3 [\#253](https://github.com/moneytree/mt-link-android-sdk/pull/253)
+
+## [v4.1.2](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.2) (2018-11-02)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.1...v4.1.2)
 
 **Merged pull requests:**
 
