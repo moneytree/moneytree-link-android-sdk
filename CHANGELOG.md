@@ -2,7 +2,27 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.2...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.3...HEAD)
+
+**Implemented enhancements:**
+
+- Fulfill requirements for the SMBC app [\#259](https://github.com/moneytree/mt-link-android-sdk/issues/259)
+- Limit to specific browsers to open Custom Chrome Tabs [\#262](https://github.com/moneytree/mt-link-android-sdk/pull/262)
+- Removed targetSdkVersion from libraries [\#261](https://github.com/moneytree/mt-link-android-sdk/pull/261)
+- Work everything in the one app window [\#260](https://github.com/moneytree/mt-link-android-sdk/pull/260)
+
+**Fixed bugs:**
+
+- Work everything in the one app window [\#260](https://github.com/moneytree/mt-link-android-sdk/pull/260)
+
+**Merged pull requests:**
+
+- Added brief comments for StartWebViewActivity [\#264](https://github.com/moneytree/mt-link-android-sdk/pull/264)
+- v4.1.4 [\#263](https://github.com/moneytree/mt-link-android-sdk/pull/263)
+- Apply hotfix to master branch and bumped version to v4.1.4 [\#258](https://github.com/moneytree/mt-link-android-sdk/pull/258)
+
+## [v4.1.3](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.3) (2018-12-04)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.2...v4.1.3)
 
 **Implemented enhancements:**
 

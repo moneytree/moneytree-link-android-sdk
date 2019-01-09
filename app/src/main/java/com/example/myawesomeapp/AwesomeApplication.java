@@ -53,7 +53,7 @@ public class AwesomeApplication extends Application {
         Log.i(
           TAG,
           String.format(
-            "onActivityCreated %s@%s",
+            ">onActivityCreated\t%s@%s",
             activity.getClass().getSimpleName(),
             Integer.toHexString(activity.hashCode())
           )
@@ -65,7 +65,7 @@ public class AwesomeApplication extends Application {
         Log.i(
           TAG,
           String.format(
-            "onActivityStarted %s@%s",
+            ">>onActivityStarted\t%s@%s",
             activity.getClass().getSimpleName(),
             Integer.toHexString(activity.hashCode())
           )
@@ -77,7 +77,7 @@ public class AwesomeApplication extends Application {
         Log.i(
           TAG,
           String.format(
-            "onActivityResumed %s@%s",
+            ">>>onActivityResumed\t%s@%s",
             activity.getClass().getSimpleName(),
             Integer.toHexString(activity.hashCode())
           )
@@ -89,7 +89,7 @@ public class AwesomeApplication extends Application {
         Log.i(
           TAG,
           String.format(
-            "onActivityPaused %s@%s",
+            ">>>onActivityPaused\t%s@%s",
             activity.getClass().getSimpleName(),
             Integer.toHexString(activity.hashCode())
           )
@@ -101,7 +101,7 @@ public class AwesomeApplication extends Application {
         Log.i(
           TAG,
           String.format(
-            "onActivityStopped %s@%s",
+            ">>onActivityStopped\t%s@%s",
             activity.getClass().getSimpleName(),
             Integer.toHexString(activity.hashCode())
           )
@@ -113,7 +113,7 @@ public class AwesomeApplication extends Application {
         Log.i(
           TAG,
           String.format(
-            "onActivitySaveInstanceState %s@%s",
+            ">>onActivitySaveInstanceState\t%s@%s",
             activity.getClass().getSimpleName(),
             Integer.toHexString(activity.hashCode())
           )
@@ -125,7 +125,7 @@ public class AwesomeApplication extends Application {
         Log.i(
           TAG,
           String.format(
-            "onActivityDestroyed %s@%s",
+            ">onActivityDestroyed\t%s@%s",
             activity.getClass().getSimpleName(),
             Integer.toHexString(activity.hashCode())
           )
