@@ -2,11 +2,23 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.3...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.4...HEAD)
+
+**Fixed bugs:**
+
+- Initial email can have plus sign now [\#267](https://github.com/moneytree/mt-link-android-sdk/pull/267)
+
+**Merged pull requests:**
+
+- v4.1.5 [\#268](https://github.com/moneytree/mt-link-android-sdk/pull/268)
+- docs: Updated README [\#266](https://github.com/moneytree/mt-link-android-sdk/pull/266)
+- \[CI\] Bumped version to 4.1.5 [\#265](https://github.com/moneytree/mt-link-android-sdk/pull/265)
+
+## [v4.1.4](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.4) (2019-01-09)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.3...v4.1.4)
 
 **Implemented enhancements:**
 
-- Fulfill requirements for the SMBC app [\#259](https://github.com/moneytree/mt-link-android-sdk/issues/259)
 - Limit to specific browsers to open Custom Chrome Tabs [\#262](https://github.com/moneytree/mt-link-android-sdk/pull/262)
 - Removed targetSdkVersion from libraries [\#261](https://github.com/moneytree/mt-link-android-sdk/pull/261)
 - Work everything in the one app window [\#260](https://github.com/moneytree/mt-link-android-sdk/pull/260)
