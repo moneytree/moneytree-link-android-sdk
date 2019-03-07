@@ -2,7 +2,21 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.4...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.5...HEAD)
+
+**Implemented enhancements:**
+
+- Extract TokenCallback HTTP error if there is one [\#271](https://github.com/moneytree/mt-link-android-sdk/pull/271)
+- MoneytreeLinkMobileClient is more configurable [\#270](https://github.com/moneytree/mt-link-android-sdk/pull/270)
+
+**Merged pull requests:**
+
+- v4.1.6 [\#275](https://github.com/moneytree/mt-link-android-sdk/pull/275)
+- Updated Proguard rules to apply only SDK code as much as possible [\#273](https://github.com/moneytree/mt-link-android-sdk/pull/273)
+- \[CI\] Bumped version to 4.1.6 [\#269](https://github.com/moneytree/mt-link-android-sdk/pull/269)
+
+## [v4.1.5](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.5) (2019-01-31)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.4...v4.1.5)
 
 **Fixed bugs:**
 
