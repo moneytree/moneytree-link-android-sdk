@@ -20,14 +20,14 @@
     <string name="logout_button">Logout</string>
     <string name="result_default">Welcome to Awesome App!</string>
 
-    <!-- Dynamic message -->
+    <!-- messages -->
     <string name="token_message">Token: %1$s</string>
     <string name="error_no_token">No token in the SDK. Need to authorize first.</string>
     <string name="deleted_token">Deleted token in the SDK.</string>
     <string name="logout">Logged out.</string>
     <string name="error_general">An error is occurred.</string>
-    <string name="kitkat_patch_done">Done applying security patch.</string>
-    <string name="kitkat_patch_error">Can\'t use Google Play Service.</string>
+    <string name="open_vault_success">Opened the vault.</string>
+    <string name="open_settings_success">Opened the settings.</string>
     <string name="it_launching">Launching…</string>
     <string name="it_success">Launched Issho Tsucho successfully!</string>
     <string name="device_token_error">Can\'t get a device token from the device.</string>

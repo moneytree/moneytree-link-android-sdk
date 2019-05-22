@@ -7,10 +7,15 @@ android {
 
   defaultConfig {
     applicationId "com.example.myawesomeapp"
-    minSdkVersion 19
-    targetSdkVersion 26
+    minSdkVersion 21
+    targetSdkVersion 28
     versionCode 1
     versionName "1.0"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 
   buildTypes {
@@ -23,8 +28,8 @@ android {
 
 ext {
   ver_support = '28.0.0'
-  ver_firebase_core = '16.0.4'
-  ver_fcm = '17.3.3'
+  ver_firebase_core = '16.0.9'
+  ver_fcm = '18.0.0'
 }
 
 dependencies {
@@ -42,7 +47,7 @@ dependencies {
   implementation "com.android.support:customtabs:$ver_support"
 
   // Add if your app doesn't use Kotlin
-  implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.71'
+  implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.3.31'
 
   // FCM
   implementation "com.google.firebase:firebase-core:$ver_firebase_core"
@@ -50,9 +55,9 @@ dependencies {
 
   // Add dependencies for the SDK
   implementation 'com.google.code.gson:gson:2.8.5'
-  implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-  implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-  implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+  implementation 'com.squareup.okhttp3:okhttp:3.14.1'
+  implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+  implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 }
 
 repositories {

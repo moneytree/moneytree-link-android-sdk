@@ -2,7 +2,30 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.5...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.6...HEAD)
+
+**Implemented enhancements:**
+
+- Work with new vault [\#277](https://github.com/moneytree/mt-link-android-sdk/pull/277)
+
+**Fixed bugs:**
+
+- Fix renaming issue that caused by Gradle plugin [\#286](https://github.com/moneytree/mt-link-android-sdk/pull/286)
+- Make sure to give an encoded configs value [\#283](https://github.com/moneytree/mt-link-android-sdk/pull/283)
+- Don't throw an error when it closes the vault webview [\#282](https://github.com/moneytree/mt-link-android-sdk/pull/282)
+
+**Merged pull requests:**
+
+- v5.0.0 [\#287](https://github.com/moneytree/mt-link-android-sdk/pull/287)
+- Updated Breaking changes section in v5 [\#284](https://github.com/moneytree/mt-link-android-sdk/pull/284)
+- v5.0.0 [\#281](https://github.com/moneytree/mt-link-android-sdk/pull/281)
+- Improved unit test stuff [\#280](https://github.com/moneytree/mt-link-android-sdk/pull/280)
+- Disabled R8 when making aar libraries [\#279](https://github.com/moneytree/mt-link-android-sdk/pull/279)
+- Cleanup codebase [\#278](https://github.com/moneytree/mt-link-android-sdk/pull/278)
+- \[CI\] Bumped version to 4.1.7 [\#276](https://github.com/moneytree/mt-link-android-sdk/pull/276)
+
+## [v4.1.6](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.6) (2019-03-07)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.5...v4.1.6)
 
 **Implemented enhancements:**
 

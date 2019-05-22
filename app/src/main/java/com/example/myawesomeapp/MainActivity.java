@@ -1,10 +1,8 @@
 package com.example.myawesomeapp;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.myawesomeapp.fcm.TokenRegistrar;
@@ -15,10 +13,7 @@ import com.getmoneytree.it.IsshoTsucho;
 import com.getmoneytree.listener.Action;
 import com.getmoneytree.listener.Api;
 import com.getmoneytree.listener.Authorization;
-import com.google.android.gms.security.ProviderInstaller;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 /**
  * A showcase app that introduces what the SDK can do.
@@ -32,39 +27,42 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    ////// Identify Android version and show some UI if KitKat //////
-
-    final int securityColumnVisibility;
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-      securityColumnVisibility = View.VISIBLE;
-    } else {
-      securityColumnVisibility = View.GONE;
-    }
-    findViewById(R.id.patch_text).setVisibility(securityColumnVisibility);
-    findViewById(R.id.patch_button).setVisibility(securityColumnVisibility);
-    findViewById(R.id.patch_border).setVisibility(securityColumnVisibility);
-
     ////// Set up Issho Tsucho //////
 
-    findViewById(R.id.issho_tsucho_button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        startIsshoTsucho();
-      }
-    });
+    findViewById(R.id.issho_tsucho_button).setOnClickListener(v -> startIsshoTsucho());
 
     ////// Set up VaaS (If you use Issho Tsucho, you don't have to implement the below code) //////
 
-    findViewById(R.id.token_button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(final View view) {
-        // Need to pass activity when you get a token.
-        MoneytreeLink.client().getToken(new Authorization.OnCompletionListener() {
+    findViewById(R.id.token_button).setOnClickListener(view -> {
+      // Need to pass activity when you get a token.
+      MoneytreeLink.client().getToken(new Authorization.OnCompletionListener() {
 
+        @Override
+        public void onSuccess(@NonNull final String accessToken) {
+          // Runs when the SDK can offer a stored token to your app.
+          getStatusTextView().setText(getString(R.string.token_message, accessToken));
+        }
+
+        @Override
+        public void onError(@NonNull final MoneytreeLinkException exception) {
+          // Runs in cases other than the situation described in `onSuccess`.
+          if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
+            getStatusTextView().setText(R.string.error_no_token);
+          } else {
+            getStatusTextView().setText(exception.getMessage());
+          }
+        }
+      });
+    });
+
+    findViewById(R.id.vault_button).setOnClickListener(
+      v -> MoneytreeLink.client().openVaultFrom(
+        MainActivity.this,
+        new Action.OnCompletionListener() {
           @Override
-          public void onSuccess(@NonNull final String accessToken) {
-            // Runs when the SDK can offer a stored token to your app.
-            getStatusTextView().setText(getString(R.string.token_message, accessToken));
+          public void onSuccess() {
+            // Runs when the browser opens.
+            getStatusTextView().setText(R.string.open_vault_success);
           }
 
           @Override
@@ -76,118 +74,73 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
               getStatusTextView().setText(exception.getMessage());
             }
           }
-        });
-      }
-    });
+        }
+      )
+    );
 
-    findViewById(R.id.vault_button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        MoneytreeLink.client().openVaultFrom(
-          MainActivity.this,
+    findViewById(R.id.auth_button).setOnClickListener(v -> {
+      final MoneytreeAuthOptions options = new MoneytreeAuthOptions.Builder()
+        // If you want to show the Login page (not Signup), set false or skip it
+        .presentSignUp(true)
+        // AuthorizationHandler is required only for PKCE flow.
+        .authorizationHandler(
           new Authorization.OnCompletionListener() {
             @Override
             public void onSuccess(@NonNull final String accessToken) {
-              // Runs when an user who is already authorized closes the WebView
-              // from the top left button (or hardware back button).
+              // Runs after an user completes authorization flow (only in PKCE).
+              getStatusTextView().setText(getString(R.string.token_message, accessToken));
             }
 
             @Override
             public void onError(@NonNull final MoneytreeLinkException exception) {
               // Runs in cases other than the situation described in `onSuccess`.
-              if (exception.getError() ==
-                  MoneytreeLinkException.Error.UNAUTHORIZED) {
-                getStatusTextView().setText(R.string.error_no_token);
-              } else {
-                getStatusTextView().setText(exception.getMessage());
-              }
+              getStatusTextView().setText(exception.getMessage());
             }
           }
-        );
-      }
+        )
+        // You have to call this handler instead of the handler above when you don't use PKCE flow
+        //.codeGrantTypeOptions(...)
+        // You can set default email address for the Signup/Login form
+        //.email("guest@email.com")
+        .build(MoneytreeLink.client().getConfiguration());
+
+      MoneytreeLink.client().authorizeFrom(MainActivity.this, options);
     });
 
-    findViewById(R.id.auth_button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        final MoneytreeAuthOptions options = new MoneytreeAuthOptions.Builder()
-          // If you want to show the Login page (not Signup), set false or skip it
-          .presentSignUp(true)
-          // AuthorizationHandler is required for PKCE flow. Otherwise an app will get crashed.
-          .authorizationHandler(
-            new Authorization.OnCompletionListener() {
-              @Override
-              public void onSuccess(@NonNull final String accessToken) {
-                // Runs after an user completes authorization flow (only in PKCE).
-                getStatusTextView().setText(getString(R.string.token_message, accessToken));
-              }
+    findViewById(R.id.settings_button).setOnClickListener(
+      v -> MoneytreeLink.client().openSettingsFrom(
+        MainActivity.this,
+        new Action.OnCompletionListener() {
+          @Override
+          public void onSuccess() {
+            // Runs when the browser opens.
+            getStatusTextView().setText(R.string.open_settings_success);
+          }
 
-              @Override
-              public void onError(@NonNull final MoneytreeLinkException exception) {
-                // Runs in cases other than the situation described in `onSuccess`.
-                getStatusTextView().setText(exception.getMessage());
-              }
-            }
-          )
-          // You can set default email address for the Signup/Login form if you know
-          // .email("guest@email.com")
-          .build(MoneytreeLink.client().getConfiguration());
-
-        MoneytreeLink.client().authorizeFrom(MainActivity.this, options);
-      }
-    });
-
-    findViewById(R.id.settings_button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        MoneytreeLink.client().openSettingsFrom(
-          MainActivity.this,
-          new Action.OnCompletionListener() {
-            @Override
-            public void onSuccess() {
-              // Runs when an user closes the WebView
-              // from the top left button (or hardware back button).
-            }
-
-            @Override
-            public void onError(@NonNull final MoneytreeLinkException exception) {
-              // Runs in cases other than the situation described in `onSuccess`.
-              if (exception.getError() ==
-                  MoneytreeLinkException.Error.UNAUTHORIZED) {
-                getStatusTextView().setText(R.string.error_no_token);
-              } else {
-                getStatusTextView().setText(exception.getMessage());
-              }
+          @Override
+          public void onError(@NonNull final MoneytreeLinkException exception) {
+            // Runs in cases other than the situation described in `onSuccess`.
+            if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
+              getStatusTextView().setText(R.string.error_no_token);
+            } else {
+              getStatusTextView().setText(exception.getMessage());
             }
           }
-        );
-      }
-    });
+        }
+      )
+    );
 
-    findViewById(R.id.register_button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        registerToken();
-      }
-    });
+    findViewById(R.id.register_button).setOnClickListener(v -> registerToken());
 
-    findViewById(R.id.deregister_button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        deregisterToken();
-      }
-    });
+    findViewById(R.id.deregister_button).setOnClickListener(v -> deregisterToken());
 
     getStatusTextView().setText(
       MoneytreeLink.client().isLoggedIn() ? "Logged In" : "Unauthorized"
     );
 
-    findViewById(R.id.reset_button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(final View view) {
-        MoneytreeLink.client().deleteCredentials();
-        getStatusTextView().setText(R.string.deleted_token);
-      }
+    findViewById(R.id.reset_button).setOnClickListener(view -> {
+      MoneytreeLink.client().deleteCredentials();
+      getStatusTextView().setText(R.string.deleted_token);
     });
 
     // Set logout handler.
@@ -211,26 +164,9 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
       }
     );
 
-    findViewById(R.id.logout_button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        MoneytreeLink.client().logoutFrom(MainActivity.this);
-      }
-    });
-
-    findViewById(R.id.patch_button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(final View v) {
-        try {
-          ProviderInstaller.installIfNeeded(MainActivity.this);
-          findViewById(R.id.patch_result).setVisibility(View.VISIBLE);
-          ((TextView) findViewById(R.id.patch_result)).setText(R.string.kitkat_patch_done);
-        } catch (Exception e) {
-          findViewById(R.id.patch_result).setVisibility(View.VISIBLE);
-          ((TextView) findViewById(R.id.patch_result)).setText(R.string.kitkat_patch_error);
-        }
-      }
-    });
+    findViewById(R.id.logout_button).setOnClickListener(
+      v -> MoneytreeLink.client().logoutFrom(MainActivity.this)
+    );
   }
 
   /**
@@ -260,12 +196,9 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
       .getInstance()
       .getInstanceId()
       .addOnSuccessListener(
-        new OnSuccessListener<InstanceIdResult>() {
-          @Override
-          public void onSuccess(final InstanceIdResult instanceIdResult) {
-            final String deviceToken = instanceIdResult.getToken();
-            registerToken(deviceToken);
-          }
+        instanceIdResult -> {
+          final String deviceToken = instanceIdResult.getToken();
+          registerToken(deviceToken);
         }
       );
   }
@@ -278,13 +211,9 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
       .getInstance()
       .getInstanceId()
       .addOnSuccessListener(
-        new OnSuccessListener<InstanceIdResult>() {
-
-          @Override
-          public void onSuccess(final InstanceIdResult instanceIdResult) {
-            final String deviceToken = instanceIdResult.getToken();
-            deregisterToken(deviceToken);
-          }
+        instanceIdResult -> {
+          final String deviceToken = instanceIdResult.getToken();
+          deregisterToken(deviceToken);
         }
       );
   }
