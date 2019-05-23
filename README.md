@@ -1,38 +1,28 @@
 # Moneytree Link SDK (Android) Set Up Instructions
 
 - [Moneytree Link SDK (Android) Set Up Instructions](#moneytree-link-sdk-android-set-up-instructions)
-    - [Requirements](#requirements)
-        - [Note for KitKat device](#note-for-kitkat-device)
-    - [Set up dependencies and manifest](#set-up-dependencies-and-manifest)
-    - [Implement](#implement)
-        - [[1a] MoneytreeLink Library (PKCE)](#1a-moneytreelink-library-pkce)
-        - [[1b] MoneytreeLink Library (Authorization code grant type)](#1b-moneytreelink-library-authorization-code-grant-type)
-        - [[2] Issho Tsucho Library](#2-issho-tsucho-library)
-    - [Register device token for push notification](#register-device-token-for-push-notification)
-    - [Breaking Changes](#breaking-changes)
-        - [v3](#v3)
-        - [v3.0.8](#v308)
-        - [v4.1.0](#v410)
-        - [v4.1.1](#v411)
+  - [Requirements](#requirements)
+  - [Set up dependencies and manifest](#set-up-dependencies-and-manifest)
+  - [Implement](#implement)
+    - [[1a] MoneytreeLink Library (PKCE)](#1a-moneytreelink-library-pkce)
+    - [[1b] MoneytreeLink Library (Authorization code grant type)](#1b-moneytreelink-library-authorization-code-grant-type)
+    - [[2] Issho Tsucho Library](#2-issho-tsucho-library)
+  - [Register device token for push notification](#register-device-token-for-push-notification)
+  - [Breaking Changes](#breaking-changes)
+    - [v3](#v3)
+    - [v3.0.8](#v308)
+    - [v4.1.0](#v410)
+    - [v4.1.1](#v411)
+    - [v5.0.0](#v500)
 
 ## Requirements
 
-- `minSdkVersion` of your app should be >= 19 (Android 4.4, `KitKat`)
+- `minSdkVersion` of your app should be >= 21 (Android 5, `Lollipop`)
 - Add [`Chrome Custom Tabs`](https://developer.chrome.com/multidevice/android/customtabs) to your project
 
 ```groovy
 compile "com.android.support:customtabs:<LATEST_VERSION>"
 ```
-
-### Note for KitKat device
-
-We have to protect users as much as possible even though they use old devices so we're going to update our server-side configuration to only allow `TLSv1.2` (ask our representatives about schedule). Then Android 4.4, `KitKat`, will be required to make sure it has the latest security patches from `Google Play Services`. So, you have to run this code snippet in your app if their device is KitKat.
-
-```java
-ProviderInstaller.installIfNeeded()
-```
-
-See also [an official document](https://developer.android.com/training/articles/security-gms-provider?hl=en) about this.
 
 ## Set up dependencies and manifest
 
@@ -44,14 +34,13 @@ See also [an official document](https://developer.android.com/training/articles/
 
 3. In `app/build.gradle`, you have to add some dependencies that the SDK requires.
     ```groovy
-    compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.71"
-    compile "com.google.code.gson:gson:2.8.5"
-    compile "com.squareup.okhttp3:okhttp:3.11.0"
-    compile "com.squareup.retrofit2:retrofit:2.4.0"
-    compile "com.squareup.retrofit2:converter-gson:2.4.0"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.31"
+    compile "com.squareup.okhttp3:okhttp:3.14.1"
+    compile "com.squareup.retrofit2:retrofit:2.5.0"
+    compile "com.squareup.retrofit2:converter-gson:2.5.0"
     ```
 
-    Note: You can exclude `kotlin-stdlib` if your app uses Kotlin already.
+    Note: You can exclude `kotlin-stdlib-jdk7` if your app uses Kotlin already.
 
 4. Configure `AndroidManifest.xml` to receive a callback response from the server.
 
@@ -85,11 +74,11 @@ See also [an official document](https://developer.android.com/training/articles/
 
 First of all, you have to choose an implementation type for your app. You can't have multiple implementation type in your app. Ask our representatives if you're unclear which one meets your demands.
 
-|#| Library | Authorization flow | Misc |
-|-|------- | ------------------ |-|
-|1a| `MoneytreeLink` | PKCE; Saves a token into the SDK             ||
-|1b| (Same as above) | Authorization code grant type; Saves a token into your external server | New in v4.0.0|
-|2| `IsshoTsucho`   | PKCE; Saves a token into the SDK             ||
+| #   | Library         | Authorization flow                                                     | Misc          |
+| --- | --------------- | ---------------------------------------------------------------------- | ------------- |
+| 1a  | `MoneytreeLink` | PKCE; Saves a token into the SDK                                       |               |
+| 1b  | (Same as above) | Authorization code grant type; Saves a token into your external server | New in v4.0.0 |
+| 2   | `IsshoTsucho`   | PKCE; Saves a token into the SDK                                       |               |
 
 Then you can follow the implementation guide base on the type.
 
@@ -305,3 +294,10 @@ We introduced `MoneytreeAuthOptions` class that replaces array of variables agai
 ### v4.1.1
 
 The timing of callbacks that belong to `openVault` and `openSettings` has been changed. In the previous version, it runs when the WebView opens, but since v4.1.1 it runs when users close the WebView from the top left button (or hardware back button)
+
+### v5.0.0
+
+- Minimum supported Android is now Android 5+
+- Removed deprecated methods at `MoneytreeLink` class
+- A `listener` for `openVaultFrom` has been changed to `Action.OnCompletionListener` from `Authorization.OnCompletionListener`. You need to call `getToken` whenever you want an `accessToken`.
+- Updated versions of dependencies. See also [Set up dependencies and manifest](#set-up-dependencies-and-manifest) section above.
