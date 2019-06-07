@@ -16,7 +16,7 @@ import com.getmoneytree.listener.Authorization;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 /**
- * A showcase app that introduces what the SDK can do.
+ * A reference app that introduces what the SDK can do.
  *
  * @author Moneyteee KK
  */
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
 
     findViewById(R.id.token_button).setOnClickListener(view -> {
       // Need to pass activity when you get a token.
-      MoneytreeLink.client().getToken(new Authorization.OnCompletionListener() {
+      MoneytreeLink.getInstance().getToken(new Authorization.OnCompletionListener() {
 
         @Override
         public void onSuccess(@NonNull final String accessToken) {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
     });
 
     findViewById(R.id.vault_button).setOnClickListener(
-      v -> MoneytreeLink.client().openVaultFrom(
+      v -> MoneytreeLink.getInstance().openVaultFrom(
         MainActivity.this,
         new Action.OnCompletionListener() {
           @Override
@@ -102,13 +102,13 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
         //.codeGrantTypeOptions(...)
         // You can set default email address for the Signup/Login form
         //.email("guest@email.com")
-        .build(MoneytreeLink.client().getConfiguration());
+        .build(MoneytreeLink.getInstance().getConfiguration());
 
-      MoneytreeLink.client().authorizeFrom(MainActivity.this, options);
+      MoneytreeLink.getInstance().authorizeFrom(MainActivity.this, options);
     });
 
     findViewById(R.id.settings_button).setOnClickListener(
-      v -> MoneytreeLink.client().openSettingsFrom(
+      v -> MoneytreeLink.getInstance().openSettingsFrom(
         MainActivity.this,
         new Action.OnCompletionListener() {
           @Override
@@ -135,16 +135,16 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
     findViewById(R.id.deregister_button).setOnClickListener(v -> deregisterToken());
 
     getStatusTextView().setText(
-      MoneytreeLink.client().isLoggedIn() ? "Logged In" : "Unauthorized"
+      MoneytreeLink.getInstance().isLoggedIn() ? "Logged In" : "Unauthorized"
     );
 
     findViewById(R.id.reset_button).setOnClickListener(view -> {
-      MoneytreeLink.client().deleteCredentials();
+      MoneytreeLink.getInstance().deleteCredentials();
       getStatusTextView().setText(R.string.deleted_token);
     });
 
     // Set logout handler.
-    MoneytreeLink.client().setLogoutHandler(
+    MoneytreeLink.getInstance().setLogoutHandler(
       this,
       new Action.OnCompletionListener() {
         @Override
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
     );
 
     findViewById(R.id.logout_button).setOnClickListener(
-      v -> MoneytreeLink.client().logoutFrom(MainActivity.this)
+      v -> MoneytreeLink.getInstance().logoutFrom(MainActivity.this)
     );
   }
 
@@ -225,13 +225,13 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
   @Override
   public void registerToken(@NonNull String token) {
     getStatusTextView().setText(token);
-    if (!MoneytreeLink.client().isLoggedIn()) {
+    if (!MoneytreeLink.getInstance().isLoggedIn()) {
       getStatusTextView().setText(R.string.error_no_token);
       return;
     }
 
     MoneytreeLink
-      .client()
+      .getInstance()
       .registerDeviceTokenFrom(
         this,
         token,
@@ -252,13 +252,13 @@ public class MainActivity extends AppCompatActivity implements TokenRegistrar {
   @Override
   public void deregisterToken(@NonNull String token) {
     getStatusTextView().setText(token);
-    if (!MoneytreeLink.client().isLoggedIn()) {
+    if (!MoneytreeLink.getInstance().isLoggedIn()) {
       getStatusTextView().setText(R.string.error_no_token);
       return;
     }
 
     MoneytreeLink
-      .client()
+      .getInstance()
       .unregisterDeviceTokenFrom(
         this,
         token,

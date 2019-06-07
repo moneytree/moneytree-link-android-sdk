@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: '../mtlink_dependencies.gradle'
+apply from: '../mtlink_version.gradle'
 
 android {
   compileSdkVersion 28
@@ -36,33 +36,33 @@ dependencies {
   implementation "com.android.support:appcompat-v7:$ver_support"
   implementation "com.android.support:support-v4:$ver_support"
 
-  implementation(name: "MoneytreeLinkCore-${mtLinkSdk.version}", ext: 'aar')
-  implementation(name: "MoneytreeLinkIsshoTsucho-${mtLinkSdk.version}", ext: 'aar')
-
-  // For Moneytree internal use. You can delete below.
-//  implementation project(':core')
-//  implementation project(':it')
-
-  // Add dependencies
-  implementation "com.android.support:customtabs:$ver_support"
-
-  // Add if your app doesn't use Kotlin
-  implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.3.31'
-
-  // FCM
   implementation "com.google.firebase:firebase-core:$ver_firebase_core"
   implementation "com.google.firebase:firebase-messaging:$ver_fcm"
 
-  // Add dependencies for the SDK
-  implementation 'com.google.code.gson:gson:2.8.5'
-  implementation 'com.squareup.okhttp3:okhttp:3.14.1'
-  implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-  implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+  // Moneytree LINK SDK
+  implementation("app.moneytree.link:core:${mt_link_sdk_version}@aar") {
+    transitive = true
+  }
+  // Issho tsucho (Optional)
+  implementation("app.moneytree.link:it:${mt_link_sdk_version}@aar") {
+    transitive = true
+  }
+  // Moneytree Intelligence (Optional)
+  implementation("app.moneytree.link:intelligence:${mt_link_sdk_version}@aar") {
+    transitive = true
+  }
+
+  // You can remove them. It's used for internal development.
+  //  implementation project(":core")
+  //  implementation project(":it")
+  //  implementation project(":intelligence")
 }
 
 repositories {
-  // Need to read local aar file
-  flatDir { dirs 'libs' }
+  maven {
+    // Moneytree repository
+    url "https://dl.bintray.com/moneytree/app.moneytree"
+  }
 }
 
 apply plugin: 'com.google.gms.google-services'
