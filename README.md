@@ -3,10 +3,11 @@
 - [Moneytree Link SDK (Android) Set Up Instructions](#moneytree-link-sdk-android-set-up-instructions)
   - [Requirements](#requirements)
   - [Set up dependencies and manifest](#set-up-dependencies-and-manifest)
-  - [Implement](#implement)
+  - [Implementation](#implementation)
     - [[1a] MoneytreeLink Library (PKCE)](#1a-moneytreelink-library-pkce)
     - [[1b] MoneytreeLink Library (Authorization code grant type)](#1b-moneytreelink-library-authorization-code-grant-type)
     - [[2] Issho Tsucho Library](#2-issho-tsucho-library)
+    - [Moneytree Intelligence](#moneytree-intelligence)
   - [Register device token for push notification](#register-device-token-for-push-notification)
   - [Breaking Changes](#breaking-changes)
     - [v3](#v3)
@@ -14,37 +15,55 @@
     - [v4.1.0](#v410)
     - [v4.1.1](#v411)
     - [v5.0.0](#v500)
+    - [v5.1.0](#v510)
 
 ## Requirements
 
 - `minSdkVersion` of your app should be >= 21 (Android 5, `Lollipop`)
-- Add [`Chrome Custom Tabs`](https://developer.chrome.com/multidevice/android/customtabs) to your project
+- Add the Moneytree repository to your project configuration
 
 ```groovy
-compile "com.android.support:customtabs:<LATEST_VERSION>"
+repositories {
+    jcenter()
+    google()
+
+    // The moneytree repository
+    maven {
+        url "https://dl.bintray.com/moneytree/app.moneytree"
+    }
+}
 ```
 
 ## Set up dependencies and manifest
 
-1. Get the latest [`MoneytreeLinkCore-<version>.aar`](https://github.com/moneytree/mt-link-android-sdk-example/releases) and [`MoneytreeLinkIsshoTsucho-<version>.aar`](https://github.com/moneytree/mt-link-android-sdk-example/releases).
+1. Define the Moneytree Link SDK core in your `dependencies` section
 
-2. Add libraries (the aar file above) to your project
-    - See also [Integration steps](https://developer.android.com/studio/projects/android-library.html?#AddDependency).
-    - Or this example app might be helpful.
-
-3. In `app/build.gradle`, you have to add some dependencies that the SDK requires.
     ```groovy
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.31"
-    compile "com.squareup.okhttp3:okhttp:3.14.1"
-    compile "com.squareup.retrofit2:retrofit:2.5.0"
-    compile "com.squareup.retrofit2:converter-gson:2.5.0"
+    implementation("app.moneytree.link:core:__version__@aar") {
+        transitive = true
+    }
     ```
 
-    Note: You can exclude `kotlin-stdlib-jdk7` if your app uses Kotlin already.
+2. (Optional) Add libraries based on your contract with Moneytree.
 
-4. Configure `AndroidManifest.xml` to receive a callback response from the server.
+    ```groovy
+    // Issho tsucho
+    implementation("app.moneytree.link:it:__version__@aar") {
+        transitive = true
+    }
+    // Moneytree Intelligence
+    implementation("app.moneytree.link:intelligence:__version__@aar") {
+        transitive = true
+    }
+    ```
 
-    1. Add `SchemeHandlerActivity` as the following example. It will receive an authorized response when the user gives permission to access to their data from your app.
+    - Note that libraries won't work unless you have a certain contract with Moneytree even if you add them.
+    - The configuration of `AwesomeApp`, which is a reference app that we're offering, might be also helpful.
+
+3. Configure `AndroidManifest.xml` to receive a callback response from the Moneytree server.
+
+    1. Add `SchemeHandlerActivity` as the following example. It will receive a callback response when a user authorizes access to your app against Moneytree.
+
     ```xml
     <activity android:name="com.getmoneytree.auth.SchemeHandlerActivity">
         <intent-filter>
@@ -59,6 +78,7 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     ```
 
     1. Edit `YOUR_SCHEME_NAME` in the example above and replace with `mtlink`+ **first 5 chars of your ClientId**
+
        e.g. If your `ClientId` is `abcde1234567890moneytree`, the scheme would be `mtlinkabcde`.
 
     ```xml
@@ -66,11 +86,12 @@ compile "com.android.support:customtabs:<LATEST_VERSION>"
     ```
 
     1. Make sure `INTERNET` permission is declared.
+
     ```xml
     <uses-permission android:name="android.permission.INTERNET" />
     ```
 
-## Implement
+## Implementation
 
 First of all, you have to choose an implementation type for your app. You can't have multiple implementation type in your app. Ask our representatives if you're unclear which one meets your demands.
 
@@ -85,6 +106,7 @@ Then you can follow the implementation guide base on the type.
 ### [1a] MoneytreeLink Library (PKCE)
 
 1. Initialize `MoneytreeLinkConfiguration` at your `Application` class
+
     ```java
     // Application class
     @Override
@@ -102,6 +124,7 @@ Then you can follow the implementation guide base on the type.
     TIPS: Ideally, a `Boolean` value for `isProduction` and a `String` value for `clientId` can be managed easily using [`resource`](https://developer.android.com/guide/topics/resources/more-resources.html#Bool) and [`Build Variants`](https://developer.android.com/studio/build/build-variants.html) in Android. You don't have to havem them as a static `String` or `Boolean` in code.
 
 2. And then, initialize `MoneytreeLink` using the configuration file.
+
     ```java
     // Application class
     MoneytreeLink.init(this, configuration);
@@ -138,6 +161,7 @@ Then you can follow the implementation guide base on the type.
 Simply, it delegates token exchange stuff to your server in order to save an access token into your own database. Therefore, SDK has limitations under this option. For instance, `getToken` method never works or it can't register user's device token via SDK. Because SDK doesn't have an access token. Your app has to communicate with your server to register/unregister a device token. Your server also have a responsibility refresh/revoke an access token based on user activity.
 
 1. Initialize `MoneytreeLinkConfiguration` at your `Application` class. It's almost same as the [MoneytreeLink section](#1a-moneytreelink-library-pkce) so you can read that instead. But don't forget to add `redirectUri` to the `MoneytreeLinkConfiguration`. It's like
+
    ```java
     final MoneytreeLinkConfiguration conf = new MoneytreeLinkConfiguration.Builder()
         .isProduction(false)
@@ -147,6 +171,7 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
         .redirectUri("https://your.server.com/token-exchange-endpoint")
         .build();
    ```
+
 2. And then, initialize `MoneytreeLink` using the configuration file. See [the above section](#1a-moneytreelink-library-pkce) since it's same.
 
 3. Update your activity class to make a path to start authorization. Don't forget giving a `state` value to an option instance for security. Your server will identify users from this value. It should be unique per request. See also [the guideline](https://www.oauth.com/oauth2-servers/server-side-apps/authorization-code/).
@@ -188,6 +213,7 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
 1. Initialize `MoneytreeLinkConfiguration` at your `Application` class. It's same as the [MoneytreeLink section](#1a-moneytreelink-library-pkce) so you can read that instead.
 
 2. And then, initialize `IsshoTsucho` using the configuration file.
+
     ```java
     // at your Application class
     IsshoTsucho.init(this, configuration);
@@ -210,6 +236,37 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
     ```
 
     And you can see what `MoneytreeLink` (and `IsshoTsucho`) can by reading Javadoc.
+
+### Moneytree Intelligence
+
+1. Add `MoneytreeIntelligenceFactory` to `MoneytreeLinkConfiguration` when you initialize the SDK.
+
+    ```kotlin
+    val configuration = MoneytreeLinkConfiguration.Builder()
+        // ...
+        // other settings..
+        // ...
+        .modules(MoneytreeIntelligenceFactory()) // Add this
+        .build()
+    ```
+
+    If it initializes successfully, you will see the following log message.
+    > I/MoneytreeLink: Initialized module (MoneytreeIntelligence)
+
+2. You may add events whenever you want.
+
+    ```kotlin
+    MoneytreeIntelligence.getInstance().recordEvent("__event_name__")
+    ```
+
+    ```kotlin
+    MoneytreeIntelligence.getInstance().recordEvent(
+        "__event_name__",
+        mapOf("__key__" to "__value__")
+    )
+    ```
+
+3. You'll see recorded events in the Control Center.
 
 ## Register device token for push notification
 
@@ -301,3 +358,9 @@ The timing of callbacks that belong to `openVault` and `openSettings` has been c
 - Removed deprecated methods at `MoneytreeLink` class
 - A `listener` for `openVaultFrom` has been changed to `Action.OnCompletionListener` from `Authorization.OnCompletionListener`. You need to call `getToken` whenever you want an `accessToken`.
 - Updated versions of dependencies. See also [Set up dependencies and manifest](#set-up-dependencies-and-manifest) section above.
+
+### v5.1.0
+
+We introduced [MoneytreeIntelligence](#moneytree-intelligence) library.
+
+- `MoneytreeLink#client()` is now deprecated. Use `MoneytreeLink#getInstance()` instead.
