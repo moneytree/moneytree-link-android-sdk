@@ -23,7 +23,7 @@ jobs:
           name: Release new binary
           # Extract version string from gradle file
           command: |
-            version=`cat mtlink_dependencies.gradle | sed -E "s/^.*'(.+)'.*$/\1/"`
+            version=`cat mtlink_version.gradle | sed -E "s/^.*'(.+)'.*$/\1/"`
             bundle exec fastlane make_new_release version:${version}
 
 workflows:
