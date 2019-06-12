@@ -2,7 +2,18 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.0.0...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.0-alpha01...HEAD)
+
+**Merged pull requests:**
+
+- v5.1.0-alpha02 [\#304](https://github.com/moneytree/mt-link-android-sdk/pull/304)
+- Bump version name [\#303](https://github.com/moneytree/mt-link-android-sdk/pull/303)
+- Separate Network monitor & moved tracker register [\#302](https://github.com/moneytree/mt-link-android-sdk/pull/302)
+- Try to init countly when network gets available [\#301](https://github.com/moneytree/mt-link-android-sdk/pull/301)
+- Updated an archive script in awesome project [\#300](https://github.com/moneytree/mt-link-android-sdk/pull/300)
+
+## [v5.1.0-alpha01](https://github.com/moneytree/mt-link-android-sdk/tree/v5.1.0-alpha01) (2019-06-07)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.0.0...v5.1.0-alpha01)
 
 **Merged pull requests:**
 
