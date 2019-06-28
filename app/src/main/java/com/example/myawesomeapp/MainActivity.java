@@ -2,7 +2,7 @@ package com.example.myawesomeapp;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
 
 import com.example.myawesomeapp.fcm.TokenRegistrar;
@@ -20,7 +20,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
  *
  * @author Moneyteee KK
  */
-public class MainActivity extends AppCompatActivity implements TokenRegistrar {
+public class MainActivity extends FragmentActivity implements TokenRegistrar {
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {

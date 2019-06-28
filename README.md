@@ -1,15 +1,15 @@
 # Moneytree Link SDK (Android) Set Up Instructions
 
-- [Moneytree Link SDK (Android) Set Up Instructions](#moneytree-link-sdk-android-set-up-instructions)
-  - [Requirements](#requirements)
-  - [Set up dependencies and manifest](#set-up-dependencies-and-manifest)
-  - [Implementation](#implementation)
-    - [[1a] MoneytreeLink Library (PKCE)](#1a-moneytreelink-library-pkce)
-    - [[1b] MoneytreeLink Library (Authorization code grant type)](#1b-moneytreelink-library-authorization-code-grant-type)
-    - [[2] Issho Tsucho Library](#2-issho-tsucho-library)
-    - [Moneytree Intelligence](#moneytree-intelligence)
-  - [Register device token for push notification](#register-device-token-for-push-notification)
-  - [Breaking Changes](#breaking-changes)
+- [Moneytree Link SDK (Android) Set Up Instructions](#Moneytree-Link-SDK-Android-Set-Up-Instructions)
+  - [Requirements](#Requirements)
+  - [Set up dependencies and manifest](#Set-up-dependencies-and-manifest)
+  - [Implementation](#Implementation)
+    - [[1a] MoneytreeLink Library (PKCE)](#1a-MoneytreeLink-Library-PKCE)
+    - [[1b] MoneytreeLink Library (Authorization code grant type)](#1b-MoneytreeLink-Library-Authorization-code-grant-type)
+    - [[2] Issho Tsucho Library](#2-Issho-Tsucho-Library)
+    - [Moneytree Intelligence](#Moneytree-Intelligence)
+  - [Register device token for push notification](#Register-device-token-for-push-notification)
+  - [Breaking Changes](#Breaking-Changes)
     - [v3](#v3)
     - [v3.0.8](#v308)
     - [v4.1.0](#v410)
@@ -107,51 +107,46 @@ Then you can follow the implementation guide base on the type.
 
 1. Initialize `MoneytreeLinkConfiguration` at your `Application` class
 
-    ```java
+    ```kotlin
     // Application class
-    @Override
-    public void onCreate() {
-       super.onCreate();
+    override fun onCreate() {
+        super.onCreate()
 
-       final MoneytreeLinkConfiguration conf = new MoneytreeLinkConfiguration.Builder()
-           .isProduction(false)                         // or true if production
-           .clientId("1234567890abcde...")              // your ClientId
-           .scopes(MoneyTreeLinkClient.GuestRead, ...)  // scope(s)
-           .build();
-    }
+        val configuration = MoneytreeLinkConfiguration.Builder()
+            .isProduction(false)                         // or true if production
+            .clientId("1234567890abcde...")              // your ClientId
+            .scopes(MoneyTreeLinkClient.GuestRead, ...)  // scope(s)
+            .build();
     ```
 
     TIPS: Ideally, a `Boolean` value for `isProduction` and a `String` value for `clientId` can be managed easily using [`resource`](https://developer.android.com/guide/topics/resources/more-resources.html#Bool) and [`Build Variants`](https://developer.android.com/studio/build/build-variants.html) in Android. You don't have to havem them as a static `String` or `Boolean` in code.
 
 2. And then, initialize `MoneytreeLink` using the configuration file.
 
-    ```java
+    ```kotlin
     // Application class
-    MoneytreeLink.init(this, configuration);
+    MoneytreeLink.init(this, configuration)
     ```
 
 3. Update your activity class to work with `MoneytreeLink`.  All you have to do first is making a path to `authorize` for the users. Every operations except `authorize` require an access token where the server offers when the user agrees to authorize. Example is follows.
 
-    ```java
-     // Activity class
-     findViewById(R.id.open_link_button).setOnClickListener(
-        new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create options first
-                final MoneytreeAuthOptions options = new MoneytreeAuthOptions.Builder()
-                    .authorizationHandler(/* Your handler */)
-                    ..... // Add more options as you want
-                    .build(MoneytreeLink.client().getConfiguration());
+    ```kotlin
+    // Your activity class
+    findViewById<Button>(R.id.open_moneytree_button).setOnClickListener {
+        // Create options first
+        val options = MoneytreeAuthOptions.Builder()
+            .authorizationHandler(/* Your handler */)
+            // ...
+            // Add more options as you want
+            // ...
+            .build(MoneytreeLink.getInstance().getConfiguration())
 
-                // Start authorization
-                MoneytreeLink.client().authorizeFrom(
-                    YourActivity.this,
-                    options
-                );
-            }
-        }
-    );
+        // Start authorization process
+        MoneytreeLink.getInstance().authorizeFrom(
+            this@YoutActivity,
+            options
+        )
+    }
     ```
 
     `Authorization.OnCompletionListener` will be used when you want to handle callback in a result of authorization request.
@@ -162,45 +157,42 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
 
 1. Initialize `MoneytreeLinkConfiguration` at your `Application` class. It's almost same as the [MoneytreeLink section](#1a-moneytreelink-library-pkce) so you can read that instead. But don't forget to add `redirectUri` to the `MoneytreeLinkConfiguration`. It's like
 
-   ```java
-    final MoneytreeLinkConfiguration conf = new MoneytreeLinkConfiguration.Builder()
+    ```kotlin
+    val conf = MoneytreeLinkConfiguration.Builder()
         .isProduction(false)
         .clientId("1234567890abcde...")
         .scopes(MoneyTreeLinkClient.GuestRead, ...)
         // Set redirectUri where your server endpoint to accept an auth code
         .redirectUri("https://your.server.com/token-exchange-endpoint")
-        .build();
-   ```
+        .build()
+    ```
 
 2. And then, initialize `MoneytreeLink` using the configuration file. See [the above section](#1a-moneytreelink-library-pkce) since it's same.
 
 3. Update your activity class to make a path to start authorization. Don't forget giving a `state` value to an option instance for security. Your server will identify users from this value. It should be unique per request. See also [the guideline](https://www.oauth.com/oauth2-servers/server-side-apps/authorization-code/).
 
-    ```java
-     // Activity class
-     findViewById(R.id.open_link_button).setOnClickListener(
-        new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create options
-                final MoneytreeAuthOptions options = new MoneytreeAuthOptions.Builder()
-                    .codeGrantTypeOptions(
-                        new MoneytreeAuthOptions.CodeGrantTypeOptions.Builder()
-                            .setState(/* Your state */)
-                            .completionHandler(/* Yourh handler */)
-                            .build()
-                    )
-                    .... // Set other parameters
-                    .build(MoneytreeLink.client().getConfiguration());
+    ```kotlin
+    // Your activity class
+    findViewById<Button>(R.id.open_moneytree_button).setOnClickListener {
+        // Create options
+        val options = MoneytreeAuthOptions.Builder()
+            .codeGrantTypeOptions(
+                MoneytreeAuthOptions.CodeGrantTypeOptions.Builder()
+                    .setState(/* Your state */)
+                    .completionHandler(/* Yourh handler */)
+                    .build()
+            )
+            // ...
+            // Add other parameters if you want
+            // ...
+            .build(MoneytreeLink.client().getConfiguration())
 
-                // Authorize
-                MoneytreeLink.client().authorizeFrom(
-                    YourActivity.this,
-                    options
-                );
-            }
-        }
-    );
+            // Authorize
+            MoneytreeLink.client().authorizeFrom(
+                this@YourActivity,
+                options
+            )
+    }
     ```
 
 4. Note that at least the following methods don't work under this option.
@@ -214,25 +206,25 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
 
 2. And then, initialize `IsshoTsucho` using the configuration file.
 
-    ```java
+    ```kotlin
     // at your Application class
-    IsshoTsucho.init(this, configuration);
+    IsshoTsucho.init(this, configuration)
     ```
 
 3. Update your activity class to start `IsshoTsucho` whenever you want.
 
-    ```java
+    ```kotlin
     IsshoTsucho.client().startIsshoTsucho(
-      new IsshoTsucho.OnCompletionListener() { /* implement */ }
-    );
+        IsshoTsucho.OnCompletionListener() { /* implement */ }
+    )
     ```
 
     `IsshoTsucho.OnCompletionListener` is an optional instance, so you may set `null` if you don't need. It will describe sample usage in the later section.
 
 4. `MoneytreeLink` instance is initialized when you initialize `IsshoTsucho`, so you can get it like
 
-    ```java
-    final MoneytreeLink linkClient = IsshoTsucho.linkClient();
+    ```kotlin
+    val linkClient = IsshoTsucho.linkClient();
     ```
 
     And you can see what `MoneytreeLink` (and `IsshoTsucho`) can by reading Javadoc.
@@ -276,39 +268,34 @@ If you want to register a device token for push notification, it should be done 
 
     In the `onSuccess` method that runs after authorization flow finishes would be the best. Example is follows.
 
-    ```java
-     // Authorization option
-     final MoneytreeAuthOptions options = new MoneytreeAuthOptions.Builder()
-        .authorizationHandler(
-            new Authorization.OnCompletionListener() {
-                @Override
-                public void onSuccess(@NonNull final String accessToken) {
-                    final String deviceToken = ... // You should set the device token here
-                    // Registration method
-                    MoneytreeLink.client().registerDeviceToken(
-                        deviceToken,
-                        new Api.OnCompletionListener() {
-                            @Override
-                            public void onSuccess() {
-                                // It runs registering device token finishes successfully.
-                            }
-
-                            @Override
-                            public void onError(@NonNull MoneytreeLinkException exception) {
-                                // It runs registering device token fails.
-                            }
+    ```kotlin
+    // Authorization option
+    val options = MoneytreeAuthOptions.Builder().authorizationHandler({
+        object : Anuthorization.OnCompletionListener() {
+            override fun onSuccess(accessToken: String) {
+                val deviceToken = ... // You should set the device token here
+                // Registration method
+                MoneytreeLink.client().registerDeviceToken(
+                    deviceToken,
+                    object : Api.OnCompletionListener() {
+                        override fun onSuccess() {
+                            // It runs registering device token finishes successfully.
                         }
-                    );
-                }
 
-                @Override
-                public void onError(@NonNull final MoneytreeLinkException exception) {
-                    getStatusTextView().setText(exception.getMessage());
-                }
+                        override fun onError(exception: MoneytreeLinkException) {
+                            // It runs registering device token fails.
+                        }
+                    }
+                )
             }
-        )
-        ....
-        .build(MoneytreeLink.client().getConfiguration());
+
+            override fun onError(exception: MoneytreeLinkException) {
+                getStatusTextView().setText(exception.getMessage())
+            }
+        }
+    })
+    ...
+    .build(MoneytreeLink.client().getConfiguration());
     ```
 
     `MoneytreeLink.clint().unregisterDeviceToken(...)` is used to unregister device token.
@@ -334,10 +321,9 @@ MoneytreeLink SDK v3 brings some breaking changes regarding class name. The foll
 
 We **don't** support a browser that doesn't implement `Custom Chrome Tabs` anymore. The SDK returns `MoneytreeLinkException.Error.BROWSER_NOT_SUPPORTED` at `onError` of `OnCompletionHandler` from every possible methods to require `Custom Chrome Tabs` if a device doesn't have it. So, you can handle the error like this.
 
-```java
+```kotlin
 // Any completionHandler code
-@Override
-public void onError(@NonNull MoneytreeLinkException exception) {
+override fun onError(exception: MoneytreeLinkException) {
     if (exception.getError() == MoneytreeLinkException.Error.BROWSER_NOT_SUPPORTED) {
         // You can ask user to [install Android System WebView] or [change default browser to Google Chrome] here
     }

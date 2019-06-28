@@ -2,7 +2,26 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.0-alpha01...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.0-alpha02...HEAD)
+
+**Merged pull requests:**
+
+- Make sure to clear an event queue after it fails lottery [\#317](https://github.com/moneytree/mt-link-android-sdk/pull/317)
+- v5.1.0 [\#316](https://github.com/moneytree/mt-link-android-sdk/pull/316)
+- Named GA version [\#315](https://github.com/moneytree/mt-link-android-sdk/pull/315)
+- Converted AwesomeApp code to Kotlin from Java [\#314](https://github.com/moneytree/mt-link-android-sdk/pull/314)
+- Replaced AppCompatActivity with FragmentActivity [\#313](https://github.com/moneytree/mt-link-android-sdk/pull/313)
+- Make sure to remove verbose level logging messages when making archive [\#312](https://github.com/moneytree/mt-link-android-sdk/pull/312)
+- Try not to have an uniqie instance of networkCallback [\#311](https://github.com/moneytree/mt-link-android-sdk/pull/311)
+- Changed default behavoir regarding intelligence\_sample\_id key [\#310](https://github.com/moneytree/mt-link-android-sdk/pull/310)
+- Fixed an evaluation part that compares with samplePercentage [\#309](https://github.com/moneytree/mt-link-android-sdk/pull/309)
+- Reset all state after process death [\#308](https://github.com/moneytree/mt-link-android-sdk/pull/308)
+- Added lottery part to determine if intelligence gets enabled or not [\#307](https://github.com/moneytree/mt-link-android-sdk/pull/307)
+- Make Factory class serializable for Issho Tsucho initialization process [\#306](https://github.com/moneytree/mt-link-android-sdk/pull/306)
+- Append additional param when opening webview if intelligence is enabled [\#305](https://github.com/moneytree/mt-link-android-sdk/pull/305)
+
+## [v5.1.0-alpha02](https://github.com/moneytree/mt-link-android-sdk/tree/v5.1.0-alpha02) (2019-06-12)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.0-alpha01...v5.1.0-alpha02)
 
 **Merged pull requests:**
 

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply from: '../mtlink_version.gradle'
 
 android {
@@ -33,6 +34,7 @@ ext {
 }
 
 dependencies {
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.40"
   implementation "com.android.support:appcompat-v7:$ver_support"
   implementation "com.android.support:support-v4:$ver_support"
 
