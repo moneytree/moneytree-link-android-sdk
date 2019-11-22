@@ -2,7 +2,16 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.0-alpha02...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.0...HEAD)
+
+**Merged pull requests:**
+
+- 5.2.0-alpha01 [\#320](https://github.com/moneytree/mt-link-android-sdk/pull/320)
+- Add new vault related API with sample app update [\#319](https://github.com/moneytree/mt-link-android-sdk/pull/319)
+- Fix state is cleared before it can be used. [\#318](https://github.com/moneytree/mt-link-android-sdk/pull/318)
+
+## [v5.1.0](https://github.com/moneytree/mt-link-android-sdk/tree/v5.1.0) (2019-06-28)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.0-alpha02...v5.1.0)
 
 **Merged pull requests:**
 
