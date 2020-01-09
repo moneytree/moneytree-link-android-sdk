@@ -10,10 +10,6 @@
     <string name="vaas">VaaS</string>
     <string name="token_button">Get token</string>
     <string name="vault_button">Launch Vault</string>
-    <string name="customer_support_button">Customer Support</string>
-    <string name="connect_service_button">Connect</string>
-    <string name="service_settings_button">Open Settings</string>
-    <string name="open_services_button">Open Services</string>
     <string name="auth_button">Authorize</string>
     <string name="settings_button">Settings</string>
     <string name="notification">Notification</string>
@@ -32,28 +28,9 @@
     <string name="error_general">An error is occurred.</string>
     <string name="open_vault_success">Opened the vault.</string>
     <string name="open_settings_success">Opened the settings.</string>
-    <string name="open_customer_support_success">Opened Customer Support</string>
-    <string name="connect_service_success">Connect Service</string>
-    <string name="open_service_setting_success">Service Settings</string>
-    <string name="open_services_success">Open Services</string>
     <string name="it_launching">Launching…</string>
     <string name="it_success">Launched Issho Tsucho successfully!</string>
     <string name="device_token_error">Can\'t get a device token from the device.</string>
     <string name="register_token_ok">Finished registration successfully.</string>
     <string name="unregister_token_ok">Finished de-registration successfully.</string>
-
-    <!-- placeholders -->
-    <string name="service_key_placeholder">E.g: fauxbank_paging</string>
-    <string name="service_id_placeholder">E.g: 342229</string>
-    <string name="open_services_type_placeholder">Type (optional), e.g: bank</string>
-    <string name="open_services_group_placeholder">Group (optional), e.g: grouping_bank</string>
-    <string name="open_services_search_placeholder">Search <optional></optional>, e.g: aeon</string>
-
-    <!-- title and descriptions -->
-    <string name="connect_service_title">Connect Service</string>
-    <string name="connect_service_description">Enter a service key into input below and press the connect button.</string>
-    <string name="service_settings_title">Service Settings</string>
-    <string name="service_settings_description">Enter a service id into input below and press the open settings button.</string>
-    <string name="open_services_title">Open Services</string>
-    <string name="open_services_description">Open services with "type", "group" or "search", or a combination of any of them</string>
 </resources>

@@ -3,16 +3,12 @@ package com.example.myawesomeapp;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myawesomeapp.fcm.TokenRegistrar;
 import com.getmoneytree.MoneytreeAuthOptions;
 import com.getmoneytree.MoneytreeLink;
 import com.getmoneytree.MoneytreeLinkException;
-import com.getmoneytree.VaultOpenServicesOptions;
 import com.getmoneytree.it.IsshoTsucho;
 import com.getmoneytree.listener.Action;
 import com.getmoneytree.listener.Api;
@@ -81,157 +77,6 @@ public class MainActivity extends FragmentActivity implements TokenRegistrar {
         }
       )
     );
-
-    findViewById(R.id.customer_support_button).setOnClickListener(
-      v -> MoneytreeLink.getInstance().openCustomerSupport(
-        MainActivity.this,
-        new Action.OnCompletionListener() {
-          @Override
-          public void onSuccess() {
-            // Runs when the browser opens.
-            getStatusTextView().setText(R.string.open_customer_support_success);
-          }
-
-          @Override
-          public void onError(@NonNull final MoneytreeLinkException exception) {
-            // Runs in cases other than the situation described in `onSuccess`.
-            if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
-              getStatusTextView().setText(R.string.error_no_token);
-            } else {
-              getStatusTextView().setText(exception.getMessage());
-            }
-          }
-        }
-      )
-    );
-
-
-    // connect service input and button
-    final TextView connectServiceInput = findViewById(R.id.connect_service_key_input);
-    final Button connectServiceButton = findViewById(R.id.connect_service_button);
-    connectServiceButton.setEnabled(false);
-
-    // disable connect service button if connect service key input has no value and vise-versa
-    connectServiceInput.addTextChangedListener(new TextWatcher() {
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        connectServiceButton.setEnabled(connectServiceInput.getText().length() != 0);
-      }
-
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-      }
-
-      public void afterTextChanged(Editable s) {
-      }
-    });
-
-    connectServiceButton.setOnClickListener(v -> {
-      final String serviceKey = connectServiceInput.getText().toString();
-
-      MoneytreeLink.getInstance().connectService(
-        MainActivity.this,
-        serviceKey,
-        new Action.OnCompletionListener() {
-         @Override
-         public void onSuccess() {
-           // Runs when the browser opens.
-           getStatusTextView().setText(R.string.connect_service_success);
-         }
-
-         @Override
-         public void onError(@NonNull final MoneytreeLinkException exception) {
-           // Runs in cases other than the situation described in `onSuccess`.
-           if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
-             getStatusTextView().setText(R.string.error_no_token);
-           } else {
-             getStatusTextView().setText(exception.getMessage());
-           }
-         }
-        }
-      );
-    });
-
-
-    // open service setting input and button
-    final TextView serviceSettingIdInput = findViewById(R.id.service_settings_id_input);
-    final Button serviceSettingButton = findViewById(R.id.service_settings_button);
-    serviceSettingButton.setEnabled(false);
-
-    // disable connect service button if connect service key input has no value and vise-versa
-    serviceSettingIdInput.addTextChangedListener(new TextWatcher() {
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        serviceSettingButton.setEnabled(serviceSettingIdInput.getText().length() != 0);
-      }
-
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-      }
-
-      public void afterTextChanged(Editable s) {
-      }
-    });
-
-    serviceSettingButton.setOnClickListener(v -> {
-      final String serviceId = serviceSettingIdInput.getText().toString();
-
-      MoneytreeLink.getInstance().serviceSettings(
-        MainActivity.this,
-        serviceId,
-        new Action.OnCompletionListener() {
-          @Override
-          public void onSuccess() {
-            // Runs when the browser opens.
-            getStatusTextView().setText(R.string.open_service_setting_success);
-          }
-
-          @Override
-          public void onError(@NonNull final MoneytreeLinkException exception) {
-            // Runs in cases other than the situation described in `onSuccess`.
-            if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
-              getStatusTextView().setText(R.string.error_no_token);
-            } else {
-              getStatusTextView().setText(exception.getMessage());
-            }
-          }
-        }
-      );
-    });
-
-
-    // open service setting input and button
-    final TextView openServicesTypeInput = findViewById(R.id.open_services_type_input);
-    final TextView openServicesGroupInput = findViewById(R.id.open_services_group_input);
-    final TextView openServicesSearchInput = findViewById(R.id.open_services_search_input);
-
-    findViewById(R.id.open_services_button).setOnClickListener(v -> {
-      final VaultOpenServicesOptions options = new VaultOpenServicesOptions
-        .Builder()
-        .type(openServicesTypeInput.getText().toString())
-        .group(openServicesGroupInput.getText().toString())
-        .search(openServicesSearchInput.getText().toString())
-        .build();
-
-      MoneytreeLink.getInstance().openServices(
-        MainActivity.this,
-        options,
-        new Action.OnCompletionListener() {
-          @Override
-          public void onSuccess() {
-            // Runs when the browser opens.
-            getStatusTextView().setText(R.string.open_services_success);
-          }
-
-          @Override
-          public void onError(@NonNull final MoneytreeLinkException exception) {
-            // Runs in cases other than the situation described in `onSuccess`.
-            if (exception.getError() == MoneytreeLinkException.Error.UNAUTHORIZED) {
-              getStatusTextView().setText(R.string.error_no_token);
-            } else {
-              getStatusTextView().setText(exception.getMessage());
-            }
-          }
-        }
-      );
-    });
-
 
     findViewById(R.id.auth_button).setOnClickListener(v -> {
       final MoneytreeAuthOptions options = new MoneytreeAuthOptions.Builder()

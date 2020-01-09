@@ -2,8 +2,6 @@ package com.example.myawesomeapp
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -12,7 +10,6 @@ import com.example.myawesomeapp.fcm.TokenRegistrar
 import com.getmoneytree.MoneytreeAuthOptions
 import com.getmoneytree.MoneytreeLink
 import com.getmoneytree.MoneytreeLinkException
-import com.getmoneytree.VaultOpenServicesOptions
 import com.getmoneytree.it.IsshoTsucho
 import com.getmoneytree.listener.Action
 import com.getmoneytree.listener.Api
@@ -87,143 +84,6 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
           }
       )
     }
-
-    findViewById<Button>(R.id.customer_support_button).setOnClickListener {
-      MoneytreeLink.getInstance().openCustomerSupport(
-        this@MainActivity,
-        object : Action.OnCompletionListener {
-          override fun onSuccess() {
-            // Runs when the browser opens.
-            statusTextView.setText(R.string.open_customer_support_success)
-          }
-
-          override fun onError(exception: MoneytreeLinkException) {
-            // Runs in cases other than the situation described in `onSuccess`.
-            if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
-              statusTextView.setText(R.string.error_no_token)
-            } else {
-              statusTextView.text = exception.message
-            }
-          }
-        }
-      )
-    }
-
-    // connect service input and button
-    val connectServiceInput = findViewById<TextView>(R.id.connect_service_key_input)
-    val connectServiceButton = findViewById<Button>(R.id.connect_service_button)
-    connectServiceButton.isEnabled = false
-
-    // disable connect service button if connect service key input has no value and vise-versa
-    connectServiceInput.addTextChangedListener(object : TextWatcher {
-      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        connectServiceButton.isEnabled = connectServiceInput.text.length != 0
-      }
-
-      override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-      override fun afterTextChanged(s: Editable) {}
-    })
-
-    findViewById<Button>(R.id.connect_service_button).setOnClickListener {
-      val serviceKey = connectServiceInput.text.toString()
-
-      MoneytreeLink.getInstance().connectService(
-          this@MainActivity,
-          serviceKey,
-          object : Action.OnCompletionListener {
-            override fun onSuccess() {
-              // Runs when the browser opens.
-              statusTextView.setText(R.string.connect_service_success)
-            }
-
-            override fun onError(exception: MoneytreeLinkException) {
-              // Runs in cases other than the situation described in `onSuccess`.
-              if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
-                statusTextView.setText(R.string.error_no_token)
-              } else {
-                statusTextView.text = exception.message
-              }
-            }
-          }
-      )
-    }
-
-
-    // connect service input and button
-    val serviceSettingIdInput = findViewById<TextView>(R.id.service_settings_id_input)
-    val serviceSettingButton = findViewById<Button>(R.id.service_settings_button)
-    serviceSettingButton.isEnabled = false
-
-    // disable connect service button if connect service key input has no value and vise-versa
-    serviceSettingIdInput.addTextChangedListener(object : TextWatcher {
-      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        serviceSettingButton.isEnabled = serviceSettingIdInput.text.length != 0
-      }
-
-      override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-      override fun afterTextChanged(s: Editable) {}
-    })
-
-    findViewById<Button>(R.id.service_settings_button).setOnClickListener {
-      val serviceKey = serviceSettingIdInput.text.toString()
-
-      MoneytreeLink.getInstance().serviceSettings(
-          this@MainActivity,
-          serviceKey,
-          object: Action.OnCompletionListener {
-            override fun onSuccess() {
-              // Runs when the browser opens.
-              statusTextView.setText(R.string.open_service_setting_success)
-            }
-
-            override fun onError(exception: MoneytreeLinkException) {
-              // Runs in cases other than the situation described in `onSuccess`.
-              if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
-                statusTextView.setText(R.string.error_no_token)
-              } else {
-                statusTextView.text = exception.message
-              }
-            }
-          }
-      )
-    }
-
-
-    // open service setting input and button
-    val openServicesTypeInput = findViewById<TextView>(R.id.open_services_type_input)
-    val openServicesGroupInput = findViewById<TextView>(R.id.open_services_group_input)
-    val openServicesSearchInput = findViewById<TextView>(R.id.open_services_search_input)
-
-    findViewById<View>(R.id.open_services_button).setOnClickListener { v ->
-      val options = VaultOpenServicesOptions.Builder()
-        .type(openServicesTypeInput.text.toString())
-        .group(openServicesGroupInput.text.toString())
-        .search(openServicesSearchInput.text.toString())
-        .build()
-
-      MoneytreeLink.getInstance().openServices(
-          this@MainActivity,
-          options,
-          object: Action.OnCompletionListener {
-            override fun onSuccess() {
-              // Runs when the browser opens.
-              statusTextView.setText(R.string.open_services_success)
-            }
-
-            override fun onError(exception: MoneytreeLinkException) {
-              // Runs in cases other than the situation described in `onSuccess`.
-              if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
-                statusTextView.setText(R.string.error_no_token)
-              } else {
-                statusTextView.text = exception.message
-              }
-            }
-          }
-      )
-    }
-
 
     findViewById<Button>(R.id.auth_button).setOnClickListener {
       val options = MoneytreeAuthOptions.Builder()
