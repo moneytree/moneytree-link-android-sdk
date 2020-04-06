@@ -1,21 +1,25 @@
 # Moneytree Link SDK (Android) Set Up Instructions
 
-- [Moneytree Link SDK (Android) Set Up Instructions](#Moneytree-Link-SDK-Android-Set-Up-Instructions)
-  - [Requirements](#Requirements)
-  - [Set up dependencies and manifest](#Set-up-dependencies-and-manifest)
-  - [Implementation](#Implementation)
-    - [[1a] MoneytreeLink Library (PKCE)](#1a-MoneytreeLink-Library-PKCE)
-    - [[1b] MoneytreeLink Library (Authorization code grant type)](#1b-MoneytreeLink-Library-Authorization-code-grant-type)
-    - [[2] Issho Tsucho Library](#2-Issho-Tsucho-Library)
-    - [Moneytree Intelligence](#Moneytree-Intelligence)
-  - [Register device token for push notification](#Register-device-token-for-push-notification)
-  - [Breaking Changes](#Breaking-Changes)
+- [Moneytree Link SDK (Android) Set Up Instructions](#moneytree-link-sdk-android-set-up-instructions)
+  - [Requirements](#requirements)
+  - [Set up dependencies and manifest](#set-up-dependencies-and-manifest)
+  - [Implementation](#implementation)
+    - [[1a] MoneytreeLink Library (PKCE)](#1a-moneytreelink-library-pkce)
+    - [[1b] MoneytreeLink Library (Authorization code grant type)](#1b-moneytreelink-library-authorization-code-grant-type)
+    - [[2] Issho Tsucho Library](#2-issho-tsucho-library)
+    - [Moneytree Intelligence](#moneytree-intelligence)
+    - [Onboard](#onboard)
+  - [Register device token for push notification](#register-device-token-for-push-notification)
+  - [Breaking Changes](#breaking-changes)
     - [v3](#v3)
     - [v3.0.8](#v308)
     - [v4.1.0](#v410)
     - [v4.1.1](#v411)
     - [v5.0.0](#v500)
     - [v5.1.0](#v510)
+  - [AwesomeApp](#awesomeapp)
+    - [How to change the configuration easily](#how-to-change-the-configuration-easily)
+  - [Troubleshooting](#troubleshooting)
 
 ## Requirements
 
@@ -119,8 +123,6 @@ Then you can follow the implementation guide base on the type.
             .build();
     ```
 
-    TIPS: Ideally, a `Boolean` value for `isProduction` and a `String` value for `clientId` can be managed easily using [`resource`](https://developer.android.com/guide/topics/resources/more-resources.html#Bool) and [`Build Variants`](https://developer.android.com/studio/build/build-variants.html) in Android. You don't have to havem them as a static `String` or `Boolean` in code.
-
 2. And then, initialize `MoneytreeLink` using the configuration file.
 
     ```kotlin
@@ -150,6 +152,8 @@ Then you can follow the implementation guide base on the type.
     ```
 
     `Authorization.OnCompletionListener` will be used when you want to handle callback in a result of authorization request.
+
+    **Caution** If your app gives `onBoard` feature, you should skip this step and go to [onBoard](#onboard) section directly.
 
 ### [1b] MoneytreeLink Library (Authorization code grant type)
 
@@ -260,6 +264,104 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
 
 3. You'll see recorded events in the Control Center.
 
+### Onboard
+
+The `Onboard` method allows users to register a passwordless Moneytree account. The only detail a user needs to provide is an email address. The following section describes how to implement the passwordless login feature in your app. The reference application AwesomeApp can be used as a reference implementation.
+
+1. First, update the activity in the AndroidManifest.xml that launches the authentication flow to use launchMode=singleTask; This will prevent new Activity task creation and state lose during the authentication flow.
+
+    ```xml
+    <activity
+        android:name=".MainActivity"
+        android:launchMode="singleTask">
+       <!-- Next step 2 -->
+    </activity>
+    ```
+
+    <!-- Note `android:host` should be `myaccount-staging.getmoneytree.com` in the staging build and contraly it should be `myaccount.getmoneytree.com` in the production build. It won't work if wrong. Regarding `android:pathPrefix`, the format should be `/link/<first 5 chars of your client ID>`. Don't copy the example above to your app directly. -->
+
+2. In your `Activity`, make sure it calls `consumeMagicLink` in `onNewIntent` method.
+
+    ```xml
+    <activity
+        android:name=".MainActivity"
+        android:launchMode="singleTask">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data
+                android:host="${linkHost}"
+                android:pathPrefix="/link/${linkIdShort}"
+                android:scheme="https" />
+        </intent-filter>
+    </activity>
+    ```
+
+
+
+3. Next we inject the manifest variables. Note `linkHost` should be `myaccount-staging.getmoneytree.com` in the staging build and contraly it should be `myaccount.getmoneytree.com` in the production build. It won't work if wrong. Regarding `linkIdShort`, the format should be `<first 5 chars of your client ID>`. **NOTE** Don't copy the ID shown here, you must use your own Client ID.
+
+    In the `build.gradle` of your app module add the following `manifestPlaceholders` variables
+
+    ```groovy
+    android {
+        defaultConfig {
+            manifestPlaceholders = [
+                // for production use this instead
+                // myaccount.getmoneytree.com
+                linkHost   : "myaccount-staging.getmoneytree.com",
+                // linkIdShort: "<first 5 chars of your client ID>"
+                linkIdShort: "af84f"
+            ]
+        }
+    }
+    ```
+
+4. In your `Activity`, make sure it calls `consumeMagicLink` in `onNewIntent` method.
+
+    ```kotlin
+    override fun onNewIntent(intent: Intent?) {
+      super.onNewIntent(intent)
+      MoneytreeLink
+        .getInstance()
+        .consumeMagicLink(this, intent) { error: MoneytreeLinkException ->
+            showError(rootView, error.message)
+        }
+    }
+    ```
+
+    The trailing argument for the method is an onError callback that is invoked if an error occurs for any reason. You can see the reason for the error in the `MoneytreeLinkException#message`.
+
+5. Finally, your `Activity` must call `onboardFrom` method instead of `authorizeFrom` method when an user does something to go to Moneytree. The following example is from `AwesomeApp`.
+
+    ```kotlin
+    findViewById<Button>(R.id.onboard_button).setOnClickListener { view ->
+      // onboard requires an user's email
+      val email = findViewById<TextView>(R.id.onboard_input).editableText.toString()
+      if (email.isEmpty()) {
+        showError(view, "Email is required.")
+        return@setOnClickListener
+      }
+
+      val options = MoneytreeAuthOptions.Builder()
+        // Let's say you choose Code Grant for auth option
+        .codeGrantTypeOptions(codeGrantOption)
+        // Email and region are required for onboard.
+        .email(email)
+        // Specify Region where an user belongs to..
+        .region(Region.JAPAN)
+        .build(MoneytreeLink.getInstance().configuration)
+
+      MoneytreeLink.getInstance().onboardFrom(
+        this@MainActivity,
+        options
+      )
+    }
+    ```
+
+    Regarding `onboardFrom`, `email` and `region` are required in its option. If you miss them you get an error via a callback.
+
 ## Register device token for push notification
 
 If you want to register a device token for push notification, it should be done after users give permission to access their data from your app. In this section, it proposes when the best timing to register device token is.
@@ -350,3 +452,34 @@ The timing of callbacks that belong to `openVault` and `openSettings` has been c
 We introduced [MoneytreeIntelligence](#moneytree-intelligence) library.
 
 - `MoneytreeLink#client()` is now deprecated. Use `MoneytreeLink#getInstance()` instead.
+
+## AwesomeApp
+
+`AwesomeApp` is a reference app to try what the SDK gives to you. You can edit as you want and will understand various usage of the SDK.
+
+### How to change the configuration easily
+
+`AwesomeApp` gets `authType` and `isProduction` via `BuildConfig` as default. So if you want to change them, you can edit the root `gradle.properties` and build the project again. Alternatively you can edit sourcecode as you want if you're developer.
+
+If you want to try `PKCE` auth flow, you can write
+
+```properties
+awesome.authType=com.example.myawesomeapp.AuthType.PKCE
+```
+
+Regarding `Code Grant`, you can edit to
+
+```properties
+awesome.authType=com.example.myawesomeapp.AuthType.CODE_GRANT
+```
+
+It's not a spec of the SDK, so your app doesn't have to follow this way.
+
+## Troubleshooting
+
+You might get some confusion or question while you try to implement the SDK against your app. In this case, we'd happy to help you of course, and it'd appliciate it if you could give the following information, especially when you face a specific issue around the SDK.
+
+- SDK version
+- A simple project that can reproduce your issue
+  - You can modify `AwesomeApp` for example. It'd be hard to identify issues for us without specific code.
+- Anything valuable other than above

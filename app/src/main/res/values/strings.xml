@@ -2,15 +2,16 @@
     <string name="app_name">Awesome</string>
 
     <!-- activity_main.xml -->
-    <string name="patch_text">If your device is KitKat, you should have the latest Security Patch given by Google Play Services. Click below once before you start.</string>
-    <string name="patch_button">Apply Security Patch</string>
-    <string name="patch_result_default">Status</string>
+    <string name="welcome">Hello AwesomeApp!\nConfiguration: %1$s - %2$s</string>
     <string name="issho_tsucho">Issho Tsucho</string>
     <string name="issho_tsucho_button">Launch Issho Tsucho</string>
-    <string name="vaas">VaaS</string>
+    <string name="vaas">Basic Features</string>
     <string name="token_button">Get token</string>
     <string name="vault_button">Launch Vault</string>
     <string name="customer_support_button">Customer Support</string>
+    <string name="onboard">Onboard</string>
+    <string name="magic_link">Magic Link</string>
+    <string name="request_magic_link">Request Magic Link</string>
     <string name="connect_service_button">Connect</string>
     <string name="service_settings_button">Open Settings</string>
     <string name="open_services_button">Open Services</string>
@@ -22,11 +23,10 @@
     <string name="delete">Reset</string>
     <string name="delete_button">Delete credentials</string>
     <string name="logout_button">Logout</string>
-    <string name="result_default">Welcome to Awesome App!</string>
 
     <!-- messages -->
     <string name="token_message">Token: %1$s</string>
-    <string name="error_no_token">No token in the SDK. Need to authorize first.</string>
+    <string name="error_no_token">SDK doesn\'t have a token where it can give you now.</string>
     <string name="deleted_token">Deleted token in the SDK.</string>
     <string name="logout">Logged out.</string>
     <string name="error_general">An error is occurred.</string>
@@ -43,11 +43,12 @@
     <string name="unregister_token_ok">Finished de-registration successfully.</string>
 
     <!-- placeholders -->
-    <string name="service_key_placeholder">E.g: fauxbank_paging</string>
-    <string name="service_id_placeholder">E.g: 342229</string>
-    <string name="open_services_type_placeholder">Type (optional), e.g: bank</string>
-    <string name="open_services_group_placeholder">Group (optional), e.g: grouping_bank</string>
-    <string name="open_services_search_placeholder">Search <optional></optional>, e.g: aeon</string>
+    <string name="onboard_placeholder">Your Email</string>
+    <string name="service_key_placeholder">e.g. fauxbank_paging</string>
+    <string name="service_id_placeholder">e.g. 342229</string>
+    <string name="open_services_type_placeholder">Type (optional), e.g. bank</string>
+    <string name="open_services_group_placeholder">Group (optional), e.g. grouping_bank</string>
+    <string name="open_services_search_placeholder">Search, e.g. aeon</string>
 
     <!-- title and descriptions -->
     <string name="connect_service_title">Connect Service</string>

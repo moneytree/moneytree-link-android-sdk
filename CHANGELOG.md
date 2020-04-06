@@ -6,6 +6,22 @@
 
 **Merged pull requests:**
 
+- Update docs and use manifestPlaceholders [\#342](https://github.com/moneytree/mt-link-android-sdk/pull/342)
+- v5.3.0-beta01 [\#341](https://github.com/moneytree/mt-link-android-sdk/pull/341)
+- Polished the release candidate codebase [\#340](https://github.com/moneytree/mt-link-android-sdk/pull/340)
+- Prepare for v5.3.0-beta01 [\#339](https://github.com/moneytree/mt-link-android-sdk/pull/339)
+- Improved existing test codes [\#338](https://github.com/moneytree/mt-link-android-sdk/pull/338)
+- Enables to accept ErrorHandler when consuming a magic link [\#337](https://github.com/moneytree/mt-link-android-sdk/pull/337)
+- \[LK-86\] Added `region` parameter to the SDK [\#336](https://github.com/moneytree/mt-link-android-sdk/pull/336)
+- Update script that publishes to the example repo [\#335](https://github.com/moneytree/mt-link-android-sdk/pull/335)
+- Build.dev Build Flag [\#334](https://github.com/moneytree/mt-link-android-sdk/pull/334)
+- \[LK-77\] Handle magic link tap action [\#333](https://github.com/moneytree/mt-link-android-sdk/pull/333)
+- \[LK-73\] Implement Magic Link API [\#332](https://github.com/moneytree/mt-link-android-sdk/pull/332)
+- Replaced Gson with Moshi [\#331](https://github.com/moneytree/mt-link-android-sdk/pull/331)
+- Refactored a little [\#330](https://github.com/moneytree/mt-link-android-sdk/pull/330)
+- \[LK-59\] Implement onboarding method [\#329](https://github.com/moneytree/mt-link-android-sdk/pull/329)
+- \[LK-56\] Refactor internal logic prior to fast-onboarding [\#328](https://github.com/moneytree/mt-link-android-sdk/pull/328)
+- Update dependencies [\#326](https://github.com/moneytree/mt-link-android-sdk/pull/326)
 - v5.2.0-alpha01 [\#325](https://github.com/moneytree/mt-link-android-sdk/pull/325)
 - Recovered the changeset that I reverted at \#321 [\#324](https://github.com/moneytree/mt-link-android-sdk/pull/324)
 
