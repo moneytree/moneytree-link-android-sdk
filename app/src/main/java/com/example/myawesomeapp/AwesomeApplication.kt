@@ -1,7 +1,7 @@
 package com.example.myawesomeapp
 
 import android.app.Application
-
+import com.getmoneytree.MoneytreeAuthOptions
 import com.getmoneytree.MoneytreeLink
 import com.getmoneytree.MoneytreeLinkConfiguration
 import com.getmoneytree.MoneytreeLinkScope
@@ -15,25 +15,41 @@ class AwesomeApplication : Application() {
   override fun onCreate() {
     super.onCreate()
 
+    /**
+     * Kindly guideline for all who are going to try out AwesomeApp;
+     *
+     * The default settings is to work in the `PKCE` type flow, so,
+     * if you want to try out the `Code Grant` type flow, you have to complete the following tasks.
+     * - Uncomment `redirectUri` call in the configuration settings (just below!)
+     * - At [MainActivity], you have to replace options in the [MoneytreeAuthOptions.Builder]
+     *   where it's supplied when it starts authorize/onboard process.
+     *   - You have to comment out [MoneytreeAuthOptions.Builder.authorizationHandler] and
+     *   call [MoneytreeAuthOptions.Builder.codeGrantTypeOptions] instead.
+     * - You have to look into Logcat if the app gets crashed when you tap a button.
+     *   It will give you descriptive message..
+     */
+    @Suppress("ConstantConditionIf")
     val configuration = MoneytreeLinkConfiguration.Builder()
-      // true: production, false: staging
-      .isProduction(false)
-      // Awesome App ID
-      // DON'T USE IT YOUR PRODUCTION APP!
-      // You can update this if you want to test on your account.
+      .isProduction(BuildConfig.isProduction)
+      // DON'T USE IT IN YOUR PRODUCTION APP! The default one is for AwesomeApp.
+      // You may update if you want to test on your app ID.
       .clientId("af84f08f40970caf17f2e53b31771ceb50d0f32f7d44b826753982e809395290")
       // You can add scopes using String as well.
       //.scopes("customized_scope", "new_scope")
       .scopes(
-          MoneytreeLinkScope.GuestRead,
-          MoneytreeLinkScope.AccountsRead,
-          MoneytreeLinkScope.TransactionsRead
+        MoneytreeLinkScope.GuestRead,
+        MoneytreeLinkScope.AccountsRead,
+        MoneytreeLinkScope.TransactionsRead
       )
-      // Redirect URL that used in the Auth code grant type flow of the Awesome App
-      // DON'T USE IT YOUR PRODUCTION APP!
-      // You can update this if you want to test on your account.
-      //.redirectUri("https://wf3kkdzcog.execute-api.ap-northeast-1.amazonaws.com/staging/external_client_server.json")
-      // You have to add Intelligence module if you want.
+      .apply {
+        if (BuildConfig.authType == AuthType.CODE_GRANT) {
+          // Redirect URL that used in the `Code Grant` type flow of the Awesome App
+          // DON'T USE THIS URL YOUR PRODUCTION APP!
+          // You can update this if you want to test on your account.
+          redirectUri("https://wf3kkdzcog.execute-api.ap-northeast-1.amazonaws.com/staging/external_client_server.json")
+        }
+      }
+      // You have to add Intelligence module here if you have a valid contract.
       //.modules(MoneytreeIntelligenceFactory())
       .build()
 

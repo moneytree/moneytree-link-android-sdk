@@ -12,6 +12,9 @@ android {
     targetSdkVersion 28
     versionCode 1
     versionName "1.0"
+
+    buildConfigField("com.example.myawesomeapp.AuthType", "authType", getProperty("awesome.authType"))
+    buildConfigField("Boolean", "isProduction", getProperty("awesome.isProduction"))
   }
 
   compileOptions {
@@ -27,37 +30,27 @@ android {
   }
 }
 
-ext {
-  ver_support = '28.0.0'
-  ver_firebase_core = '16.0.9'
-  ver_fcm = '18.0.0'
-}
-
 dependencies {
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.40"
-  implementation "com.android.support:appcompat-v7:$ver_support"
-  implementation "com.android.support:support-v4:$ver_support"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.71"
 
-  implementation "com.google.firebase:firebase-core:$ver_firebase_core"
-  implementation "com.google.firebase:firebase-messaging:$ver_fcm"
+  implementation "com.android.support:appcompat-v7:28.0.0"
+  implementation "com.android.support:support-v4:28.0.0"
+  implementation "com.android.support:design:28.0.0"
+
+  implementation "com.google.firebase:firebase-messaging:18.0.0"
 
   // Moneytree LINK SDK
-  implementation("app.moneytree.link:core:${mt_link_sdk_version}@aar") {
-    transitive = true
+  implementation("app.moneytree.link:core:${sdkVersion}@aar") {
+    isTransitive = true
   }
   // Issho tsucho (Optional)
-  implementation("app.moneytree.link:it:${mt_link_sdk_version}@aar") {
-    transitive = true
+  implementation("app.moneytree.link:it:${sdkVersion}@aar") {
+    isTransitive = true
   }
   // Moneytree Intelligence (Optional)
-  implementation("app.moneytree.link:intelligence:${mt_link_sdk_version}@aar") {
-    transitive = true
+  implementation("app.moneytree.link:intelligence:${sdkVersion}@aar") {
+    isTransitive = true
   }
-
-  // You can remove them. It's used for internal development.
-  //  implementation project(":core")
-  //  implementation project(":it")
-  //  implementation project(":intelligence")
 }
 
 repositories {

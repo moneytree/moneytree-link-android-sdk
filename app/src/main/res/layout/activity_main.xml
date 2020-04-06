@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,39 +18,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="@string/result_default"
+            android:gravity="center_horizontal"
             android:textColor="@android:color/holo_green_dark"
             android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="20dp"
-            android:text="@string/issho_tsucho"
-            android:textSize="@dimen/font_default"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/issho_tsucho_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/issho_tsucho_button"/>
+            android:textStyle="bold"
+            tools:text="@string/welcome" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -58,7 +38,7 @@
             android:layout_marginStart="20dp"
             android:text="@string/vaas"
             android:textSize="@dimen/font_default"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -68,13 +48,14 @@
                 android:id="@+id/token_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/token_button"/>
+                android:layout_marginEnd="8dp"
+                android:text="@string/token_button" />
 
             <Button
                 android:id="@+id/vault_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/vault_button"/>
+                android:text="@string/vault_button" />
         </LinearLayout>
 
         <LinearLayout
@@ -85,6 +66,7 @@
                 android:id="@+id/auth_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:text="@string/auth_button" />
 
             <Button
@@ -112,7 +94,179 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/onboard_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/onboard"
+                android:textSize="@dimen/font_default"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/onboard_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/onboard_placeholder"
+                android:textSize="16sp"
+                android:inputType="textEmailAddress" />
+
+            <Button
+                android:id="@+id/onboard_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/onboard" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/magiclink_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/magic_link"
+                android:textSize="@dimen/font_default"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/magiclink_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/onboard_placeholder"
+                android:textSize="16sp"
+                android:inputType="textEmailAddress" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/magiclink_destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:inputType="textEmailAddress" />
+
+            <Button
+                android:id="@+id/magiclink_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/request_magic_link" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="20dp"
+            android:text="@string/issho_tsucho"
+            android:textSize="@dimen/font_default"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/issho_tsucho_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/issho_tsucho_button" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="20dp"
+            android:text="@string/notification"
+            android:textSize="@dimen/font_default"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/register_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/register_button" />
+
+            <Button
+                android:id="@+id/deregister_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/unregister_button" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="20dp"
+            android:text="@string/delete"
+            android:textSize="@dimen/font_default"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/reset_button"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_button" />
+
+            <Button
+                android:id="@+id/logout_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/logout_button" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:id="@+id/connect_service_layout"
@@ -135,32 +289,29 @@
                 android:layout_height="wrap_content"
                 android:text="@string/connect_service_description" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/connect_service_key_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"
-                android:orientation="horizontal">
+                android:ems="10"
+                android:textSize="16sp"
+                android:hint="@string/service_key_placeholder"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName" />
 
-                <EditText
-                    android:id="@+id/connect_service_key_input"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/service_key_placeholder"
-                    android:importantForAutofill="no"
-                    android:inputType="textPersonName" />
-
-                <Button
-                    android:id="@+id/connect_service_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_weight="1"
-                    android:text="@string/connect_service_button" />
-
-            </LinearLayout>
+            <Button
+                android:id="@+id/connect_service_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/connect_service_button" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:id="@+id/service_settings_layout"
@@ -183,32 +334,29 @@
                 android:layout_height="wrap_content"
                 android:text="@string/service_settings_description" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/service_settings_id_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"
-                android:orientation="horizontal">
+                android:ems="10"
+                android:textSize="16sp"
+                android:hint="@string/service_id_placeholder"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName" />
 
-                <EditText
-                    android:id="@+id/service_settings_id_input"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/service_id_placeholder"
-                    android:importantForAutofill="no"
-                    android:inputType="textPersonName" />
-
-                <Button
-                    android:id="@+id/service_settings_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_weight="1"
-                    android:text="@string/service_settings_button" />
-
-            </LinearLayout>
+            <Button
+                android:id="@+id/service_settings_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/service_settings_button" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:id="@+id/open_services_layout"
@@ -235,6 +383,7 @@
                 android:id="@+id/open_services_type_input"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:textSize="16sp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/open_services_type_placeholder"
@@ -245,6 +394,7 @@
                 android:id="@+id/open_services_group_input"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:textSize="16sp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/open_services_group_placeholder"
@@ -255,6 +405,7 @@
                 android:id="@+id/open_services_search_input"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:textSize="16sp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/open_services_search_placeholder"
@@ -265,76 +416,8 @@
                 android:id="@+id/open_services_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_gravity="center"
                 android:text="@string/open_services_button" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="16dp"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="20dp"
-            android:text="@string/notification"
-            android:textSize="@dimen/font_default"
-            android:textStyle="bold"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/register_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/register_button"/>
-
-            <Button
-                android:id="@+id/deregister_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/unregister_button"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="20dp"
-            android:text="@string/delete"
-            android:textSize="@dimen/font_default"
-            android:textStyle="bold"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/reset_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/delete_button"/>
-
-            <Button
-                android:id="@+id/logout_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/logout_button"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
