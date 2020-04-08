@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.1...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta01...HEAD)
+
+**Merged pull requests:**
+
+- v5.3.0-Beta02 [\#344](https://github.com/moneytree/mt-link-android-sdk/pull/344)
+- Amended some variable name to work AwesomeApp without config [\#343](https://github.com/moneytree/mt-link-android-sdk/pull/343)
+
+## [v5.3.0-beta01](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta01) (2020-04-06)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.1...v5.3.0-beta01)
 
 **Merged pull requests:**
 
