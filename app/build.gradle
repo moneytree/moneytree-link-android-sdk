@@ -41,15 +41,15 @@ dependencies {
 
   // Moneytree LINK SDK
   implementation("app.moneytree.link:core:${sdkVersion}@aar") {
-    isTransitive = true
+    transitive = true
   }
   // Issho tsucho (Optional)
   implementation("app.moneytree.link:it:${sdkVersion}@aar") {
-    isTransitive = true
+    transitive = true
   }
   // Moneytree Intelligence (Optional)
   implementation("app.moneytree.link:intelligence:${sdkVersion}@aar") {
-    isTransitive = true
+    transitive = true
   }
 }
 
