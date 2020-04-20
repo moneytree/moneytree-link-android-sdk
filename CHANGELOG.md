@@ -2,7 +2,16 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta01...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta02...HEAD)
+
+**Merged pull requests:**
+
+- v5.3.0-Beta03 [\#349](https://github.com/moneytree/mt-link-android-sdk/pull/349)
+- Bumped version to beta03 [\#348](https://github.com/moneytree/mt-link-android-sdk/pull/348)
+- Update StateManager to use secure storage for state [\#347](https://github.com/moneytree/mt-link-android-sdk/pull/347)
+
+## [v5.3.0-beta02](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta02) (2020-04-08)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta01...v5.3.0-beta02)
 
 **Merged pull requests:**
 
