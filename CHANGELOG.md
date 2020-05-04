@@ -2,7 +2,20 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta02...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta03...HEAD)
+
+**Merged pull requests:**
+
+- v5.3.0-Beta04 [\#357](https://github.com/moneytree/mt-link-android-sdk/pull/357)
+- Add onCompletionListener for magic link [\#356](https://github.com/moneytree/mt-link-android-sdk/pull/356)
+- Bumped SDK version to 5.3.0-beta04 [\#355](https://github.com/moneytree/mt-link-android-sdk/pull/355)
+- Do early return [\#354](https://github.com/moneytree/mt-link-android-sdk/pull/354)
+- Make SDK more flexible [\#353](https://github.com/moneytree/mt-link-android-sdk/pull/353)
+- Allows magic link flow to complete normal auth flow [\#352](https://github.com/moneytree/mt-link-android-sdk/pull/352)
+- Properly handle intent in onCreate/onNewIntent in LinkWebViewActivity [\#351](https://github.com/moneytree/mt-link-android-sdk/pull/351)
+
+## [v5.3.0-beta03](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta03) (2020-04-20)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta02...v5.3.0-beta03)
 
 **Merged pull requests:**
 
