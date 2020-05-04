@@ -1,6 +1,7 @@
 package com.example.myawesomeapp
 
 import android.app.Application
+import com.getmoneytree.LinkEnvironment
 import com.getmoneytree.MoneytreeAuthOptions
 import com.getmoneytree.MoneytreeLink
 import com.getmoneytree.MoneytreeLinkConfiguration
@@ -30,7 +31,7 @@ class AwesomeApplication : Application() {
      */
     @Suppress("ConstantConditionIf")
     val configuration = MoneytreeLinkConfiguration.Builder()
-      .isProduction(BuildConfig.isProduction)
+      .linkEnvironment(LinkEnvironment.Staging)
       // DON'T USE IT IN YOUR PRODUCTION APP! The default one is for AwesomeApp.
       // You may update if you want to test on your app ID.
       .clientId("af84f08f40970caf17f2e53b31771ceb50d0f32f7d44b826753982e809395290")
