@@ -2,7 +2,16 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta03...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta04...HEAD)
+
+**Merged pull requests:**
+
+- Beta05 [\#360](https://github.com/moneytree/mt-link-android-sdk/pull/360)
+- Bump SDK version [\#359](https://github.com/moneytree/mt-link-android-sdk/pull/359)
+- Add onCompletionListener for magic link \#2 [\#358](https://github.com/moneytree/mt-link-android-sdk/pull/358)
+
+## [v5.3.0-beta04](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta04) (2020-05-04)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta03...v5.3.0-beta04)
 
 **Merged pull requests:**
 

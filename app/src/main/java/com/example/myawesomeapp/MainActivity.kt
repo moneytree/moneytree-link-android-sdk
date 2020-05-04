@@ -413,7 +413,8 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
     // Handle magic link action
     MoneytreeLink.getInstance().consumeMagicLink(
       this,
-      intent, null
+      intent?.data,
+      null
     )
     { error ->
       showError(rootView, error.message)
