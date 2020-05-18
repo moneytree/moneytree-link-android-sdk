@@ -10,6 +10,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
@@ -258,6 +259,7 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
       val options = MoneytreeAuthOptions.Builder()
         // If you want to show the Login page (not Signup), set false or skip it
         .presentSignUp(true)
+        .forceLogout(findViewById<CheckBox>(R.id.force_logout).isChecked)
         .apply {
           if (BuildConfig.authType == AuthType.PKCE) {
             // AuthorizationHandler is required only for PKCE flow.
@@ -413,7 +415,8 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
     // Handle magic link action
     MoneytreeLink.getInstance().consumeMagicLink(
       this,
-      intent, null
+      intent?.data,
+      null
     )
     { error ->
       showError(rootView, error.message)
