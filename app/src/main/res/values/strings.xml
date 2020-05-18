@@ -16,6 +16,7 @@
     <string name="service_settings_button">Open Settings</string>
     <string name="open_services_button">Open Services</string>
     <string name="auth_button">Authorize</string>
+    <string name="force_logout">Force logout</string>
     <string name="settings_button">Settings</string>
     <string name="notification">Notification</string>
     <string name="register_button">Register</string>
