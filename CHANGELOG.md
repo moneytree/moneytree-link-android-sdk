@@ -2,7 +2,19 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta07...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta08...HEAD)
+
+**Merged pull requests:**
+
+- v5.3.0-beta09 [\#376](https://github.com/moneytree/mt-link-android-sdk/pull/376)
+- Bumped SDK version to beta09 [\#375](https://github.com/moneytree/mt-link-android-sdk/pull/375)
+- Uri builder Ktx [\#374](https://github.com/moneytree/mt-link-android-sdk/pull/374)
+- Use Trusted Web Activity to open vault [\#373](https://github.com/moneytree/mt-link-android-sdk/pull/373)
+- Addressed remaining tasks to catch up recent changed of the MyAccount spec [\#369](https://github.com/moneytree/mt-link-android-sdk/pull/369)
+- Added setWebActionListener [\#368](https://github.com/moneytree/mt-link-android-sdk/pull/368)
+
+## [v5.3.0-beta08](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta08) (2020-05-18)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta07...v5.3.0-beta08)
 
 **Merged pull requests:**
 
