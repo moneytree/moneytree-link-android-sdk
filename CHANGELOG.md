@@ -2,7 +2,19 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta08...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta09...HEAD)
+
+**Merged pull requests:**
+
+- v5.3.0-beta10 [\#383](https://github.com/moneytree/mt-link-android-sdk/pull/383)
+- Improve AndroidX onSaveInstanceState binary compatibility [\#382](https://github.com/moneytree/mt-link-android-sdk/pull/382)
+- Bumped version to 5.3.0-beta10 [\#380](https://github.com/moneytree/mt-link-android-sdk/pull/380)
+- Fixes for cases where the "Don't keep activities" flag is on [\#378](https://github.com/moneytree/mt-link-android-sdk/pull/378)
+- \[v6\] Removed continue parameter from redirect\_uri [\#377](https://github.com/moneytree/mt-link-android-sdk/pull/377)
+- \[WIP\]\[v6\] Migrated to androidx [\#372](https://github.com/moneytree/mt-link-android-sdk/pull/372)
+
+## [v5.3.0-beta09](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta09) (2020-05-20)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta08...v5.3.0-beta09)
 
 **Merged pull requests:**
 
