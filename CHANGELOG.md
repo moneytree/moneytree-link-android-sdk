@@ -2,7 +2,16 @@
 
 ## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta09...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta10...HEAD)
+
+**Merged pull requests:**
+
+- v5.3.0 [\#386](https://github.com/moneytree/mt-link-android-sdk/pull/386)
+- \[v6\] `show\_auth\_toggle` is removed if it's not needed [\#385](https://github.com/moneytree/mt-link-android-sdk/pull/385)
+- Removed beta suffix [\#384](https://github.com/moneytree/mt-link-android-sdk/pull/384)
+
+## [v5.3.0-beta10](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta10) (2020-05-21)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta09...v5.3.0-beta10)
 
 **Merged pull requests:**
 
