@@ -1,132 +1,44 @@
 {
   "project_info": {
-    "project_number": "716023729158",
-    "firebase_url": "https://mt-staging-8c52d.firebaseio.com",
-    "project_id": "mt-staging-8c52d",
-    "storage_bucket": "mt-staging-8c52d.appspot.com"
+    "project_number": "854865861013",
+    "firebase_url": "https://link-sdk.firebaseio.com",
+    "project_id": "link-sdk",
+    "storage_bucket": "link-sdk.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:716023729158:android:c1f58cfbd3ef433e",
-        "android_client_info": {
-          "package_name": "jp.moneytree.moneytree.automatic"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "716023729158-toor3uk38508flbmhvumi0g0r5gne234.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDCYz44nqlCCpnY1tY8Q2b6_J7WL2laHJc"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:716023729158:android:9b66a533f0fdd239",
-        "android_client_info": {
-          "package_name": "jp.moneytree.moneytree.labs"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "716023729158-toor3uk38508flbmhvumi0g0r5gne234.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDCYz44nqlCCpnY1tY8Q2b6_J7WL2laHJc"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:716023729158:android:ac2cf786718d2d73",
+        "mobilesdk_app_id": "1:854865861013:android:9a302403a961a545f97e9c",
         "android_client_info": {
           "package_name": "com.example.myawesomeapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "716023729158-toor3uk38508flbmhvumi0g0r5gne234.apps.googleusercontent.com",
+          "client_id": "854865861013-as04qpfc2r78ntdd3hg23bqnviufkomd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDCYz44nqlCCpnY1tY8Q2b6_J7WL2laHJc"
+          "current_key": "AIzaSyCmLFTmCTPybqj5ttVpvDkkwcLDoPcwuI0"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:716023729158:android:a044f1309d51f0fc",
-        "android_client_info": {
-          "package_name": "com.example.notificationservicetest"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "716023729158-toor3uk38508flbmhvumi0g0r5gne234.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDCYz44nqlCCpnY1tY8Q2b6_J7WL2laHJc"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854865861013-as04qpfc2r78ntdd3hg23bqnviufkomd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "854865861013-p42of19a4gqslmocm7dv483uqkqgu1fu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.getmoneytree.sdk.MyAwesomeApp"
+              }
+            }
+          ]
         }
       }
     }

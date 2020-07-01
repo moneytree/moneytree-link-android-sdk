@@ -14,11 +14,13 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import com.example.myawesomeapp.fcm.TokenRegistrar
-import com.getmoneytree.Region
+import com.getmoneytree.LinkRequestContext
 import com.getmoneytree.MoneytreeAuthOptions
 import com.getmoneytree.MoneytreeLink
 import com.getmoneytree.MoneytreeLinkException
+import com.getmoneytree.Region
 import com.getmoneytree.VaultOpenServicesOptions
 import com.getmoneytree.it.IsshoTsucho
 import com.getmoneytree.listener.Action
@@ -39,6 +41,8 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
 
   private val rootView: View
     get() = findViewById(R.id.scroll_view)
+
+  private val vaultReqCode = 10
 
   @Suppress("ConstantConditionIf")
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,45 +78,52 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
       )
     }
 
-    findViewById<Button>(R.id.vault_button).setOnClickListener { view ->
-      MoneytreeLink.getInstance().openVaultFrom(
-        this@MainActivity,
-        object : Action.OnCompletionListener {
-          override fun onSuccess() {
-            // Runs when the browser opens.
-            showMessage(view, getString(R.string.open_vault_success))
-          }
 
-          override fun onError(exception: MoneytreeLinkException) {
-            // Runs in cases other than the situation described in `onSuccess`.
-            if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
-              showError(view, getString(R.string.error_no_token))
-            } else {
-              showError(view, exception.message)
+    findViewById<Button>(R.id.vault_button).setOnClickListener { view ->
+      MoneytreeLink.getInstance().openVault(
+        vaultReqCode,
+        LinkRequestContext.Builder.from(this@MainActivity)
+          .listener(object : Action.OnCompletionListener {
+            override fun onSuccess() {
+              // Runs when the browser opens.
+              showMessage(view, getString(R.string.open_vault_success))
             }
-          }
-        }
+
+            override fun onError(exception: MoneytreeLinkException) {
+              // Runs in cases other than the situation described in `onSuccess`.
+              if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
+                showError(view, getString(R.string.error_no_token))
+              } else {
+                showError(view, exception.message)
+              }
+            }
+          })
+          .guestEmail(findViewById<EditText>(R.id.auth_email_edit).text.toString())
+          .build()
       )
     }
 
     findViewById<Button>(R.id.customer_support_button).setOnClickListener { view ->
-      MoneytreeLink.getInstance().openCustomerSupport(
-        this@MainActivity,
-        object : Action.OnCompletionListener {
-          override fun onSuccess() {
-            // Runs when the browser opens.
-            showMessage(view, getString(R.string.open_customer_support_success))
-          }
-
-          override fun onError(exception: MoneytreeLinkException) {
-            // Runs in cases other than the situation described in `onSuccess`.
-            if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
-              showError(view, getString(R.string.error_no_token))
-            } else {
-              showError(view, exception.message)
+      MoneytreeLink.getInstance().openVault(
+        vaultReqCode,
+        LinkRequestContext.Builder.from(this@MainActivity)
+          .listener(object : Action.OnCompletionListener {
+            override fun onSuccess() {
+              // Runs when the browser opens.
+              showMessage(view, getString(R.string.open_customer_support_success))
             }
-          }
-        }
+
+            override fun onError(exception: MoneytreeLinkException) {
+              // Runs in cases other than the situation described in `onSuccess`.
+              if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
+                showError(view, getString(R.string.error_no_token))
+              } else {
+                showError(view, exception.message)
+              }
+            }
+          })
+          .path(MoneytreeLink.VAULT_SUPPORT)
+          .build()
       )
     }
 
@@ -135,24 +146,27 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
     findViewById<Button>(R.id.connect_service_button).setOnClickListener { view ->
       val serviceKey = connectServiceInput.text.toString()
 
-      MoneytreeLink.getInstance().connectService(
-        this@MainActivity,
-        serviceKey,
-        object : Action.OnCompletionListener {
-          override fun onSuccess() {
-            // Runs when the browser opens.
-            showMessage(view, getString(R.string.connect_service_success))
-          }
-
-          override fun onError(exception: MoneytreeLinkException) {
-            // Runs in cases other than the situation described in `onSuccess`.
-            if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
-              showError(view, getString(R.string.error_no_token))
-            } else {
-              showError(view, exception.message)
+      MoneytreeLink.getInstance().openVault(
+        vaultReqCode,
+        LinkRequestContext.Builder.from(this@MainActivity)
+          .path(MoneytreeLink.VAULT_SERVICE)
+          .pathSuffix(serviceKey)
+          .listener(object : Action.OnCompletionListener {
+            override fun onSuccess() {
+              // Runs when the browser opens.
+              showMessage(view, getString(R.string.connect_service_success))
             }
-          }
-        }
+
+            override fun onError(exception: MoneytreeLinkException) {
+              // Runs in cases other than the situation described in `onSuccess`.
+              if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
+                showError(view, getString(R.string.error_no_token))
+              } else {
+                showError(view, exception.message)
+              }
+            }
+          })
+          .build()
       )
     }
 
@@ -175,24 +189,27 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
     findViewById<Button>(R.id.service_settings_button).setOnClickListener { view ->
       val serviceKey = serviceSettingIdInput.text.toString()
 
-      MoneytreeLink.getInstance().serviceSettings(
-        this@MainActivity,
-        serviceKey,
-        object : Action.OnCompletionListener {
-          override fun onSuccess() {
-            // Runs when the browser opens.
-            showMessage(view, getString(R.string.open_service_setting_success))
-          }
-
-          override fun onError(exception: MoneytreeLinkException) {
-            // Runs in cases other than the situation described in `onSuccess`.
-            if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
-              showError(view, getString(R.string.error_no_token))
-            } else {
-              showError(view, exception.message)
+      MoneytreeLink.getInstance().openVault(
+        vaultReqCode,
+        LinkRequestContext.Builder.from(this@MainActivity)
+          .path(MoneytreeLink.VAULT_SERVICE_SETTINGS)
+          .pathSuffix(serviceKey)
+          .listener(object : Action.OnCompletionListener {
+            override fun onSuccess() {
+              // Runs when the browser opens.
+              showMessage(view, getString(R.string.open_service_setting_success))
             }
-          }
-        }
+
+            override fun onError(exception: MoneytreeLinkException) {
+              // Runs in cases other than the situation described in `onSuccess`.
+              if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
+                showError(view, getString(R.string.error_no_token))
+              } else {
+                showError(view, exception.message)
+              }
+            }
+          })
+          .build()
       )
     }
 
@@ -208,24 +225,26 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
         .search(openServicesSearchInput.text.toString())
         .build()
 
-      MoneytreeLink.getInstance().openServices(
-        this@MainActivity,
-        options,
-        object : Action.OnCompletionListener {
-          override fun onSuccess() {
-            // Runs when the browser opens.
-            showMessage(view, getString(R.string.open_services_success))
-          }
-
-          override fun onError(exception: MoneytreeLinkException) {
-            // Runs in cases other than the situation described in `onSuccess`.
-            if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
-              showError(view, getString(R.string.error_no_token))
-            } else {
-              showError(view, exception.message)
+      MoneytreeLink.getInstance().openVault(
+        vaultReqCode,
+        LinkRequestContext.Builder.from(this@MainActivity)
+          .vaultOpenServicesOptions(options)
+          .listener(object : Action.OnCompletionListener {
+            override fun onSuccess() {
+              // Runs when the browser opens.
+              showMessage(view, getString(R.string.open_services_success))
             }
-          }
-        }
+
+            override fun onError(exception: MoneytreeLinkException) {
+              // Runs in cases other than the situation described in `onSuccess`.
+              if (exception.error == MoneytreeLinkException.Error.UNAUTHORIZED) {
+                showError(view, getString(R.string.error_no_token))
+              } else {
+                showError(view, exception.message)
+              }
+            }
+          })
+          .build()
       )
     }
 
@@ -271,6 +290,7 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
         }
         // You can set default email address for the Signup/Login form
         //.email("you@example.com")
+        .email(findViewById<EditText>(R.id.auth_email_edit).text?.toString())
         .build(MoneytreeLink.getInstance().configuration)
 
       MoneytreeLink.getInstance().authorizeFrom(
@@ -295,75 +315,6 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
             } else {
               showError(view, exception.message)
             }
-          }
-        }
-      )
-    }
-
-    findViewById<Button>(R.id.onboard_button).setOnClickListener { view ->
-      val email = findViewById<TextView>(R.id.onboard_input).editableText.toString()
-      if (email.isEmpty()) {
-        showError(view, "Email is required.")
-        return@setOnClickListener
-      }
-
-      val options = MoneytreeAuthOptions.Builder()
-        .apply {
-          if (BuildConfig.authType == AuthType.PKCE) {
-            // AuthorizationHandler is required only for PKCE flow.
-            authorizationHandler(authHandlerForPKCE)
-          } else {
-            // You have to invoke this when you choose Code Grant flow.
-            codeGrantTypeOptions(codeGrantOption)
-          }
-        }
-        // Email and region are required for onboard.
-        .email(email)
-        .region(Region.JAPAN)
-        .build(MoneytreeLink.getInstance().configuration)
-
-      MoneytreeLink.getInstance().onboardFrom(
-        this@MainActivity,
-        options
-      )
-    }
-
-    val spinner = findViewById<Spinner>(R.id.magiclink_destination)
-    // Populate data for spinner.
-    // https://developer.android.com/guide/topics/ui/controls/spinner#Populate
-    KeyValueAdapter(this, android.R.layout.simple_spinner_item)
-      .apply {
-        addAll(
-          listOf(
-            Pair("/settings", "Settings Page"),
-            Pair("/settings/change-language", "Change Moneytree Service Language"),
-            Pair("/settings/authorized-applications", "Authorized Apps")
-          )
-        )
-      }
-      .also { adapter ->
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-      }
-
-    findViewById<Button>(R.id.magiclink_button).setOnClickListener { view ->
-      val email = findViewById<EditText>(R.id.magiclink_email).text.toString()
-      if (email.isEmpty()) {
-        showError(view, "Email is required.")
-        return@setOnClickListener
-      }
-
-      val selectedItem = spinner.selectedItem as Pair<String, String>
-      MoneytreeLink.getInstance().requestMagicLink(
-        email,
-        selectedItem.first,
-        object : Action.OnCompletionListener {
-          override fun onSuccess() {
-            showMessage(view, "Requested magic link. Check your inbox.")
-          }
-
-          override fun onError(exception: MoneytreeLinkException) {
-            showError(view, exception.message)
           }
         }
       )
@@ -407,19 +358,6 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
 
     findViewById<View>(R.id.logout_button).setOnClickListener {
       MoneytreeLink.getInstance().logoutFrom(this@MainActivity)
-    }
-  }
-
-  override fun onNewIntent(intent: Intent?) {
-    super.onNewIntent(intent)
-    // Handle magic link action
-    MoneytreeLink.getInstance().consumeMagicLink(
-      this,
-      intent?.data,
-      null
-    )
-    { error ->
-      showError(rootView, error.message)
     }
   }
 
@@ -541,5 +479,16 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
           }
         }
       )
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    val vaultClosed = requestCode == vaultReqCode &&
+      resultCode == MoneytreeLink.RESULT_CODE_VAULT_CLOSED
+    Toast.makeText(
+      this,
+      "Vault closed result: $vaultClosed",
+      Toast.LENGTH_SHORT
+    ).show()
   }
 }

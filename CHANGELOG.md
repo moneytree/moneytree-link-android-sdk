@@ -1,16 +1,63 @@
-# Change Log
+# Changelog
 
-## [Unreleased](https://github.com/moneytree/mt-link-android-sdk/tree/HEAD)
+## [v5.3.1](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.1) (2020-07-01)
 
-[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta10...HEAD)
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.1-beta01...v5.3.1)
+
+**Merged pull requests:**
+
+- \[AK-129\] Releasing 5.3.1 "stable" to the world [\#405](https://github.com/moneytree/mt-link-android-sdk/pull/405)
+- \[AK-129\] Requested doc fixes from integration team [\#404](https://github.com/moneytree/mt-link-android-sdk/pull/404)
+- \[AK-129\] Stable release versioning and some more docs [\#403](https://github.com/moneytree/mt-link-android-sdk/pull/403)
+
+## [v5.3.1-beta01](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.1-beta01) (2020-06-29)
+
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/531_Intelli_Onboard_Removal...v5.3.1-beta01)
+
+**Merged pull requests:**
+
+- Release of 5.3.1-beta01 [\#402](https://github.com/moneytree/mt-link-android-sdk/pull/402)
+- Reroute magic link callback to be same as closed [\#401](https://github.com/moneytree/mt-link-android-sdk/pull/401)
+- \[AK-144\] \[AK-160\] SDK docs additions/deletions [\#400](https://github.com/moneytree/mt-link-android-sdk/pull/400)
+
+## [531_Intelli_Onboard_Removal](https://github.com/moneytree/mt-link-android-sdk/tree/531_Intelli_Onboard_Removal) (2020-06-19)
+
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/531_IntOnb_Removal...531_Intelli_Onboard_Removal)
+
+## [531_IntOnb_Removal](https://github.com/moneytree/mt-link-android-sdk/tree/531_IntOnb_Removal) (2020-06-19)
+
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/531_Docs...531_IntOnb_Removal)
+
+## [531_Docs](https://github.com/moneytree/mt-link-android-sdk/tree/531_Docs) (2020-06-19)
+
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.1-alpha01...531_Docs)
+
+## [v5.3.1-alpha01](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.1-alpha01) (2020-06-17)
+
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0...v5.3.1-alpha01)
+
+**Merged pull requests:**
+
+- Hotfix for Awesome app [\#398](https://github.com/moneytree/mt-link-android-sdk/pull/398)
+- \[AK-130\] 5.3.1-alpha01 release of Android SDK [\#397](https://github.com/moneytree/mt-link-android-sdk/pull/397)
+- \[AK-150\] Vault and vault email refactoring. Abstracting calls to single flow [\#396](https://github.com/moneytree/mt-link-android-sdk/pull/396)
+- \[AK-128\] Added utility method and onActivityResult propagation to handle [\#394](https://github.com/moneytree/mt-link-android-sdk/pull/394)
+- \[AK-127\] Pre-populate guest email in auth when opening through vault [\#392](https://github.com/moneytree/mt-link-android-sdk/pull/392)
+- Quick & dirty fix for Timber issue with Armadillo [\#391](https://github.com/moneytree/mt-link-android-sdk/pull/391)
+- Quick fix for awesome launcher not working [\#390](https://github.com/moneytree/mt-link-android-sdk/pull/390)
+- \[AK-70\] Added a common key to project and make publishable via App Distribution [\#388](https://github.com/moneytree/mt-link-android-sdk/pull/388)
+- Ensure it defines in buildSrc to avoid a dependencies error in lint [\#387](https://github.com/moneytree/mt-link-android-sdk/pull/387)
+
+## [v5.3.0](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0) (2020-05-28)
+
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta10...v5.3.0)
 
 **Merged pull requests:**
 
 - v5.3.0 [\#386](https://github.com/moneytree/mt-link-android-sdk/pull/386)
-- \[v6\] `show\_auth\_toggle` is removed if it's not needed [\#385](https://github.com/moneytree/mt-link-android-sdk/pull/385)
-- Removed beta suffix [\#384](https://github.com/moneytree/mt-link-android-sdk/pull/384)
 
 ## [v5.3.0-beta10](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta10) (2020-05-21)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta09...v5.3.0-beta10)
 
 **Merged pull requests:**
@@ -19,10 +66,9 @@
 - Improve AndroidX onSaveInstanceState binary compatibility [\#382](https://github.com/moneytree/mt-link-android-sdk/pull/382)
 - Bumped version to 5.3.0-beta10 [\#380](https://github.com/moneytree/mt-link-android-sdk/pull/380)
 - Fixes for cases where the "Don't keep activities" flag is on [\#378](https://github.com/moneytree/mt-link-android-sdk/pull/378)
-- \[v6\] Removed continue parameter from redirect\_uri [\#377](https://github.com/moneytree/mt-link-android-sdk/pull/377)
-- \[WIP\]\[v6\] Migrated to androidx [\#372](https://github.com/moneytree/mt-link-android-sdk/pull/372)
 
 ## [v5.3.0-beta09](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta09) (2020-05-20)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta08...v5.3.0-beta09)
 
 **Merged pull requests:**
@@ -30,11 +76,11 @@
 - v5.3.0-beta09 [\#376](https://github.com/moneytree/mt-link-android-sdk/pull/376)
 - Bumped SDK version to beta09 [\#375](https://github.com/moneytree/mt-link-android-sdk/pull/375)
 - Uri builder Ktx [\#374](https://github.com/moneytree/mt-link-android-sdk/pull/374)
-- Use Trusted Web Activity to open vault [\#373](https://github.com/moneytree/mt-link-android-sdk/pull/373)
 - Addressed remaining tasks to catch up recent changed of the MyAccount spec [\#369](https://github.com/moneytree/mt-link-android-sdk/pull/369)
 - Added setWebActionListener [\#368](https://github.com/moneytree/mt-link-android-sdk/pull/368)
 
 ## [v5.3.0-beta08](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta08) (2020-05-18)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta07...v5.3.0-beta08)
 
 **Merged pull requests:**
@@ -44,6 +90,7 @@
 - Added force\_logout flag [\#367](https://github.com/moneytree/mt-link-android-sdk/pull/367)
 
 ## [v5.3.0-beta07](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta07) (2020-05-07)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta06...v5.3.0-beta07)
 
 **Merged pull requests:**
@@ -53,6 +100,7 @@
 - Update Magic Link encoding to match iOS [\#364](https://github.com/moneytree/mt-link-android-sdk/pull/364)
 
 ## [v5.3.0-beta06](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta06) (2020-05-06)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta05...v5.3.0-beta06)
 
 **Merged pull requests:**
@@ -62,6 +110,7 @@
 - Fix : HTTPS check was inverted [\#361](https://github.com/moneytree/mt-link-android-sdk/pull/361)
 
 ## [v5.3.0-beta05](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta05) (2020-05-04)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta04...v5.3.0-beta05)
 
 **Merged pull requests:**
@@ -71,6 +120,7 @@
 - Add onCompletionListener for magic link \#2 [\#358](https://github.com/moneytree/mt-link-android-sdk/pull/358)
 
 ## [v5.3.0-beta04](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta04) (2020-05-04)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta03...v5.3.0-beta04)
 
 **Merged pull requests:**
@@ -79,11 +129,12 @@
 - Add onCompletionListener for magic link [\#356](https://github.com/moneytree/mt-link-android-sdk/pull/356)
 - Bumped SDK version to 5.3.0-beta04 [\#355](https://github.com/moneytree/mt-link-android-sdk/pull/355)
 - Do early return [\#354](https://github.com/moneytree/mt-link-android-sdk/pull/354)
-- Make SDK more flexible [\#353](https://github.com/moneytree/mt-link-android-sdk/pull/353)
+- \[AK-132\] - Make SDK more flexible [\#353](https://github.com/moneytree/mt-link-android-sdk/pull/353)
 - Allows magic link flow to complete normal auth flow [\#352](https://github.com/moneytree/mt-link-android-sdk/pull/352)
 - Properly handle intent in onCreate/onNewIntent in LinkWebViewActivity [\#351](https://github.com/moneytree/mt-link-android-sdk/pull/351)
 
 ## [v5.3.0-beta03](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta03) (2020-04-20)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta02...v5.3.0-beta03)
 
 **Merged pull requests:**
@@ -93,6 +144,7 @@
 - Update StateManager to use secure storage for state [\#347](https://github.com/moneytree/mt-link-android-sdk/pull/347)
 
 ## [v5.3.0-beta02](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta02) (2020-04-08)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.3.0-beta01...v5.3.0-beta02)
 
 **Merged pull requests:**
@@ -101,6 +153,7 @@
 - Amended some variable name to work AwesomeApp without config [\#343](https://github.com/moneytree/mt-link-android-sdk/pull/343)
 
 ## [v5.3.0-beta01](https://github.com/moneytree/mt-link-android-sdk/tree/v5.3.0-beta01) (2020-04-06)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.1...v5.3.0-beta01)
 
 **Merged pull requests:**
@@ -125,6 +178,7 @@
 - Recovered the changeset that I reverted at \#321 [\#324](https://github.com/moneytree/mt-link-android-sdk/pull/324)
 
 ## [v5.1.1](https://github.com/moneytree/mt-link-android-sdk/tree/v5.1.1) (2020-01-09)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.2.0-alpha01...v5.1.1)
 
 **Merged pull requests:**
@@ -134,6 +188,7 @@
 - Revert "Merge pull request \#319 from moneytree/feat/vaultUpdate" [\#321](https://github.com/moneytree/mt-link-android-sdk/pull/321)
 
 ## [v5.2.0-alpha01](https://github.com/moneytree/mt-link-android-sdk/tree/v5.2.0-alpha01) (2019-11-22)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.0...v5.2.0-alpha01)
 
 **Merged pull requests:**
@@ -143,6 +198,7 @@
 - Fix state is cleared before it can be used. [\#318](https://github.com/moneytree/mt-link-android-sdk/pull/318)
 
 ## [v5.1.0](https://github.com/moneytree/mt-link-android-sdk/tree/v5.1.0) (2019-06-28)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.0-alpha02...v5.1.0)
 
 **Merged pull requests:**
@@ -162,17 +218,18 @@
 - Append additional param when opening webview if intelligence is enabled [\#305](https://github.com/moneytree/mt-link-android-sdk/pull/305)
 
 ## [v5.1.0-alpha02](https://github.com/moneytree/mt-link-android-sdk/tree/v5.1.0-alpha02) (2019-06-12)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.1.0-alpha01...v5.1.0-alpha02)
 
 **Merged pull requests:**
 
 - v5.1.0-alpha02 [\#304](https://github.com/moneytree/mt-link-android-sdk/pull/304)
 - Bump version name [\#303](https://github.com/moneytree/mt-link-android-sdk/pull/303)
-- Separate Network monitor & moved tracker register [\#302](https://github.com/moneytree/mt-link-android-sdk/pull/302)
 - Try to init countly when network gets available [\#301](https://github.com/moneytree/mt-link-android-sdk/pull/301)
 - Updated an archive script in awesome project [\#300](https://github.com/moneytree/mt-link-android-sdk/pull/300)
 
 ## [v5.1.0-alpha01](https://github.com/moneytree/mt-link-android-sdk/tree/v5.1.0-alpha01) (2019-06-07)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v5.0.0...v5.1.0-alpha01)
 
 **Merged pull requests:**
@@ -187,11 +244,11 @@
 - Add getInstance convention [\#292](https://github.com/moneytree/mt-link-android-sdk/pull/292)
 - Swap reflection for module factories [\#291](https://github.com/moneytree/mt-link-android-sdk/pull/291)
 - Updated Intelligence module to work with the core module [\#290](https://github.com/moneytree/mt-link-android-sdk/pull/290)
-- Finish pairing session to make JavaDoc plugin [\#289](https://github.com/moneytree/mt-link-android-sdk/pull/289)
 - \[CI\] Bumped version to 5.0.1 [\#288](https://github.com/moneytree/mt-link-android-sdk/pull/288)
 - Added Intelligence module \(not completed\) [\#285](https://github.com/moneytree/mt-link-android-sdk/pull/285)
 
 ## [v5.0.0](https://github.com/moneytree/mt-link-android-sdk/tree/v5.0.0) (2019-05-22)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.6...v5.0.0)
 
 **Merged pull requests:**
@@ -209,6 +266,7 @@
 - \[CI\] Bumped version to 4.1.7 [\#276](https://github.com/moneytree/mt-link-android-sdk/pull/276)
 
 ## [v4.1.6](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.6) (2019-03-07)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.5...v4.1.6)
 
 **Merged pull requests:**
@@ -220,6 +278,7 @@
 - \[CI\] Bumped version to 4.1.6 [\#269](https://github.com/moneytree/mt-link-android-sdk/pull/269)
 
 ## [v4.1.5](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.5) (2019-01-31)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.4...v4.1.5)
 
 **Merged pull requests:**
@@ -230,6 +289,7 @@
 - \[CI\] Bumped version to 4.1.5 [\#265](https://github.com/moneytree/mt-link-android-sdk/pull/265)
 
 ## [v4.1.4](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.4) (2019-01-09)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.3...v4.1.4)
 
 **Merged pull requests:**
@@ -240,18 +300,20 @@
 - Removed targetSdkVersion from libraries [\#261](https://github.com/moneytree/mt-link-android-sdk/pull/261)
 - Work everything in the one app window [\#260](https://github.com/moneytree/mt-link-android-sdk/pull/260)
 - Apply hotfix to master branch and bumped version to v4.1.4 [\#258](https://github.com/moneytree/mt-link-android-sdk/pull/258)
+- Use new vault [\#254](https://github.com/moneytree/mt-link-android-sdk/pull/254)
 
 ## [v4.1.3](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.3) (2018-12-04)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.2...v4.1.3)
 
 **Merged pull requests:**
 
 - v4.1.3 [\#256](https://github.com/moneytree/mt-link-android-sdk/pull/256)
 - Allow chrome package name without verifying customtabs connection [\#255](https://github.com/moneytree/mt-link-android-sdk/pull/255)
-- Use new vault [\#254](https://github.com/moneytree/mt-link-android-sdk/pull/254)
 - \[CI\] Bumped version to 4.1.3 [\#253](https://github.com/moneytree/mt-link-android-sdk/pull/253)
 
 ## [v4.1.2](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.2) (2018-11-02)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.1...v4.1.2)
 
 **Merged pull requests:**
@@ -260,8 +322,11 @@
 - Improved unit tests and comments [\#251](https://github.com/moneytree/mt-link-android-sdk/pull/251)
 - Change the timing to fire completionHandler when the WebView is closed [\#250](https://github.com/moneytree/mt-link-android-sdk/pull/250)
 - \[CI\] Bumped version to 4.1.2 [\#249](https://github.com/moneytree/mt-link-android-sdk/pull/249)
+- Use existing vault [\#245](https://github.com/moneytree/mt-link-android-sdk/pull/245)
+- Added api\_version to the request for IT [\#244](https://github.com/moneytree/mt-link-android-sdk/pull/244)
 
 ## [v4.1.1](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.1) (2018-10-25)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.1.0...v4.1.1)
 
 **Merged pull requests:**
@@ -269,13 +334,12 @@
 - version 4.1.1 [\#248](https://github.com/moneytree/mt-link-android-sdk/pull/248)
 - Use the previous URL for authorization [\#247](https://github.com/moneytree/mt-link-android-sdk/pull/247)
 - Enable to show Vault from the button on IT [\#246](https://github.com/moneytree/mt-link-android-sdk/pull/246)
-- Use existing vault [\#245](https://github.com/moneytree/mt-link-android-sdk/pull/245)
-- Added api\_version to the request for IT [\#244](https://github.com/moneytree/mt-link-android-sdk/pull/244)
 - Allows to login in the flow of openVault or openSettings when MT token doesn't exist [\#243](https://github.com/moneytree/mt-link-android-sdk/pull/243)
 - Don’t check if an access token \(not MT\) exists when opening Vault [\#242](https://github.com/moneytree/mt-link-android-sdk/pull/242)
 - \[CI\] Bumped version to 4.1.1 [\#241](https://github.com/moneytree/mt-link-android-sdk/pull/241)
 
 ## [v4.1.0](https://github.com/moneytree/mt-link-android-sdk/tree/v4.1.0) (2018-09-28)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v4.0.0...v4.1.0)
 
 **Merged pull requests:**
@@ -292,6 +356,7 @@
 - \[CI\] Bumped version to 4.0.1 [\#231](https://github.com/moneytree/mt-link-android-sdk/pull/231)
 
 ## [v4.0.0](https://github.com/moneytree/mt-link-android-sdk/tree/v4.0.0) (2018-08-15)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/vBETA-4.0.1...v4.0.0)
 
 **Merged pull requests:**
@@ -300,6 +365,7 @@
 - Polish build to make good release items [\#229](https://github.com/moneytree/mt-link-android-sdk/pull/229)
 
 ## [vBETA-4.0.1](https://github.com/moneytree/mt-link-android-sdk/tree/vBETA-4.0.1) (2018-08-13)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/vBETA-4.0.0...vBETA-4.0.1)
 
 **Merged pull requests:**
@@ -308,16 +374,17 @@
 - Bumped version [\#226](https://github.com/moneytree/mt-link-android-sdk/pull/226)
 - Update Awesome App [\#225](https://github.com/moneytree/mt-link-android-sdk/pull/225)
 - Added build scripts for example repo [\#223](https://github.com/moneytree/mt-link-android-sdk/pull/223)
-- fixed up gramma and use of the term user [\#222](https://github.com/moneytree/mt-link-android-sdk/pull/222)
 - Use well-known flow name for consistency [\#221](https://github.com/moneytree/mt-link-android-sdk/pull/221)
 - Just create a pr on the example repo [\#220](https://github.com/moneytree/mt-link-android-sdk/pull/220)
 - Enables to check returned value using captor in unit tests [\#219](https://github.com/moneytree/mt-link-android-sdk/pull/219)
 - Add unit tests for validateMTToken method [\#218](https://github.com/moneytree/mt-link-android-sdk/pull/218)
 
 ## [vBETA-4.0.0](https://github.com/moneytree/mt-link-android-sdk/tree/vBETA-4.0.0) (2018-08-03)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/vTEST-4.0.0...vBETA-4.0.0)
 
 ## [vTEST-4.0.0](https://github.com/moneytree/mt-link-android-sdk/tree/vTEST-4.0.0) (2018-08-03)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.11...vTEST-4.0.0)
 
 **Merged pull requests:**
@@ -347,6 +414,7 @@
 - \[CI\] Bumped version to 3.0.12 [\#194](https://github.com/moneytree/mt-link-android-sdk/pull/194)
 
 ## [v3.0.11](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.11) (2018-07-11)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.10...v3.0.11)
 
 **Merged pull requests:**
@@ -356,6 +424,7 @@
 - \[CI\] Bumped version to 3.0.11 [\#191](https://github.com/moneytree/mt-link-android-sdk/pull/191)
 
 ## [v3.0.10](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.10) (2018-07-03)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.9...v3.0.10)
 
 **Merged pull requests:**
@@ -367,22 +436,40 @@
 - Reformat [\#182](https://github.com/moneytree/mt-link-android-sdk/pull/182)
 - Gradlew [\#181](https://github.com/moneytree/mt-link-android-sdk/pull/181)
 - ci: Bumped versionCode to 3.0.9 [\#180](https://github.com/moneytree/mt-link-android-sdk/pull/180)
+- v3.0.9 [\#179](https://github.com/moneytree/mt-link-android-sdk/pull/179)
+- Fix cobrand\_client\_id parameter in authorization request [\#178](https://github.com/moneytree/mt-link-android-sdk/pull/178)
+- v3.0.8 [\#176](https://github.com/moneytree/mt-link-android-sdk/pull/176)
+- v3.0.7 [\#168](https://github.com/moneytree/mt-link-android-sdk/pull/168)
+- v3.0.6 [\#160](https://github.com/moneytree/mt-link-android-sdk/pull/160)
+- v3.0.5 [\#157](https://github.com/moneytree/mt-link-android-sdk/pull/157)
+- v3.0.4 [\#155](https://github.com/moneytree/mt-link-android-sdk/pull/155)
+- Removed original workarounds for Kotlin [\#154](https://github.com/moneytree/mt-link-android-sdk/pull/154)
+- v3.0.3 [\#153](https://github.com/moneytree/mt-link-android-sdk/pull/153)
+- v3.0.1 [\#150](https://github.com/moneytree/mt-link-android-sdk/pull/150)
+- 3.0.0 [\#143](https://github.com/moneytree/mt-link-android-sdk/pull/143)
+- v2.1.3 [\#131](https://github.com/moneytree/mt-link-android-sdk/pull/131)
+- v2.1.2 [\#129](https://github.com/moneytree/mt-link-android-sdk/pull/129)
+- v2.1.1 [\#126](https://github.com/moneytree/mt-link-android-sdk/pull/126)
+- v2.1 [\#123](https://github.com/moneytree/mt-link-android-sdk/pull/123)
+- v2.0.4 [\#116](https://github.com/moneytree/mt-link-android-sdk/pull/116)
+- v2.0.3 [\#109](https://github.com/moneytree/mt-link-android-sdk/pull/109)
+- v2.0.3 [\#107](https://github.com/moneytree/mt-link-android-sdk/pull/107)
+- v2.0.3 [\#105](https://github.com/moneytree/mt-link-android-sdk/pull/105)
 
 ## [v3.0.9](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.9) (2018-03-23)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.8...v3.0.9)
 
 **Merged pull requests:**
 
-- v3.0.9 [\#179](https://github.com/moneytree/mt-link-android-sdk/pull/179)
-- Fix cobrand\_client\_id parameter in authorization request [\#178](https://github.com/moneytree/mt-link-android-sdk/pull/178)
 - ci: Bumped versionCode to 3.0.8 [\#177](https://github.com/moneytree/mt-link-android-sdk/pull/177)
 
 ## [v3.0.8](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.8) (2018-02-19)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.7...v3.0.8)
 
 **Merged pull requests:**
 
-- v3.0.8 [\#176](https://github.com/moneytree/mt-link-android-sdk/pull/176)
 - Delete token on logout when chrome tabs not available [\#175](https://github.com/moneytree/mt-link-android-sdk/pull/175)
 - Check length of Android ID during creating a private key [\#174](https://github.com/moneytree/mt-link-android-sdk/pull/174)
 - Added comments about unsupported browser [\#173](https://github.com/moneytree/mt-link-android-sdk/pull/173)
@@ -391,11 +478,11 @@
 - ci: Bumped versionCode to 3.0.7 [\#169](https://github.com/moneytree/mt-link-android-sdk/pull/169)
 
 ## [v3.0.7](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.7) (2018-02-09)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.6...v3.0.7)
 
 **Merged pull requests:**
 
-- v3.0.7 [\#168](https://github.com/moneytree/mt-link-android-sdk/pull/168)
 - Force logout status update, \(Clear showing old token\) [\#167](https://github.com/moneytree/mt-link-android-sdk/pull/167)
 - Use LocalBroadcastManager to propagate events in the app [\#166](https://github.com/moneytree/mt-link-android-sdk/pull/166)
 - Force Logout [\#165](https://github.com/moneytree/mt-link-android-sdk/pull/165)
@@ -403,33 +490,29 @@
 - Make sure to return the guest token in the guest handler [\#163](https://github.com/moneytree/mt-link-android-sdk/pull/163)
 - Added json file for firebase [\#162](https://github.com/moneytree/mt-link-android-sdk/pull/162)
 - ci: Bumped versionCode to 3.0.6 [\#161](https://github.com/moneytree/mt-link-android-sdk/pull/161)
+- ci: Bumped versionCode to 3.0.5 [\#158](https://github.com/moneytree/mt-link-android-sdk/pull/158)
 
 ## [v3.0.6](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.6) (2018-01-23)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.5...v3.0.6)
 
 **Merged pull requests:**
 
-- v3.0.6 [\#160](https://github.com/moneytree/mt-link-android-sdk/pull/160)
 - Clean a halfway state of the tokens when it opens IT [\#159](https://github.com/moneytree/mt-link-android-sdk/pull/159)
-- ci: Bumped versionCode to 3.0.5 [\#158](https://github.com/moneytree/mt-link-android-sdk/pull/158)
 
 ## [v3.0.5](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.5) (2018-01-19)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v3.0.1...v3.0.5)
 
 **Merged pull requests:**
 
-- v3.0.5 [\#157](https://github.com/moneytree/mt-link-android-sdk/pull/157)
 - Logout when the guest revokes application from settings [\#156](https://github.com/moneytree/mt-link-android-sdk/pull/156)
-- v3.0.4 [\#155](https://github.com/moneytree/mt-link-android-sdk/pull/155)
-- Removed original workarounds for Kotlin [\#154](https://github.com/moneytree/mt-link-android-sdk/pull/154)
-- v3.0.3 [\#153](https://github.com/moneytree/mt-link-android-sdk/pull/153)
 - Bumped version [\#152](https://github.com/moneytree/mt-link-android-sdk/pull/152)
 - Fixed CI issue when creatring pr [\#151](https://github.com/moneytree/mt-link-android-sdk/pull/151)
-- v3.0.1 [\#150](https://github.com/moneytree/mt-link-android-sdk/pull/150)
 - Updated CI script and README [\#149](https://github.com/moneytree/mt-link-android-sdk/pull/149)
-- 3.0.0 [\#143](https://github.com/moneytree/mt-link-android-sdk/pull/143)
 
 ## [v3.0.1](https://github.com/moneytree/mt-link-android-sdk/tree/v3.0.1) (2017-12-28)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v2.0.3...v3.0.1)
 
 **Merged pull requests:**
@@ -444,37 +527,30 @@
 - Some fixes [\#134](https://github.com/moneytree/mt-link-android-sdk/pull/134)
 - Fetch the latest master of submodule [\#133](https://github.com/moneytree/mt-link-android-sdk/pull/133)
 - Updated Awesome app to update README and have the latest license file [\#132](https://github.com/moneytree/mt-link-android-sdk/pull/132)
-- v2.1.3 [\#131](https://github.com/moneytree/mt-link-android-sdk/pull/131)
 - Append show\_oauth parameter every time [\#130](https://github.com/moneytree/mt-link-android-sdk/pull/130)
-- v2.1.2 [\#129](https://github.com/moneytree/mt-link-android-sdk/pull/129)
 - Bumped version [\#128](https://github.com/moneytree/mt-link-android-sdk/pull/128)
 - Updated submodule hash [\#127](https://github.com/moneytree/mt-link-android-sdk/pull/127)
-- v2.1.1 [\#126](https://github.com/moneytree/mt-link-android-sdk/pull/126)
 - Use PKCE token exchange on authorize method [\#125](https://github.com/moneytree/mt-link-android-sdk/pull/125)
 - Fix a CI issue that is possible to happen due to uncontrollable state [\#124](https://github.com/moneytree/mt-link-android-sdk/pull/124)
-- v2.1 [\#123](https://github.com/moneytree/mt-link-android-sdk/pull/123)
 - Bumped version number [\#122](https://github.com/moneytree/mt-link-android-sdk/pull/122)
 - Fixed per review [\#121](https://github.com/moneytree/mt-link-android-sdk/pull/121)
 - Formatting with Android app code base [\#120](https://github.com/moneytree/mt-link-android-sdk/pull/120)
 - Fixed linter options per review [\#119](https://github.com/moneytree/mt-link-android-sdk/pull/119)
 - Added stayLoggedIn parameter [\#118](https://github.com/moneytree/mt-link-android-sdk/pull/118)
-- v2.0.4 [\#116](https://github.com/moneytree/mt-link-android-sdk/pull/116)
 - Fixed per review [\#115](https://github.com/moneytree/mt-link-android-sdk/pull/115)
 - Vaas uses the same oauth flow when it needs to authorize mt-link-mobile app first [\#114](https://github.com/moneytree/mt-link-android-sdk/pull/114)
 - Fixed submodule url [\#112](https://github.com/moneytree/mt-link-android-sdk/pull/112)
 - Fixed notifications api [\#111](https://github.com/moneytree/mt-link-android-sdk/pull/111)
 - ci: Bumped versionCode to 2.0.3 [\#110](https://github.com/moneytree/mt-link-android-sdk/pull/110)
-- v2.0.3 [\#109](https://github.com/moneytree/mt-link-android-sdk/pull/109)
 
 ## [v2.0.3](https://github.com/moneytree/mt-link-android-sdk/tree/v2.0.3) (2017-10-19)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v2.0.0...v2.0.3)
 
 **Merged pull requests:**
 
 - fix: Remove with the relative path [\#108](https://github.com/moneytree/mt-link-android-sdk/pull/108)
-- v2.0.3 [\#107](https://github.com/moneytree/mt-link-android-sdk/pull/107)
 - Fixed distribution lane [\#106](https://github.com/moneytree/mt-link-android-sdk/pull/106)
-- v2.0.3 [\#105](https://github.com/moneytree/mt-link-android-sdk/pull/105)
 - Made the distribution process simpler [\#104](https://github.com/moneytree/mt-link-android-sdk/pull/104)
 - Rewrote OAuthToken in Java and fixed the release lane to include javadocs [\#101](https://github.com/moneytree/mt-link-android-sdk/pull/101)
 - Refactored and moved link-mobile app authorisation flow to Core module [\#100](https://github.com/moneytree/mt-link-android-sdk/pull/100)
@@ -488,6 +564,7 @@
 - 2.0.0 [\#87](https://github.com/moneytree/mt-link-android-sdk/pull/87)
 
 ## [v2.0.0](https://github.com/moneytree/mt-link-android-sdk/tree/v2.0.0) (2017-09-29)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v0.2.4...v2.0.0)
 
 **Merged pull requests:**
@@ -521,15 +598,11 @@
 - Made configuration file available from different package [\#64](https://github.com/moneytree/mt-link-android-sdk/pull/64)
 - Change `grantType` to `responseType` cause that's what we use it for. [\#63](https://github.com/moneytree/mt-link-android-sdk/pull/63)
 - PKCE [\#62](https://github.com/moneytree/mt-link-android-sdk/pull/62)
-- Added Storage, encryption and tests [\#61](https://github.com/moneytree/mt-link-android-sdk/pull/61)
-- Add Network Client for Token API [\#60](https://github.com/moneytree/mt-link-android-sdk/pull/60)
-- Gradle clean up [\#59](https://github.com/moneytree/mt-link-android-sdk/pull/59)
-- Bumped submodule [\#58](https://github.com/moneytree/mt-link-android-sdk/pull/58)
 - \[CI\] Bumped versionCode to 0.2.5 [\#57](https://github.com/moneytree/mt-link-android-sdk/pull/57)
 - v0.2.4 [\#56](https://github.com/moneytree/mt-link-android-sdk/pull/56)
-- Renamed sdk module and added it module [\#53](https://github.com/moneytree/mt-link-android-sdk/pull/53)
 
 ## [v0.2.4](https://github.com/moneytree/mt-link-android-sdk/tree/v0.2.4) (2017-09-13)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v0.2.3...v0.2.4)
 
 **Merged pull requests:**
@@ -537,17 +610,19 @@
 - Fixed the wrong url for production environment [\#54](https://github.com/moneytree/mt-link-android-sdk/pull/54)
 - \[CI\] Bumped versionCode to 0.2.4 [\#52](https://github.com/moneytree/mt-link-android-sdk/pull/52)
 - v0.2.3 [\#51](https://github.com/moneytree/mt-link-android-sdk/pull/51)
+- v0.2.2 [\#48](https://github.com/moneytree/mt-link-android-sdk/pull/48)
 
 ## [v0.2.3](https://github.com/moneytree/mt-link-android-sdk/tree/v0.2.3) (2017-09-11)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v0.2.2...v0.2.3)
 
 **Merged pull requests:**
 
 - Made sure all URL requests can receive a callback from the server [\#50](https://github.com/moneytree/mt-link-android-sdk/pull/50)
 - \[CI\] Bumped versionCode to 0.2.3 [\#49](https://github.com/moneytree/mt-link-android-sdk/pull/49)
-- v0.2.2 [\#48](https://github.com/moneytree/mt-link-android-sdk/pull/48)
 
 ## [v0.2.2](https://github.com/moneytree/mt-link-android-sdk/tree/v0.2.2) (2017-09-11)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v0.2.1...v0.2.2)
 
 **Merged pull requests:**
@@ -557,6 +632,7 @@
 - v0.2.1 [\#45](https://github.com/moneytree/mt-link-android-sdk/pull/45)
 
 ## [v0.2.1](https://github.com/moneytree/mt-link-android-sdk/tree/v0.2.1) (2017-08-09)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v0.2.0...v0.2.1)
 
 **Merged pull requests:**
@@ -568,6 +644,7 @@
 - v0.2.0 [\#37](https://github.com/moneytree/mt-link-android-sdk/pull/37)
 
 ## [v0.2.0](https://github.com/moneytree/mt-link-android-sdk/tree/v0.2.0) (2017-08-01)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v0.1.1...v0.2.0)
 
 **Merged pull requests:**
@@ -583,21 +660,23 @@
 - Removed mocked classes [\#29](https://github.com/moneytree/mt-link-android-sdk/pull/29)
 
 ## [v0.1.1](https://github.com/moneytree/mt-link-android-sdk/tree/v0.1.1) (2017-07-12)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v0.1.0...v0.1.1)
 
 **Merged pull requests:**
 
 - Enables to set scope from String [\#32](https://github.com/moneytree/mt-link-android-sdk/pull/32)
-- Added missing scopes [\#30](https://github.com/moneytree/mt-link-android-sdk/pull/30)
 - Updated README [\#28](https://github.com/moneytree/mt-link-android-sdk/pull/28)
 - \[CI\] Bumped versionCode to 0.1.1 [\#27](https://github.com/moneytree/mt-link-android-sdk/pull/27)
 - v0.1.0 [\#26](https://github.com/moneytree/mt-link-android-sdk/pull/26)
 
 ## [v0.1.0](https://github.com/moneytree/mt-link-android-sdk/tree/v0.1.0) (2017-07-10)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v0.0.3...v0.1.0)
 
 **Merged pull requests:**
 
+- Added missing scopes [\#30](https://github.com/moneytree/mt-link-android-sdk/pull/30)
 - Updated submodule [\#25](https://github.com/moneytree/mt-link-android-sdk/pull/25)
 - Renamed MoneytreeLinkClient class name [\#24](https://github.com/moneytree/mt-link-android-sdk/pull/24)
 - Bumped version number [\#23](https://github.com/moneytree/mt-link-android-sdk/pull/23)
@@ -605,20 +684,24 @@
 - Enables to get a token via callback [\#21](https://github.com/moneytree/mt-link-android-sdk/pull/21)
 - \[CI\] Bumped versionCode to 0.0.4 [\#20](https://github.com/moneytree/mt-link-android-sdk/pull/20)
 - v0.0.3 rev2 [\#19](https://github.com/moneytree/mt-link-android-sdk/pull/19)
+- v0.0.3 [\#17](https://github.com/moneytree/mt-link-android-sdk/pull/17)
 
 ## [v0.0.3](https://github.com/moneytree/mt-link-android-sdk/tree/v0.0.3) (2017-07-03)
+
 [Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/v0.0.2...v0.0.3)
 
 **Merged pull requests:**
 
 - Fixed compressing javadoc process on circle ci [\#18](https://github.com/moneytree/mt-link-android-sdk/pull/18)
-- v0.0.3 [\#17](https://github.com/moneytree/mt-link-android-sdk/pull/17)
 - Tried to fix the strange error that the partner has [\#16](https://github.com/moneytree/mt-link-android-sdk/pull/16)
 - Enables to create Javadoc [\#15](https://github.com/moneytree/mt-link-android-sdk/pull/15)
 - \[CI\] Bumped versionCode to 0.0.3 [\#14](https://github.com/moneytree/mt-link-android-sdk/pull/14)
 - 0.0.2 [\#12](https://github.com/moneytree/mt-link-android-sdk/pull/12)
 
 ## [v0.0.2](https://github.com/moneytree/mt-link-android-sdk/tree/v0.0.2) (2017-06-30)
+
+[Full Changelog](https://github.com/moneytree/mt-link-android-sdk/compare/bdcbbb4f5cfebb53bf2cf7e1dad37b78404d41ce...v0.0.2)
+
 **Merged pull requests:**
 
 - Update fastlane [\#13](https://github.com/moneytree/mt-link-android-sdk/pull/13)
@@ -634,4 +717,4 @@
 
 
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
