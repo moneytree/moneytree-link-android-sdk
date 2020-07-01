@@ -23,7 +23,7 @@ class AwesomeApplication : Application() {
      * if you want to try out the `Code Grant` type flow, you have to complete the following tasks.
      * - Uncomment `redirectUri` call in the configuration settings (just below!)
      * - At [MainActivity], you have to replace options in the [MoneytreeAuthOptions.Builder]
-     *   where it's supplied when it starts authorize/onboard process.
+     *   where it's supplied when it starts authorize process.
      *   - You have to comment out [MoneytreeAuthOptions.Builder.authorizationHandler] and
      *   call [MoneytreeAuthOptions.Builder.codeGrantTypeOptions] instead.
      * - You have to look into Logcat if the app gets crashed when you tap a button.
@@ -50,8 +50,6 @@ class AwesomeApplication : Application() {
           redirectUri("https://wf3kkdzcog.execute-api.ap-northeast-1.amazonaws.com/staging/external_client_server.json")
         }
       }
-      // You have to add Intelligence module here if you have a valid contract.
-      //.modules(MoneytreeIntelligenceFactory())
       .build()
 
     // Initialize MoneytreeLink client.

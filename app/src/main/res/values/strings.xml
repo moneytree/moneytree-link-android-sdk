@@ -58,4 +58,5 @@
     <string name="service_settings_description">Enter a service id into input below and press the open settings button.</string>
     <string name="open_services_title">Open Services</string>
     <string name="open_services_description">Open services with "type", "group" or "search", or a combination of any of them</string>
+    <string name="auth_email_hint">Email used to fill auth pages\nCan be empty</string>
 </resources>

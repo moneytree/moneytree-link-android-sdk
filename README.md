@@ -7,16 +7,17 @@
     - [[1a] MoneytreeLink Library (PKCE)](#1a-moneytreelink-library-pkce)
     - [[1b] MoneytreeLink Library (Authorization code grant type)](#1b-moneytreelink-library-authorization-code-grant-type)
     - [[2] Issho Tsucho Library](#2-issho-tsucho-library)
-    - [Moneytree Intelligence](#moneytree-intelligence)
-    - [Onboard](#onboard)
   - [Register device token for push notification](#register-device-token-for-push-notification)
-  - [Breaking Changes](#breaking-changes)
+  - [Change Log](#change-log)
     - [v3](#v3)
     - [v3.0.8](#v308)
     - [v4.1.0](#v410)
     - [v4.1.1](#v411)
     - [v5.0.0](#v500)
     - [v5.1.0](#v510)
+    - [v5.2.0](#v520)
+    - [v5.3.0](#v530)
+    - [v5.3.1](#v531)
   - [AwesomeApp](#awesomeapp)
     - [How to change the configuration easily](#how-to-change-the-configuration-easily)
   - [Troubleshooting](#troubleshooting)
@@ -55,14 +56,11 @@ repositories {
     implementation("app.moneytree.link:it:__version__@aar") {
         transitive = true
     }
-    // Moneytree Intelligence
-    implementation("app.moneytree.link:intelligence:__version__@aar") {
-        transitive = true
-    }
     ```
 
-    - Note that libraries won't work unless you have a certain contract with Moneytree even if you add them.
-    - The configuration of `AwesomeApp`, which is a reference app that we're offering, might be also helpful.
+> :information_source: The configuration of the reference `AwesomeApp` might also be helpful when setting up the SDK.
+
+> :exclamation: All libraries are subjected to certain contracts with Moneytree and will not function if such a contract does not exist.
 
 3. Configure `AndroidManifest.xml` to receive a callback response from the Moneytree server.
 
@@ -153,8 +151,6 @@ Then you can follow the implementation guide base on the type.
 
     `Authorization.OnCompletionListener` will be used when you want to handle callback in a result of authorization request.
 
-    **Caution** If your app gives `onBoard` feature, you should skip this step and go to [onBoard](#onboard) section directly.
-
 ### [1b] MoneytreeLink Library (Authorization code grant type)
 
 Simply, it delegates token exchange stuff to your server in order to save an access token into your own database. Therefore, SDK has limitations under this option. For instance, `getToken` method never works or it can't register user's device token via SDK. Because SDK doesn't have an access token. Your app has to communicate with your server to register/unregister a device token. Your server also have a responsibility refresh/revoke an access token based on user activity.
@@ -183,7 +179,7 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
             .codeGrantTypeOptions(
                 MoneytreeAuthOptions.CodeGrantTypeOptions.Builder()
                     .setState(/* Your state */)
-                    .completionHandler(/* Yourh handler */)
+                    .completionHandler(/* Your handler */)
                     .build()
             )
             // ...
@@ -199,10 +195,10 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
     }
     ```
 
-4. Note that at least the following methods don't work under this option.
-    - getToken
-    - registerDeviceToken
-    - deregisterDeviceTokend
+> :warning: The following methods will not work if `CODE_GRANT` is the selected auth method.
+>    - getToken
+>    - registerDeviceToken
+>    - deregisterDeviceToken
 
 ### [2] Issho Tsucho Library
 
@@ -233,134 +229,6 @@ Simply, it delegates token exchange stuff to your server in order to save an acc
 
     And you can see what `MoneytreeLink` (and `IsshoTsucho`) can by reading Javadoc.
 
-### Moneytree Intelligence
-
-1. Add `MoneytreeIntelligenceFactory` to `MoneytreeLinkConfiguration` when you initialize the SDK.
-
-    ```kotlin
-    val configuration = MoneytreeLinkConfiguration.Builder()
-        // ...
-        // other settings..
-        // ...
-        .modules(MoneytreeIntelligenceFactory()) // Add this
-        .build()
-    ```
-
-    If it initializes successfully, you will see the following log message.
-    > I/MoneytreeLink: Initialized module (MoneytreeIntelligence)
-
-2. You may add events whenever you want.
-
-    ```kotlin
-    MoneytreeIntelligence.getInstance().recordEvent("__event_name__")
-    ```
-
-    ```kotlin
-    MoneytreeIntelligence.getInstance().recordEvent(
-        "__event_name__",
-        mapOf("__key__" to "__value__")
-    )
-    ```
-
-3. You'll see recorded events in the Control Center.
-
-### Onboard
-
-The `Onboard` method allows users to register a passwordless Moneytree account. The only detail a user needs to provide is an email address. The following section describes how to implement the passwordless login feature in your app. The reference application AwesomeApp can be used as a reference implementation.
-
-1. First, update the activity in the AndroidManifest.xml that launches the authentication flow to use launchMode=singleTask; This will prevent new Activity task creation and state lose during the authentication flow.
-
-    ```xml
-    <activity
-        android:name=".MainActivity"
-        android:launchMode="singleTask">
-       <!-- Next step 2 -->
-    </activity>
-    ```
-
-    <!-- Note `android:host` should be `myaccount-staging.getmoneytree.com` in the staging build and contraly it should be `myaccount.getmoneytree.com` in the production build. It won't work if wrong. Regarding `android:pathPrefix`, the format should be `/link/<first 5 chars of your client ID>`. Don't copy the example above to your app directly. -->
-
-2. In your `Activity`, make sure it calls `consumeMagicLink` in `onNewIntent` method.
-
-    ```xml
-    <activity
-        android:name=".MainActivity"
-        android:launchMode="singleTask">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data
-                android:host="${linkHost}"
-                android:pathPrefix="/link/${linkIdShort}"
-                android:scheme="https" />
-        </intent-filter>
-    </activity>
-    ```
-
-
-
-3. Next we inject the manifest variables. Note `linkHost` should be `myaccount-staging.getmoneytree.com` in the staging build and contraly it should be `myaccount.getmoneytree.com` in the production build. It won't work if wrong. Regarding `linkIdShort`, the format should be `<first 5 chars of your client ID>`. **NOTE** Don't copy the ID shown here, you must use your own Client ID.
-
-    In the `build.gradle` of your app module add the following `manifestPlaceholders` variables
-
-    ```groovy
-    android {
-        defaultConfig {
-            manifestPlaceholders = [
-                // for production use this instead
-                // myaccount.getmoneytree.com
-                linkHost   : "myaccount-staging.getmoneytree.com",
-                // linkIdShort: "<first 5 chars of your client ID>"
-                linkIdShort: "af84f"
-            ]
-        }
-    }
-    ```
-
-4. In your `Activity`, make sure it calls `consumeMagicLink` in `onNewIntent` method.
-
-    ```kotlin
-    override fun onNewIntent(intent: Intent?) {
-      super.onNewIntent(intent)
-      MoneytreeLink
-        .getInstance()
-        .consumeMagicLink(this, intent) { error: MoneytreeLinkException ->
-            showError(rootView, error.message)
-        }
-    }
-    ```
-
-    The trailing argument for the method is an onError callback that is invoked if an error occurs for any reason. You can see the reason for the error in the `MoneytreeLinkException#message`.
-
-5. Finally, your `Activity` must call `onboardFrom` method instead of `authorizeFrom` method when an user does something to go to Moneytree. The following example is from `AwesomeApp`.
-
-    ```kotlin
-    findViewById<Button>(R.id.onboard_button).setOnClickListener { view ->
-      // onboard requires an user's email
-      val email = findViewById<TextView>(R.id.onboard_input).editableText.toString()
-      if (email.isEmpty()) {
-        showError(view, "Email is required.")
-        return@setOnClickListener
-      }
-
-      val options = MoneytreeAuthOptions.Builder()
-        // Let's say you choose Code Grant for auth option
-        .codeGrantTypeOptions(codeGrantOption)
-        // Email and region are required for onboard.
-        .email(email)
-        // Specify Region where an user belongs to..
-        .region(Region.JAPAN)
-        .build(MoneytreeLink.getInstance().configuration)
-
-      MoneytreeLink.getInstance().onboardFrom(
-        this@MainActivity,
-        options
-      )
-    }
-    ```
-
-    Regarding `onboardFrom`, `email` and `region` are required in its option. If you miss them you get an error via a callback.
 
 ## Register device token for push notification
 
@@ -406,11 +274,12 @@ If you want to register a device token for push notification, it should be done 
 
     `IsshoTsucho.OnCompletionListener` would be the best. See above regarding the sample code.
 
-## Breaking Changes
+## Change Log
 
 ### v3
 
-MoneytreeLink SDK v3 brings some breaking changes regarding class name. The following is just an example, see also MainActivity.java in the Awesome app code and JavaDoc.
+MoneytreeLink SDK v3 brings some breaking changes to class names.
+The following is just an example. Refer to the JavaDocs and Awesome app's MainActivity for more information.
 
 | Old Class Name                     | New Class Name                     | Note                                   |
 | ---------------------------------- | ---------------------------------- | -------------------------------------- |
@@ -421,7 +290,7 @@ MoneytreeLink SDK v3 brings some breaking changes regarding class name. The foll
 
 ### v3.0.8
 
-We **don't** support a browser that doesn't implement `Custom Chrome Tabs` anymore. The SDK returns `MoneytreeLinkException.Error.BROWSER_NOT_SUPPORTED` at `onError` of `OnCompletionHandler` from every possible methods to require `Custom Chrome Tabs` if a device doesn't have it. So, you can handle the error like this.
+> :warning: All web content is now handled with `Chrome Custom Tabs`, effectively removing support for other browsers. The SDK returns a `MoneytreeLinkException.Error.BROWSER_NOT_SUPPORTED` in the `onError` of the `OnCompletionHandler` for every flow that requires Chrome. Make sure to account for this error in case Chrome is not installed on the user's device.
 
 ```kotlin
 // Any completionHandler code
@@ -434,11 +303,11 @@ override fun onError(exception: MoneytreeLinkException) {
 
 ### v4.1.0
 
-We introduced `MoneytreeAuthOptions` class that replaces array of variables against `authorizeFrom` method. You can refactor your existing code by following the examples above. As described in Javadoc, existing contracts of `authorizeFrom` will be removed in the next version.
+We introduced `MoneytreeAuthOptions` class that replaces the array of variables previously used in `authorizeFrom` method. You can refactor your existing code by following the examples above. As described in JavaDoc, existing contracts of `authorizeFrom` will be removed in the next version.
 
 ### v4.1.1
 
-The timing of callbacks that belong to `openVault` and `openSettings` has been changed. In the previous version, it runs when the WebView opens, but since v4.1.1 it runs when users close the WebView from the top left button (or hardware back button)
+The timing of callbacks originating from `openVault` and `openSettings` has been changed. In previous versions, callbacks returned when the Browser opened. Since v4.1.1 they return when users close the Browser (UI button or system back button).
 
 ### v5.0.0
 
@@ -449,31 +318,103 @@ The timing of callbacks that belong to `openVault` and `openSettings` has been c
 
 ### v5.1.0
 
-We introduced [MoneytreeIntelligence](#moneytree-intelligence) library.
-
 - `MoneytreeLink#client()` is now deprecated. Use `MoneytreeLink#getInstance()` instead.
+
+### v5.2.0
+
+Adds the following Vault navigation interface methods:
+- `openVaultFrom(activity, listener, path)` that helps deep link to specific vault paths.
+- `openCustomerSupport(...)` x2 variants. Deep link to the Vault's customer support page.
+- `connectService(...)` x2 variants. Deep link to the Vault's service information page. Requires a service key to navigate.
+- `serviceSetting(...)` x2 variants. Deep link to a service's settings page.
+- `openServices(...)` x2 variants. Receives a `VaultOpenServicesOptions` and deep links to the Vault's search screen with relevant results. `VaultOpenServicesOptions` holds all the search parameters required to get results in the services screen.
+
+Constructing a `VaultOpenServicesOptions` object:
+
+```kotlin
+val options = VaultOpenServicesOptions.Builder()
+    .type("bank")
+    .group("grouping_bank")
+    .search("aeon")
+    .build()
+```
+
+For more information on usage please refer to the JavaDocs and the AwesomeApp (example).
+
+### v5.3.0
+
+- Improvements to the Vault navigation interface methods added in [v5.2.0](#5.2.0)
+- Adds `MoneytreeLinkConfiguration.Builder.linkEnvironment()`. Takes a `LinkEnvironment` to switch between the staging and production back ends.
+- Adds new scopes
+- Adds new Exception types and a new `Action.OnErrorListener` for better error management.
+
+### v5.3.1
+
+- Deprecates all Vault navigation interface methods
+- Adds `openVault(requestCode, requestContext)` and `openVault(requestContext)` variant to replace previous navigation methods.
+    - The `requestCode` is an Android activity result code. Checking for it in your `onActivityResult` callback along with `MoneytreeLink.RESULT_CODE_VAULT_CLOSED` will provide you with information of when the Vault Browser has closed. Supports both Activities and Fragments.
+    - Adds `LinkRequestContext`. Use its builder to provide all required information for vault navigation.
+
+```kotlin
+MoneytreeLink.getInstance().openVault(
+    vaultReqCode,
+    LinkRequestContext.Builder.from(this) // Can be your activity or fragment
+        .listener(object : Action.OnCompletionListener {
+            override fun onSuccess() {
+                // Browser opened...
+            }
+
+            override fun onError(exception: MoneytreeLinkException) {
+                // Something went wrong...
+            }
+        })
+        .guestEmail("awesome.email@awesome.awe")
+        .build()
+)
+```
+A snippet of the `LinkRequestContext.Builder` follows with all it's options and what they do:
+
+```kotlin
+LinkRequestContext.Builder.from(this) // Activity or Fragment
+    .listener(Action.OnCompletionListener)
+    // set the listener if you need to handle callbacks
+    .vaultOpenServicesOptions(VaultOpenServicesOptions)
+    // carries the search parameters the vault will search in services with
+    .path(String)
+    // Can be any of
+    // MoneytreeLink.VAULT_SERVICE, opens the vault directly to a specific connected service.
+    // MoneytreeLink.VAULT_SERVICE_SETTINGS, opens the vault to the settings of a specific connected service.
+    // MoneytreeLink.VAULT_SUPPORT, opens the customer support page of the vault.
+    // When vaultOpenServicesOptions() is used the path is overridden, using the proper path.
+    .guestEmail(String)
+    // if provided and unauthorized the login page will have the email field prefilled.
+    .pathSuffix(String)
+    // If the path is MoneytreeLink.VAULT_SERVICE, provide the service key you want to navigate to.
+    // If the path is MoneytreeLink.VAULT_SERVICE_SETTINGS, provide the service id of which the settings you want to navigate to.
+    // Using this in any other case will result in an invalid url forcing the vault to it's default page.
+    .build()
+```
 
 ## AwesomeApp
 
-`AwesomeApp` is a reference app to try what the SDK gives to you. You can edit as you want and will understand various usage of the SDK.
+The `AwesomeApp` is a reference app to try out what the SDK provides. You can edit it as you please to understand the various use cases of the SDK.
 
 ### How to change the configuration easily
 
-`AwesomeApp` gets `authType` and `isProduction` via `BuildConfig` as default. So if you want to change them, you can edit the root `gradle.properties` and build the project again. Alternatively you can edit sourcecode as you want if you're developer.
+The `AwesomeApp` by default gets its `authType` and `isProduction` values from the `BuildConfig`. If you want to change them, you can edit the root `gradle.properties` and build the project again. Alternatively you can edit the source code as you see fit.
 
-If you want to try `PKCE` auth flow, you can write
+To switch between `PKCE` and `Code Grant` auth flows, you can edit as follows:
 
 ```properties
 awesome.authType=com.example.myawesomeapp.AuthType.PKCE
 ```
-
-Regarding `Code Grant`, you can edit to
+or
 
 ```properties
 awesome.authType=com.example.myawesomeapp.AuthType.CODE_GRANT
 ```
 
-It's not a spec of the SDK, so your app doesn't have to follow this way.
+> :information_source: This is **NOT** part of the SDK's spec, just done so in the AwesomeApp.
 
 ## Troubleshooting
 
