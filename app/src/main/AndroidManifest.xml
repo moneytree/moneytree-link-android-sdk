@@ -11,6 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="asset_statements"
+            android:resource="@string/assetStatements" />
+
         <!-- Make sure to set `singleTask` to your starter activity for magic link -->
         <activity
             android:name=".MainActivity"
@@ -50,7 +54,7 @@
             android:name=".fcm.MessagingService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>

@@ -1,7 +1,6 @@
 package com.example.myawesomeapp.fcm
 
 import android.util.Log
-
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -10,9 +9,14 @@ import com.google.firebase.messaging.RemoteMessage
  */
 class MessagingService : FirebaseMessagingService() {
 
-  override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+  override fun onNewToken(token: String) {
+    super.onNewToken(token)
+    Log.i(TAG, "New FCM token: $token")
+  }
+
+  override fun onMessageReceived(remoteMessage: RemoteMessage) {
     super.onMessageReceived(remoteMessage)
-    Log.i(TAG, "Got new message: " + remoteMessage!!.messageId!!)
+    Log.i(TAG, "Got new message: ${remoteMessage.messageId}")
   }
 
   companion object {

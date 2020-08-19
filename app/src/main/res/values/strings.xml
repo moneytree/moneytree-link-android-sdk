@@ -3,8 +3,8 @@
 
     <!-- activity_main.xml -->
     <string name="welcome">Hello AwesomeApp!\nConfiguration: %1$s - %2$s</string>
-    <string name="issho_tsucho">Issho Tsucho</string>
-    <string name="issho_tsucho_button">Launch Issho Tsucho</string>
+    <string name="link_kit">Link Kit</string>
+    <string name="link_kit_button">Launch Link Kit\n(former Issho Tsucho)</string>
     <string name="vaas">Basic Features</string>
     <string name="token_button">Get token</string>
     <string name="vault_button">Launch Vault</string>

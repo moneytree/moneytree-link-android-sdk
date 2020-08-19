@@ -3,29 +3,27 @@ package com.example.myawesomeapp
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.myawesomeapp.fcm.TokenRegistrar
 import com.getmoneytree.LinkRequestContext
 import com.getmoneytree.MoneytreeAuthOptions
 import com.getmoneytree.MoneytreeLink
 import com.getmoneytree.MoneytreeLinkException
-import com.getmoneytree.Region
 import com.getmoneytree.VaultOpenServicesOptions
 import com.getmoneytree.it.IsshoTsucho
 import com.getmoneytree.listener.Action
 import com.getmoneytree.listener.Api
 import com.getmoneytree.listener.Authorization
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.iid.FirebaseInstanceId
 import java.util.UUID
 
@@ -49,12 +47,12 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
-    ////// Set up Issho Tsucho //////
+    // //// Set up Issho Tsucho //////
 
-    findViewById<Button>(R.id.issho_tsucho_button)
-      .setOnClickListener { startIsshoTsucho() }
+    findViewById<Button>(R.id.link_kit_button)
+      .setOnClickListener { startLinkKit() }
 
-    ////// Set up VaaS (If you use Issho Tsucho, you don't have to implement the below code) //////
+    // //// Set up VaaS (If you use Issho Tsucho, you don't have to implement the below code) //////
 
     findViewById<Button>(R.id.token_button).setOnClickListener { view ->
       // Need to pass activity when you get a token.
@@ -77,7 +75,6 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
         }
       )
     }
-
 
     findViewById<Button>(R.id.vault_button).setOnClickListener { view ->
       MoneytreeLink.getInstance().openVault(
@@ -289,7 +286,7 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
           }
         }
         // You can set default email address for the Signup/Login form
-        //.email("you@example.com")
+        // .email("you@example.com")
         .email(findViewById<EditText>(R.id.auth_email_edit).text?.toString())
         .build(MoneytreeLink.getInstance().configuration)
 
@@ -396,17 +393,20 @@ class MainActivity : AppCompatActivity(), TokenRegistrar {
   /**
    * Start the Issho Tsucho
    */
-  private fun startIsshoTsucho() {
+  private fun startLinkKit() {
     showMessage(rootView, getString(R.string.it_launching))
-    IsshoTsucho.client().startIsshoTsucho(object : IsshoTsucho.OnCompletionListener {
-      override fun onLaunchedIsshoTsucho() {
-        showMessage(rootView, getString(R.string.it_success))
-      }
+    IsshoTsucho.client().startIsshoTsucho(
+      this,
+      object : IsshoTsucho.OnCompletionListener {
+        override fun onLaunchedIsshoTsucho() {
+          showMessage(rootView, getString(R.string.it_success))
+        }
 
-      override fun onFailedToLaunch(e: MoneytreeLinkException) {
-        showError(rootView, e.message)
+        override fun onFailedToLaunch(e: MoneytreeLinkException) {
+          showError(rootView, e.message)
+        }
       }
-    })
+    )
   }
 
   /**

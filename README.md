@@ -44,7 +44,7 @@ repositories {
 1. Define the Moneytree Link SDK core in your `dependencies` section
 
     ```groovy
-    implementation("app.moneytree.link:core:__version__@aar") {
+    implementation("app.moneytree.link:core:[version]") {
         transitive = true
     }
     ```
@@ -53,7 +53,7 @@ repositories {
 
     ```groovy
     // Issho tsucho
-    implementation("app.moneytree.link:it:__version__@aar") {
+    implementation("app.moneytree.link:it:[version]") {
         transitive = true
     }
     ```
