@@ -36,7 +36,7 @@ class AwesomeApplication : Application() {
       // You may update if you want to test on your app ID.
       .clientId("af84f08f40970caf17f2e53b31771ceb50d0f32f7d44b826753982e809395290")
       // You can add scopes using String as well.
-      //.scopes("customized_scope", "new_scope")
+      // .scopes("customized_scope", "new_scope")
       .scopes(
         MoneytreeLinkScope.GuestRead,
         MoneytreeLinkScope.AccountsRead,
@@ -47,7 +47,9 @@ class AwesomeApplication : Application() {
           // Redirect URL that used in the `Code Grant` type flow of the Awesome App
           // DON'T USE THIS URL YOUR PRODUCTION APP!
           // You can update this if you want to test on your account.
+          /* ktlint-disable max-line-length */
           redirectUri("https://wf3kkdzcog.execute-api.ap-northeast-1.amazonaws.com/staging/external_client_server.json")
+          /* ktlint-enable max-line-length */
         }
       }
       .build()
