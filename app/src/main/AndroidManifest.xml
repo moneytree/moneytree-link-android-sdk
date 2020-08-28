@@ -32,9 +32,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
+                <!-- FIXME: Replace [clientIdShort] with your ID short -->
                 <data
                     android:host="myaccount-staging.getmoneytree.com"
-                    android:pathPrefix="/link/af84f"
+                    android:pathPrefix="/link/[clientIdShort]"
                     android:scheme="https" />
             </intent-filter>
         </activity>
@@ -45,8 +46,8 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- FIXME: Replace with your value -->
-                <data android:scheme="mtlinkaf84f" />
+                <!-- FIXME: Replace [clientIdShort] with your ID shortm-->
+                <data android:scheme="mtlink[clientIdShort]" />
             </intent-filter>
         </activity>
 
