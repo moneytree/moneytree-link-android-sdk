@@ -1,10 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">Awesome</string>
 
     <!-- activity_main.xml -->
     <string name="welcome">Hello AwesomeApp!\nConfiguration: %1$s - %2$s</string>
-    <string name="link_kit">Link Kit</string>
-    <string name="link_kit_button">Launch Link Kit\n(former Issho Tsucho)</string>
+    <string name="link_kit">LINK Kit</string>
+    <string name="link_kit_button">Launch LINK Kit</string>
     <string name="vaas">Basic Features</string>
     <string name="token_button">Get token</string>
     <string name="vault_button">Launch Vault</string>
@@ -27,21 +27,22 @@
 
     <!-- messages -->
     <string name="token_message">Token: %1$s</string>
-    <string name="error_no_token">SDK doesn\'t have a token where it can give you now.</string>
-    <string name="deleted_token">Deleted token in the SDK.</string>
+    <string name="error_no_token">No user access token, client unauthorized!</string>
+    <string name="deleted_token">Cleared saved tokens.</string>
     <string name="logout">Logged out.</string>
-    <string name="error_general">An error is occurred.</string>
-    <string name="open_vault_success">Opened the vault.</string>
-    <string name="open_settings_success">Opened the settings.</string>
-    <string name="open_customer_support_success">Opened Customer Support</string>
+    <string name="error_general">An error has occurred.</string>
+    <string name="open_vault_success">Opening Vault.</string>
+    <string name="open_settings_success">Opening Settings.</string>
+    <string name="open_customer_support_success">Opening Customer Support</string>
     <string name="connect_service_success">Connect Service</string>
     <string name="open_service_setting_success">Service Settings</string>
     <string name="open_services_success">Open Services</string>
     <string name="it_launching">Launching…</string>
-    <string name="it_success">Launched Issho Tsucho successfully!</string>
-    <string name="device_token_error">Can\'t get a device token from the device.</string>
+    <string name="it_success">Launching LINK Kit!</string>
+    <string name="device_token_error">Could not get an FCM token.</string>
     <string name="register_token_ok">Finished registration successfully.</string>
     <string name="unregister_token_ok">Finished de-registration successfully.</string>
+    <string name="code_grant_completion_message">Code Grant flow finished. Client server should have the user access token</string>
 
     <!-- placeholders -->
     <string name="onboard_placeholder">Your Email</string>

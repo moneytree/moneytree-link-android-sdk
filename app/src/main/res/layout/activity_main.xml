@@ -22,6 +22,8 @@
             android:textColor="@android:color/holo_green_dark"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:maxLines="3"
+            android:ellipsize="end"
             tools:text="@string/welcome" />
 
         <View
@@ -111,6 +113,86 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/onboard_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/onboard"
+                android:textSize="@dimen/font_default"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/onboard_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/onboard_placeholder"
+                android:textSize="16sp"
+                android:inputType="textEmailAddress" />
+
+            <Button
+                android:id="@+id/onboard_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/onboard" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/magiclink_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/magic_link"
+                android:textSize="@dimen/font_default"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/magiclink_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/onboard_placeholder"
+                android:textSize="16sp"
+                android:inputType="textEmailAddress" />
+
+            <Spinner
+                android:id="@+id/magiclink_destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:inputType="textEmailAddress" />
+
+            <Button
+                android:id="@+id/magiclink_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/request_magic_link" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginBottom="16dp"
             android:background="@android:color/darker_gray" />
 
@@ -157,7 +239,7 @@
                 android:text="@string/register_button" />
 
             <Button
-                android:id="@+id/deregister_button"
+                android:id="@+id/unregister_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/unregister_button" />

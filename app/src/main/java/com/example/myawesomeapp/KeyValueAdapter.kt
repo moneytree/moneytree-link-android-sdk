@@ -14,7 +14,8 @@ class KeyValueAdapter(
   context: Context,
   resource: Int
 ) : ArrayAdapter<Pair<String, String>>(
-  context, resource
+  context,
+  resource
 ) {
 
   override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

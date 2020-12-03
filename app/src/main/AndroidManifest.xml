@@ -15,7 +15,6 @@
             android:name="asset_statements"
             android:resource="@string/assetStatements" />
 
-        <!-- Make sure to set `singleTask` to your starter activity for magic link -->
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -25,28 +24,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <!-- MagicLink Intent Filter -->
             <intent-filter>
-                <!-- The following configuration are also for magic link -->
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="myaccount-staging.getmoneytree.com"
-                    android:pathPrefix="/link/af84f"
+                    android:host="${linkHost}"
+                    android:pathPrefix="/link/${clientIdShort}"
                     android:scheme="https" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name="com.getmoneytree.auth.SchemeHandlerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- FIXME: Replace with your value -->
-                <data android:scheme="mtlinkaf84f" />
             </intent-filter>
         </activity>
 
