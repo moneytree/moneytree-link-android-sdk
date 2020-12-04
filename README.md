@@ -433,7 +433,9 @@ The parameters are:
 - `listener`: optional (overloaded), automatically adds, and removes when not needed, an `Action` listener to the centralized lifecycle capable callback system.
 This is more of a convenience tool rather than a necessity as you can still subscribe to the events of the system as explained in [SDK callback flow](#SDK-callback-flow)
 
-> :warning: Currently, Onboarding and Magic Link are supported only by the core SDK. Later versions are expected to add the same functionality when using LINK Kit.
+> :warning: Currently, Onboarding is supported only by the core SDK. Later versions are expected to add the same functionality when using LINK Kit.
+
+> :warning: Onboarding and Magic Link both require specific configuration on our side and implementation on the client's app side to work. Please contact us to get the features enabled and make sure to follow the steps described in this section for the features to work.
 
 ### De-authorizing, Logging Out
 
