@@ -45,8 +45,8 @@ When installing SDK 6 you can omit the `@aar` suffix found in previous verions.
 Starting from `app.moneytree.link:core` 6.0 sibling modules like  `link-kit`, previously `it`, have independent versioning. Including all packages SDK 6.0 would now look like this.
 
 ```groovy
-implementation("app.moneytree.link:core:6.0.0")
-implementation("app.moneytree.link:link-kit:1.0.0")
+implementation("app.moneytree.link:core:6.0.1")
+implementation("app.moneytree.link:link-kit:1.0.1")
 ```
 
 ## MoneytreeLink
