@@ -1,5 +1,9 @@
 # Change Log
 
+## v6.0.1
+
+- Fixes and stability improvements in the LINK Kit integration
+
 ## v6.0.0
 
 - all deprecated functions from 5.x have been removed.

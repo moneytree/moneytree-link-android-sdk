@@ -70,7 +70,7 @@ Then add the following dependencies in your `build.gradle` or `build.gradle.kts`
 ```groovy
 dependencies {
     // Moneytree LINK SDK
-    implementation 'app.moneytree.link:core:6.0.0'
+    implementation 'app.moneytree.link:core:6.0.1'
 }
 ```
 
@@ -79,7 +79,7 @@ dependencies {
 ```kotlin
 dependencies {
     // Moneytree LINK SDK
-    implementation("app.moneytree.link:core:6.0.0")
+    implementation("app.moneytree.link:core:6.0.1")
 }
 ```
 
@@ -89,9 +89,9 @@ dependencies {
 ```groovy
 dependencies {
     // Moneytree LINK SDK
-    implementation 'app.moneytree.link:core:6.0.0'
+    implementation 'app.moneytree.link:core:6.0.1'
     // LINK Kit
-    implementation 'app.moneytree.link:link-kit:1.0.0'
+    implementation 'app.moneytree.link:link-kit:1.0.1'
 }
 ```
 
@@ -99,9 +99,9 @@ dependencies {
 ```kotlin
 dependencies {
     // Moneytree LINK SDK
-    implementation("app.moneytree.link:core:6.0.0")
+    implementation("app.moneytree.link:core:6.0.1")
     // LINK Kit too.
-    implementation("app.moneytree.link:link-kit:1.0.0")
+    implementation("app.moneytree.link:link-kit:1.0.1")
 }
 ```
 > :exclamation: All libraries are subjected to certain contracts with Moneytree. Moneytree servers will reject any SDK request that does not have a valid and active contract.
@@ -435,7 +435,9 @@ This is more of a convenience tool rather than a necessity as you can still subs
 
 > :warning: Currently, Onboarding is supported only by the core SDK. Later versions are expected to add the same functionality when using LINK Kit.
 
-> :warning: Onboarding and Magic Link both require specific configuration on our side and implementation on the client's app side to work. Please contact us to get the features enabled and make sure to follow the steps described in this section for the features to work.
+> :warning: Onboarding and Magic Link both require specific configuration on our side and implementation on the client's app side to work. Please contact us to get the features enabled for your Client ID and make sure to follow the steps described in this section for the features to work.
+>
+> You will need to provide us with your signing keys' fingerprints, as Magic Link uses Android App Links for extra security. App Links verify the connection between your app and the link received and send the intent directly to your app without showing the system's app selection sheet. To that effect you will need to provide us with your production key's fingerprint for your released app. If you want to be able to confirm this functionality on your debug artifact as well you will have to create a static debug signing key and provide its fingerprint too. You can learn more on App Links [here](https://developer.android.com/training/app-links/verify-site-associations)
 
 ### De-authorizing, Logging Out
 
