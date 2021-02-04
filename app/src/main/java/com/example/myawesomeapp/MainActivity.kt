@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
           }
           LinkEvent.VaultOpened -> {
             // Specific event to indicate that the browser is opening the vault.
+            Toast.makeText(this@MainActivity, "Vault opened!", Toast.LENGTH_SHORT).show()
           }
           LinkEvent.VaultClosed -> {
             Toast.makeText(this@MainActivity, "Vault closed!", Toast.LENGTH_SHORT).show()
