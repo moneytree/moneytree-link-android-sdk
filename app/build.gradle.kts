@@ -8,13 +8,13 @@ repositories {
 }
 
 android {
-  compileSdkVersion(29)
-  buildToolsVersion("30.0.2")
+  compileSdkVersion(30)
+  buildToolsVersion("30.0.3")
 
   defaultConfig {
     applicationId = "com.example.myawesomeapp"
     minSdkVersion(21)
-    targetSdkVersion(29)
+    targetSdkVersion(30)
     versionCode = 1
     versionName = "1.0"
 
@@ -56,20 +56,17 @@ android {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10")
-
+  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.31")
   implementation("androidx.appcompat:appcompat:1.2.0")
-  implementation("com.google.android.material:material:1.2.0")
-
-  implementation("com.google.firebase:firebase-messaging:20.2.4")
+  implementation("com.google.android.material:material:1.3.0")
+  implementation("com.google.firebase:firebase-messaging:21.0.1")
 
   val sdkVersion = rootProject.extra["sdkVersion"] as String
-  val linkKitVersion = rootProject.extra["linkKitVersion"] as String
 
   // Moneytree LINK SDK
   implementation("app.moneytree.link:core:${sdkVersion}")
   // LINK Kit (Optional)
-  implementation("app.moneytree.link:link-kit:${linkKitVersion}")
+  implementation("app.moneytree.link:link-kit:${sdkVersion}")
 }
 
 apply(plugin = "com.google.gms.google-services")
