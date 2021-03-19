@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
           }
           LinkEvent.VaultOpened -> {
             // Specific event to indicate that the browser is opening the vault.
+            Toast.makeText(this@MainActivity, "Vault opened!", Toast.LENGTH_SHORT).show()
           }
           LinkEvent.VaultClosed -> {
             Toast.makeText(this@MainActivity, "Vault closed!", Toast.LENGTH_SHORT).show()
@@ -320,6 +321,12 @@ class MainActivity : AppCompatActivity() {
 
     findViewById<View>(R.id.logout_button).setOnClickListener {
       MoneytreeLink.instance.logout(this@MainActivity)
+    }
+
+    if (savedInstanceState == null) {
+      intent.data?.also { uri ->
+        MoneytreeLink.instance.consumeMagicLink(this, uri)
+      }
     }
   }
 

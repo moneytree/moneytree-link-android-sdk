@@ -148,9 +148,9 @@ For example; if your  Client ID is `abcde1234567890moneytree`, your `clientIdSho
 
 > :information_source: The Client ID will be provided by Moneytree once you have an active contract. Please contact us for more information or further questions.
 
-### Configuring MagicLink
+### Configuring Magic Link
 
-If you want to enable use of Magic Link, you need to add to an activity of your choice the following intent filter:
+You need to add the following intent filter to an activity of your choice:
 
 ```xml
 <!-- MagicLink Intent Filter -->
@@ -166,13 +166,13 @@ If you want to enable use of Magic Link, you need to add to an activity of your 
 </intent-filter>
 ```
 
-> :information_source: More on Magic Link in *[Onboarding and Magic Link](#Onboarding-and-Magic-Link)*
-
 You will finally need to add the `INTERNET` permission if you do not have it already.
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
+
+> :information_source: Complete configuration by contacting Moneytree with the information in *[Onboarding and Magic Link](#Onboarding-and-Magic-Link)*
 
 ### Initializing the SDK
 
@@ -378,7 +378,19 @@ LinkKit.getInstance().launch(
 
 ### Onboarding and Magic Link
 
-Our services offer the ability to "onboard", login, or navigate users to a specific location in their account pages, using "magic links" instead of traditional navigation. These services are ***password-less*** and email based. Each time a request for any is sent by the SDK, an email is sent to the user's address with a one time url capable of creating an account, in the case of Onboarding, and log in or open a specific account settings path in the case of Magic Link.
+Onboarding and Magic Link are new secure, passwordless, email-based registration and login features offered from v6 in order to allow your customers easier access to Moneytree services. These features are email based. When Onboarding is requested, the user will receive a one-time url capable of creating an account. When a Magic Link is requested, the user will receive a one-time url that can log them in or navigate to their account settings.
+
+> :warning: Onboarding is currently available _only_ for Core services. Magic Link is available for _all_ services, including LINK Kit.
+
+> :warning: Please complete [Configuring Magic Link](#configuring-magic-link) first.
+
+You must inform Moneytree's integration team if you want to support either or both Onboarding and Magic Link. When doing so, please provide your client ID, the bundle ID of your iOS app and the SHA-1 fingerprint certificate of your Android app, as well as whether it is for the test environment, production, or both.
+
+Your SHA-1 fingerprint certificate is necessary because Magic Link uses Android App Links for extra security. App Links verify the connection between your app and the link received and send the intent directly to your app without showing the system's app selection sheet. To that effect you will need to provide us with your production key's fingerprint for your released app. If you want to be able to confirm this functionality on your debug artifact as well you will have to create a static debug signing key and provide its fingerprint too. You can learn more on App Links [here](https://developer.android.com/training/app-links/verify-site-associations)
+
+Once Moneytree completes the configuration of your app, your users will see the new registration and login screens. Note that these screens still provide the option to register or log in with a password if they prefer.
+
+#### Onboarding
 
 To use *Onboarding* call `onboard(Activity, LinkAuthOptions.Onboarding)`, where:
 
@@ -395,6 +407,8 @@ val authConfig = LinkAuthOptions
 // Launch the onboarding process
 MoneytreeLink.getInstance().onboard(activity, options)
 ```
+
+#### Magic Link
 
 *Magic Link* has two main uses. Login and navigation.
 
@@ -432,12 +446,6 @@ The parameters are:
 - `uri`: the Uri you receive from `intent.getData()` when the app captures the link from the received email.
 - `listener`: optional (overloaded), automatically adds, and removes when not needed, an `Action` listener to the centralized lifecycle capable callback system.
 This is more of a convenience tool rather than a necessity as you can still subscribe to the events of the system as explained in [SDK callback flow](#SDK-callback-flow)
-
-> :warning: Currently, Onboarding is supported only by the core SDK. Later versions are expected to add the same functionality when using LINK Kit.
-
-> :warning: Onboarding and Magic Link both require specific configuration on our side and implementation on the client's app side to work. Please contact us to get the features enabled for your Client ID and make sure to follow the steps described in this section for the features to work.
->
-> You will need to provide us with your signing keys' fingerprints, as Magic Link uses Android App Links for extra security. App Links verify the connection between your app and the link received and send the intent directly to your app without showing the system's app selection sheet. To that effect you will need to provide us with your production key's fingerprint for your released app. If you want to be able to confirm this functionality on your debug artifact as well you will have to create a static debug signing key and provide its fingerprint too. You can learn more on App Links [here](https://developer.android.com/training/app-links/verify-site-associations)
 
 ### De-authorizing, Logging Out
 
