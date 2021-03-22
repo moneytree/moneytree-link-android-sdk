@@ -322,6 +322,12 @@ class MainActivity : AppCompatActivity() {
     findViewById<View>(R.id.logout_button).setOnClickListener {
       MoneytreeLink.instance.logout(this@MainActivity)
     }
+
+    if (savedInstanceState == null) {
+      intent.data?.also { uri ->
+        MoneytreeLink.instance.consumeMagicLink(this, uri)
+      }
+    }
   }
 
   override fun onNewIntent(intent: Intent) {
