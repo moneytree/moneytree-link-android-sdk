@@ -62,12 +62,11 @@ dependencies {
   implementation("com.google.firebase:firebase-messaging:21.0.1")
 
   val sdkVersion = rootProject.extra["sdkVersion"] as String
-  val linkKitVersion = rootProject.extra["linkKitVersion"] as String
 
   // Moneytree LINK SDK
   implementation("app.moneytree.link:core:${sdkVersion}")
   // LINK Kit (Optional)
-  implementation("app.moneytree.link:link-kit:${linkKitVersion}")
+  implementation("app.moneytree.link:link-kit:${sdkVersion}")
 }
 
 apply(plugin = "com.google.gms.google-services")
