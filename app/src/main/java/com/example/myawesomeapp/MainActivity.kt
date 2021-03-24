@@ -30,7 +30,6 @@ import com.getmoneytree.VaultOpenServicesOptions
 import com.getmoneytree.linkkit.LinkKit
 import com.getmoneytree.listener.Action
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.iid.FirebaseInstanceId
 import java.util.UUID
 
 /**
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity() {
       .auth(
         run {
           if (BuildConfig.authType == AuthType.PKCE) LinkAuthFlow.Pkce.create()
-          else LinkAuthFlow.CodeGrant(UUID.randomUUID().toString().replace("_", "-"))
+          else LinkAuthFlow.CodeGrant(state = UUID.randomUUID().toString().replace("_", "-"))
         }
       )
 
@@ -114,8 +113,6 @@ class MainActivity : AppCompatActivity() {
       }
     }
 
-    // //// Set up Issho Tsucho //////
-
     findViewById<Button>(R.id.link_kit_button)
       .setOnClickListener { startLinkKit() }
 
@@ -124,7 +121,7 @@ class MainActivity : AppCompatActivity() {
       MoneytreeLink.instance.getToken(this)
     }
 
-    findViewById<Button>(R.id.vault_button).setOnClickListener { view ->
+    findViewById<Button>(R.id.vault_button).setOnClickListener {
       MoneytreeLink.instance.openVault(
         this@MainActivity,
         LinkRequestContext
@@ -134,7 +131,7 @@ class MainActivity : AppCompatActivity() {
       )
     }
 
-    findViewById<Button>(R.id.customer_support_button).setOnClickListener { view ->
+    findViewById<Button>(R.id.customer_support_button).setOnClickListener {
       MoneytreeLink.instance.openVault(
         this@MainActivity,
         LinkRequestContext.Builder()
@@ -161,7 +158,7 @@ class MainActivity : AppCompatActivity() {
       }
     )
 
-    findViewById<Button>(R.id.connect_service_button).setOnClickListener { view ->
+    findViewById<Button>(R.id.connect_service_button).setOnClickListener {
       val serviceKey = connectServiceInput.text.toString()
 
       MoneytreeLink.instance.openVault(
@@ -210,7 +207,7 @@ class MainActivity : AppCompatActivity() {
     val openServicesGroupInput = findViewById<TextView>(R.id.open_services_group_input)
     val openServicesSearchInput = findViewById<TextView>(R.id.open_services_search_input)
 
-    findViewById<View>(R.id.open_services_button).setOnClickListener { view ->
+    findViewById<View>(R.id.open_services_button).setOnClickListener {
       val options = VaultOpenServicesOptions.Builder()
         .type(openServicesTypeInput.text.toString())
         .group(openServicesGroupInput.text.toString())
@@ -237,7 +234,7 @@ class MainActivity : AppCompatActivity() {
       )
     }
 
-    findViewById<Button>(R.id.settings_button).setOnClickListener { view ->
+    findViewById<Button>(R.id.settings_button).setOnClickListener {
       MoneytreeLink.instance.openSettings(
         this@MainActivity,
         null
@@ -390,60 +387,57 @@ class MainActivity : AppCompatActivity() {
   }
 
   /**
-   * Register the FCM token to the Moneytree notifications server
+   * You have to determine how your app gets the device token from users' device.
    */
-  private fun registerToken() {
-    FirebaseInstanceId
-      .getInstance()
-      .instanceId
-      .addOnSuccessListener { instanceIdResult ->
-        if (!MoneytreeLink.instance.isLoggedIn) {
-          showError(rootView, getString(R.string.error_no_token))
-        } else {
-          MoneytreeLink
-            .instance
-            .registerFcmToken(
-              instanceIdResult.token,
-              object : Action {
-                override fun onSuccess() {
-                  showMessage(rootView, getString(R.string.register_token_ok))
-                }
-
-                override fun onError(exception: MoneytreeLinkException) {
-                  showError(rootView, exception.message)
-                }
-              }
-            )
-        }
-      }
+  private fun getDeviceToken(): String {
+    return "__device_token__"
   }
 
   /**
-   * Remove the FCM token from the Moneytree notifications server
+   * Register the device token to the Moneytree notifications server
+   */
+  private fun registerToken() {
+    if (!MoneytreeLink.instance.isLoggedIn) {
+      showError(rootView, getString(R.string.error_no_token))
+    } else {
+      MoneytreeLink
+        .instance
+        .registerRemoteToken(
+          getDeviceToken(),
+          object : Action {
+            override fun onSuccess() {
+              showMessage(rootView, getString(R.string.register_token_ok))
+            }
+
+            override fun onError(exception: MoneytreeLinkException) {
+              showError(rootView, exception.message)
+            }
+          }
+        )
+    }
+  }
+
+  /**
+   * Remove the device token from the Moneytree notifications server
    */
   private fun unregisterToken() {
-    FirebaseInstanceId
-      .getInstance()
-      .instanceId
-      .addOnSuccessListener { instanceIdResult ->
-        if (!MoneytreeLink.instance.isLoggedIn) {
-          showError(rootView, getString(R.string.error_no_token))
-        } else {
-          MoneytreeLink
-            .instance
-            .unregisterFcmToken(
-              instanceIdResult.token,
-              object : Action {
-                override fun onSuccess() {
-                  showMessage(rootView, getString(R.string.unregister_token_ok))
-                }
+    if (!MoneytreeLink.instance.isLoggedIn) {
+      showError(rootView, getString(R.string.error_no_token))
+    } else {
+      MoneytreeLink
+        .instance
+        .unregisterFcmToken(
+          getDeviceToken(),
+          object : Action {
+            override fun onSuccess() {
+              showMessage(rootView, getString(R.string.unregister_token_ok))
+            }
 
-                override fun onError(exception: MoneytreeLinkException) {
-                  showError(rootView, exception.message)
-                }
-              }
-            )
-        }
-      }
+            override fun onError(exception: MoneytreeLinkException) {
+              showError(rootView, exception.message)
+            }
+          }
+        )
+    }
   }
 }
