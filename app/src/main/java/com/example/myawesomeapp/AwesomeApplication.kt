@@ -19,15 +19,14 @@ class AwesomeApplication : Application() {
     /**
      * Kindly guideline for all who are going to try out AwesomeApp;
      *
-     * The default settings is to work in the `PKCE` type flow, so,
-     * if you want to try out the `Code Grant` type flow, you have to complete the following tasks.
-     * - Uncomment `redirectUri` call in the configuration settings (just below!)
-     * - At [MainActivity], you have to replace options in the [MoneytreeAuthOptions.Builder]
-     *   where it's supplied when it starts authorize process.
-     *   - You have to comment out [MoneytreeAuthOptions.Builder.authorizationHandler] and
-     *   call [MoneytreeAuthOptions.Builder.codeGrantTypeOptions] instead.
-     * - You have to look into Logcat if the app gets crashed when you tap a button.
-     *   It will give you descriptive message..
+     * The default settings is to work in the `PKCE` flow, so,
+     * if you want to try out the `Code Grant` flow, you have to complete the following tasks.
+     *
+     * - Edit `awesomeAuthType` in `gradle.properties`.
+     * - Edit `redirectUri` URL below to utilise your backend service.
+     * - Rebuild the project and see if the header text says the current configuration is Code Grant
+     *
+     * Logcat will give descriptive message when the app gets crashed.
      */
     @Suppress("ConstantConditionIf")
     val configuration = MoneytreeLinkConfiguration.Builder()
@@ -35,8 +34,8 @@ class AwesomeApplication : Application() {
         if (BuildConfig.isProduction) LinkEnvironment.Production
         else LinkEnvironment.Staging
       )
-      // Place the Client ID you received here
       .clientId("[clientId]")
+      // TODO: Place the Client ID you received here
       // You can add scopes using String as well.
       // .scopes("customized_scope", "new_scope")
       .scopes(
@@ -58,11 +57,28 @@ class AwesomeApplication : Application() {
       }
       .build()
 
+    if (configuration.clientId == "[clientId]") {
+      Log.w(
+        TAG,
+        """\n
+          ***************** Detected placeholder strings. Need your edit! *************************
+          You should set your clientId to the SDK configuration. See also AwesomeApplication.kt.
+          And just in case, please check if you updated clientIdShort variable in build.gradle.kts.
+          Read README.md for the setup step.
+          *****************************************************************************************
+        """.trimIndent()
+      )
+    }
+
     // Initialize MoneytreeLink client.
     MoneytreeLink.init(this, configuration) { result ->
-      Log.d(AwesomeApplication::class.simpleName!!, "Result: $result")
+      Log.d(TAG, "Result: $result")
     }
-    // Initialize Issho Tsucho client. (You can do either one.)
+    // Initialize LINK Kit client. (You can do either one.)
     LinkKit.init(this, configuration)
+  }
+
+  companion object {
+    private const val TAG = "AwesomeApplication"
   }
 }
