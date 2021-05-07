@@ -48,8 +48,8 @@ The Moneytree LINK Kit provides you with a web based UI version of our PFM servi
 
 ### Getting the SDK
 
-> :warning: The SDK requires Android 5.0 (Lollipop) and above.
-> Your `minSdkVersion` must be set to at least `21`.
+> :warning: The SDK requires Android 6.0 (Marshmallow) and above.
+> Your `minSdkVersion` must be set to at least `23`.
 
 The Moneytree LINK SDK is offered through Maven Central. Add the following dependencies in your `build.gradle` or `build.gradle.kts` file:
 

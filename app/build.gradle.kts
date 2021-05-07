@@ -16,7 +16,7 @@ android {
 
   defaultConfig {
     applicationId = "com.example.myawesomeapp"
-    minSdkVersion(21)
+    minSdkVersion(23)
     targetSdkVersion(30)
     versionCode = 1
     versionName = "1.0"
