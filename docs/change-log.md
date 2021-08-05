@@ -1,5 +1,9 @@
 # Change Log
 
+## v6.1.1
+
+- Fixes internal encoding fixture
+
 ## v6.0.1
 
 - Fixes and stability improvements in the LINK Kit integration
@@ -15,6 +19,7 @@
   - `OAuthCredentialProvider` has been removed.
   - `OAuthHandler` has been removed.
   - `Api` listener had been removed and is replaced by the `Action` listener.
+- Requires Android 6+
 
 ### MoneytreeLink
 - `MoneytreeLink.init` now takes a `LinkResultListener` so you can listen to SDK event's
@@ -154,5 +159,5 @@ The following is just an example. Refer to the JavaDocs and Awesome app's MainAc
 | CompletionHandler                  | Authorization.OnCompletionListener | Methods for authorization              |
 | (same as above)                    | Action.OnCompletionListener        | Used for openSettings, openInstitution |
 | MoneytreeLink.ApiCompletionHandler | Api.OnCompletionListener           | Renamed                                |
-| IsshoTsucho.CompletionHandler      | IsshoTsucho.OnCompletionListener   | Renamed |
+| IsshoTsucho.CompletionHandler      | IsshoTsucho.OnCompletionListener   | Renamed                                |
 s

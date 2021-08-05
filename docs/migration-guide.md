@@ -1,27 +1,16 @@
 ## LINK SDK 4 and 5 to LINK SDK 6
 
-Link SDK 5.0 or greater require Android 5+. So, you will need to update your minSdkVersion to 21 or greater.
+Link SDK 6 or greater require Android 6+. So, you will need to update your minSdkVersion to 23 or greater.
 
 ```groovy
 android {
   defaultConfig {
-    minSdkVersion 21
+    minSdkVersion 23
   }
 }
 ```
 
-SDK 5 or above also require JDK8. To enable this in your app you need Android Gradle plugin `3.0.0`;
-we recommend using Android Gradle plugin `4.0.0` or greater for the best results.
-
-```groovy
-compileOptions {
-    // Sets Java compatibility to Java 8
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
-```
-
-## AndroidX.
+## AndroidX
 
 SDK 6 also now requires AndroidX.
 

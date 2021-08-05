@@ -9,9 +9,9 @@
     <string name="token_button">Get token</string>
     <string name="vault_button">Launch Vault</string>
     <string name="customer_support_button">Customer Support</string>
-    <string name="onboard">Onboard</string>
-    <string name="magic_link">Magic Link</string>
-    <string name="request_magic_link">Request Magic Link</string>
+    <string name="onboard">Passwordless Sign Up/Login</string>
+    <string name="login_link">Login Link</string>
+    <string name="request_login_link">Request Login Link</string>
     <string name="connect_service_button">Connect</string>
     <string name="service_settings_button">Open Settings</string>
     <string name="open_services_button">Open Services</string>

@@ -158,15 +158,15 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/magiclink_title"
+                android:id="@+id/loginlink_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/magic_link"
+                android:text="@string/login_link"
                 android:textSize="@dimen/font_default"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/magiclink_email"
+                android:id="@+id/loginlink_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/onboard_placeholder"
@@ -174,7 +174,7 @@
                 android:inputType="textEmailAddress" />
 
             <Spinner
-                android:id="@+id/magiclink_destination"
+                android:id="@+id/loginlink_destination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
@@ -183,11 +183,11 @@
                 android:inputType="textEmailAddress" />
 
             <Button
-                android:id="@+id/magiclink_button"
+                android:id="@+id/loginlink_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/request_magic_link" />
+                android:text="@string/request_login_link" />
         </LinearLayout>
 
         <View
