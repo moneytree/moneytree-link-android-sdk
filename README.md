@@ -384,9 +384,9 @@ Onboarding and Magic Link are new secure, passwordless, email-based registration
 
 > :warning: Please complete [Configuring Magic Link](#configuring-magic-link) first.
 
-You must inform Moneytree's integration team if you want to support either or both Onboarding and Magic Link. When doing so, please provide your client ID, the bundle ID of your iOS app and the SHA-1 fingerprint certificate of your Android app, as well as whether it is for the test environment, production, or both.
+You must inform Moneytree's integration team if you want to support either or both Onboarding and Magic Link. When doing so, please provide your client ID, the bundle ID of your iOS app and the SHA-256 fingerprint certificate of your Android app, as well as whether it is for the test environment, production, or both.
 
-Your SHA-1 fingerprint certificate is necessary because Magic Link uses Android App Links for extra security. App Links verify the connection between your app and the link received and send the intent directly to your app without showing the system's app selection sheet. To that effect you will need to provide us with your production key's fingerprint for your released app. If you want to be able to confirm this functionality on your debug artifact as well you will have to create a static debug signing key and provide its fingerprint too. You can learn more on App Links [here](https://developer.android.com/training/app-links/verify-site-associations)
+Your SHA-256 fingerprint certificate is necessary because Magic Link uses Android App Links for extra security. App Links verify the connection between your app and the link received and send the intent directly to your app without showing the system's app selection sheet. To that effect you will need to provide us with your production key's fingerprint for your released app. If you want to be able to confirm this functionality on your debug artifact as well you will have to create a static debug signing key and provide its fingerprint too. You can learn more on App Links [here](https://developer.android.com/training/app-links/verify-site-associations)
 
 Once Moneytree completes the configuration of your app, your users will see the new registration and login screens. Note that these screens still provide the option to register or log in with a password if they prefer.
 
