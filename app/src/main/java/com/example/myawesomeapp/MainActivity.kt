@@ -6,14 +6,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.myawesomeapp.databinding.ActivityMainBinding
 import com.getmoneytree.LinkAuthFlow
 import com.getmoneytree.LinkAuthOptions
 import com.getmoneytree.LinkError
@@ -21,55 +17,53 @@ import com.getmoneytree.LinkEvent
 import com.getmoneytree.LinkRequestContext
 import com.getmoneytree.MoneytreeLink
 import com.getmoneytree.MoneytreeLinkException
-import com.getmoneytree.MoneytreeLinkExtensions.onCodeGrantAuthorized
+import com.getmoneytree.MoneytreeLinkExtensions.onAuthorized
 import com.getmoneytree.MoneytreeLinkExtensions.onError
 import com.getmoneytree.MoneytreeLinkExtensions.onEvent
 import com.getmoneytree.MoneytreeLinkExtensions.onLoggedOut
-import com.getmoneytree.MoneytreeLinkExtensions.onPkceAuthorized
 import com.getmoneytree.VaultOpenServicesOptions
 import com.getmoneytree.linkkit.LinkKit
 import com.getmoneytree.listener.Action
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.iid.FirebaseInstanceId
 import java.util.UUID
 
 /**
  * A reference app that introduces what the SDK can do.
  *
- * @author Moneyteee KK
+ * @author Moneytree KK
  */
 class MainActivity : AppCompatActivity() {
 
-  private val statusTextView: TextView
-    get() = findViewById(R.id.result_text)
-
   private val rootView: View
-    get() = findViewById(R.id.scroll_view)
+    get() = binding.scrollView
 
   private val baseAuthOptions: LinkAuthOptions.Builder
     get() = LinkAuthOptions
       .builder()
-      .forceLogout(findViewById<CheckBox>(R.id.force_logout).isChecked)
+      .forceLogout(binding.forceLogout.isChecked)
       .auth(
-        run {
-          if (BuildConfig.authType == AuthType.PKCE) LinkAuthFlow.Pkce.create()
-          else LinkAuthFlow.CodeGrant(UUID.randomUUID().toString().replace("_", "-"))
-        }
+        if (BuildConfig.authType == AuthType.PKCE) LinkAuthFlow.Pkce.create()
+        else LinkAuthFlow.CodeGrant(state = UUID.randomUUID().toString().replace("_", "-"))
       )
 
-  @Suppress("ConstantConditionIf")
+  private lateinit var binding: ActivityMainBinding
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
+    binding = ActivityMainBinding.inflate(layoutInflater)
+    setContentView(binding.root)
 
     // Subscribe to this centralized result listener to get the LINK SDK results
     val context = this
     with(MoneytreeLink.instance) {
-      onCodeGrantAuthorized(context) {
-        showMessage(rootView, getString(R.string.code_grant_completion_message))
-      }
-      onPkceAuthorized(context) { token ->
-        showMessage(rootView, getString(R.string.token_message, token.value))
+      onAuthorized(context) { token ->
+        if (token != null) {
+          // If the token exists, it means you chose PKCE as the auth flow
+          showMessage(rootView, getString(R.string.token_message, token.value))
+        } else {
+          // Otherwise, it should be Code Grant
+          showMessage(rootView, getString(R.string.code_grant_completion_message))
+        }
       }
       onLoggedOut(context) {
         showMessage(rootView, getString(R.string.logout))
@@ -90,7 +84,10 @@ class MainActivity : AppCompatActivity() {
           LinkEvent.RequestCancelled -> {
             // This event is transmitted when the in app browser closes without a schema triggering
             // a flow. This means that the browser close button or system back button were used.
-            showMessage(findViewById(android.R.id.content), "User closed the browser...")
+            showMessage(
+              findViewById(android.R.id.content),
+              "Request was cancelled. User closed the browser."
+            )
           }
           LinkEvent.VaultOpened -> {
             // Specific event to indicate that the browser is opening the vault.
@@ -114,27 +111,24 @@ class MainActivity : AppCompatActivity() {
       }
     }
 
-    // //// Set up Issho Tsucho //////
+    binding.linkKitButton.setOnClickListener { startLinkKit() }
 
-    findViewById<Button>(R.id.link_kit_button)
-      .setOnClickListener { startLinkKit() }
-
-    findViewById<Button>(R.id.token_button).setOnClickListener {
+    binding.tokenButton.setOnClickListener {
       // Need to pass activity when you get a token.
       MoneytreeLink.instance.getToken(this)
     }
 
-    findViewById<Button>(R.id.vault_button).setOnClickListener { view ->
+    binding.vaultButton.setOnClickListener {
       MoneytreeLink.instance.openVault(
         this@MainActivity,
         LinkRequestContext
           .Builder()
-          .userEmail(findViewById<EditText>(R.id.auth_email_edit).text.toString())
+          .userEmail(binding.authEmailEdit.text.toString())
           .build()
       )
     }
 
-    findViewById<Button>(R.id.customer_support_button).setOnClickListener { view ->
+    binding.customerSupportButton.setOnClickListener {
       MoneytreeLink.instance.openVault(
         this@MainActivity,
         LinkRequestContext.Builder()
@@ -143,9 +137,8 @@ class MainActivity : AppCompatActivity() {
       )
     }
 
-    // connect service input and button
-    val connectServiceInput = findViewById<TextView>(R.id.connect_service_key_input)
-    val connectServiceButton = findViewById<Button>(R.id.connect_service_button)
+    val connectServiceInput = binding.connectServiceKeyInput
+    val connectServiceButton = binding.connectServiceButton
     connectServiceButton.isEnabled = false
 
     // disable connect service button if connect service key input has no value and vise-versa
@@ -161,9 +154,8 @@ class MainActivity : AppCompatActivity() {
       }
     )
 
-    findViewById<Button>(R.id.connect_service_button).setOnClickListener { view ->
+    binding.connectServiceButton.setOnClickListener {
       val serviceKey = connectServiceInput.text.toString()
-
       MoneytreeLink.instance.openVault(
         this@MainActivity,
         LinkRequestContext
@@ -174,9 +166,8 @@ class MainActivity : AppCompatActivity() {
       )
     }
 
-    // connect service input and button
-    val serviceSettingIdInput = findViewById<TextView>(R.id.service_settings_id_input)
-    val serviceSettingButton = findViewById<Button>(R.id.service_settings_button)
+    val serviceSettingIdInput = binding.serviceSettingsIdInput
+    val serviceSettingButton = binding.serviceSettingsButton
     serviceSettingButton.isEnabled = false
 
     // disable connect service button if connect service key input has no value and vise-versa
@@ -192,7 +183,7 @@ class MainActivity : AppCompatActivity() {
       }
     )
 
-    findViewById<Button>(R.id.service_settings_button).setOnClickListener { view ->
+    binding.serviceSettingsButton.setOnClickListener {
       val serviceKey = serviceSettingIdInput.text.toString()
 
       MoneytreeLink.instance.openVault(
@@ -205,12 +196,11 @@ class MainActivity : AppCompatActivity() {
       )
     }
 
-    // open service setting input and button
-    val openServicesTypeInput = findViewById<TextView>(R.id.open_services_type_input)
-    val openServicesGroupInput = findViewById<TextView>(R.id.open_services_group_input)
-    val openServicesSearchInput = findViewById<TextView>(R.id.open_services_search_input)
+    val openServicesTypeInput = binding.openServicesTypeInput
+    val openServicesGroupInput = binding.openServicesGroupInput
+    val openServicesSearchInput = binding.openServicesSearchInput
 
-    findViewById<View>(R.id.open_services_button).setOnClickListener { view ->
+    binding.openServicesButton.setOnClickListener {
       val options = VaultOpenServicesOptions.Builder()
         .type(openServicesTypeInput.text.toString())
         .group(openServicesGroupInput.text.toString())
@@ -226,26 +216,24 @@ class MainActivity : AppCompatActivity() {
       )
     }
 
-    findViewById<Button>(R.id.auth_button).setOnClickListener {
+    binding.authButton.setOnClickListener {
       MoneytreeLink.instance.authorize(
         this@MainActivity,
         baseAuthOptions
           .presentSignup(true)
-          .buildAuthorize(
-            findViewById<EditText>(R.id.auth_email_edit).text?.toString() ?: ""
-          )
+          .buildAuthorize(email = binding.authEmailEdit.text?.toString() ?: "")
       )
     }
 
-    findViewById<Button>(R.id.settings_button).setOnClickListener { view ->
+    binding.settingsButton.setOnClickListener {
       MoneytreeLink.instance.openSettings(
         this@MainActivity,
         null
       )
     }
 
-    findViewById<Button>(R.id.onboard_button).setOnClickListener { view ->
-      val email = findViewById<TextView>(R.id.onboard_input).editableText.toString()
+    binding.onboardButton.setOnClickListener { view ->
+      val email = binding.onboardInput.editableText.toString()
       if (email.isEmpty()) {
         showError(view, "Email is required.")
         return@setOnClickListener
@@ -256,7 +244,7 @@ class MainActivity : AppCompatActivity() {
       )
     }
 
-    val spinner = findViewById<Spinner>(R.id.magiclink_destination)
+    val spinner = binding.loginlinkDestination
     // Populate data for spinner.
     // https://developer.android.com/guide/topics/ui/controls/spinner#Populate
     KeyValueAdapter(this, android.R.layout.simple_spinner_item)
@@ -278,8 +266,8 @@ class MainActivity : AppCompatActivity() {
         spinner.adapter = adapter
       }
 
-    findViewById<Button>(R.id.magiclink_button).setOnClickListener { view ->
-      val email = findViewById<EditText>(R.id.magiclink_email).text.toString()
+    binding.loginlinkButton.setOnClickListener { view ->
+      val email = binding.loginlinkEmail.text.toString()
       if (email.isEmpty()) {
         showError(view, "Email is required.")
         return@setOnClickListener
@@ -287,7 +275,7 @@ class MainActivity : AppCompatActivity() {
 
       @Suppress("UNCHECKED_CAST")
       val selectedItem: Pair<String, String> = spinner.selectedItem as Pair<String, String>
-      MoneytreeLink.instance.requestMagicLink(
+      MoneytreeLink.instance.requestLoginLink(
         email,
         selectedItem.first,
         object : Action {
@@ -302,39 +290,36 @@ class MainActivity : AppCompatActivity() {
       )
     }
 
-    findViewById<Button>(R.id.register_button)
-      .setOnClickListener { registerToken() }
+    binding.registerButton.setOnClickListener { registerToken() }
+    binding.unregisterButton.setOnClickListener { unregisterToken() }
 
-    findViewById<Button>(R.id.unregister_button)
-      .setOnClickListener { unregisterToken() }
+    binding.resetButton.setOnClickListener { view ->
+      MoneytreeLink.instance.deleteCredentials()
+      showMessage(view, getString(R.string.deleted_token))
+    }
 
-    statusTextView.text = getString(
+    binding.logoutButton.setOnClickListener {
+      MoneytreeLink.instance.logout(this@MainActivity)
+    }
+
+    binding.resultText.text = getString(
       R.string.welcome,
       if (BuildConfig.authType == AuthType.PKCE) "PKCE" else "Code Grant",
       if (BuildConfig.isProduction) "Production" else "Staging"
     )
 
-    findViewById<Button>(R.id.reset_button).setOnClickListener { view ->
-      MoneytreeLink.instance.deleteCredentials()
-      showMessage(view, getString(R.string.deleted_token))
-    }
-
-    findViewById<View>(R.id.logout_button).setOnClickListener {
-      MoneytreeLink.instance.logout(this@MainActivity)
-    }
-
     if (savedInstanceState == null) {
       intent.data?.also { uri ->
-        MoneytreeLink.instance.consumeMagicLink(this, uri)
+        MoneytreeLink.instance.consumeLoginLink(this, uri)
       }
     }
   }
 
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
-    // Handle magic link action
+    // Handle login link action
     intent.data?.also { uri ->
-      MoneytreeLink.instance.consumeMagicLink(this, uri)
+      MoneytreeLink.instance.consumeLoginLink(this, uri)
     }
   }
 
@@ -351,7 +336,7 @@ class MainActivity : AppCompatActivity() {
         )
       }
       .run { show() }
-      .also { statusTextView.text = message }
+      .also { binding.resultText.text = message }
   }
 
   private fun showError(view: View, message: String?) {
@@ -367,7 +352,7 @@ class MainActivity : AppCompatActivity() {
         )
       }
       .run { show() }
-      .also { statusTextView.text = message }
+      .also { binding.resultText.text = message }
   }
 
   /**
@@ -390,60 +375,55 @@ class MainActivity : AppCompatActivity() {
   }
 
   /**
-   * Register the FCM token to the Moneytree notifications server
+   * You have to determine how your app gets the device token from users' device.
+   */
+  private fun getDeviceToken(): String = "__device_token__"
+
+  /**
+   * Register a token to the Moneytree notifications server
    */
   private fun registerToken() {
-    FirebaseInstanceId
-      .getInstance()
-      .instanceId
-      .addOnSuccessListener { instanceIdResult ->
-        if (!MoneytreeLink.instance.isLoggedIn) {
-          showError(rootView, getString(R.string.error_no_token))
-        } else {
-          MoneytreeLink
-            .instance
-            .registerFcmToken(
-              instanceIdResult.token,
-              object : Action {
-                override fun onSuccess() {
-                  showMessage(rootView, getString(R.string.register_token_ok))
-                }
+    if (!MoneytreeLink.instance.isLoggedIn) {
+      showError(rootView, getString(R.string.error_no_token))
+    } else {
+      MoneytreeLink
+        .instance
+        .registerRemoteToken(
+          getDeviceToken(),
+          object : Action {
+            override fun onSuccess() {
+              showMessage(rootView, getString(R.string.register_token_ok))
+            }
 
-                override fun onError(exception: MoneytreeLinkException) {
-                  showError(rootView, exception.message)
-                }
-              }
-            )
-        }
-      }
+            override fun onError(exception: MoneytreeLinkException) {
+              showError(rootView, exception.message)
+            }
+          }
+        )
+    }
   }
 
   /**
-   * Remove the FCM token from the Moneytree notifications server
+   * Remove a token from the Moneytree notifications server
    */
   private fun unregisterToken() {
-    FirebaseInstanceId
-      .getInstance()
-      .instanceId
-      .addOnSuccessListener { instanceIdResult ->
-        if (!MoneytreeLink.instance.isLoggedIn) {
-          showError(rootView, getString(R.string.error_no_token))
-        } else {
-          MoneytreeLink
-            .instance
-            .unregisterFcmToken(
-              instanceIdResult.token,
-              object : Action {
-                override fun onSuccess() {
-                  showMessage(rootView, getString(R.string.unregister_token_ok))
-                }
+    if (!MoneytreeLink.instance.isLoggedIn) {
+      showError(rootView, getString(R.string.error_no_token))
+    } else {
+      MoneytreeLink
+        .instance
+        .unregisterRemoteToken(
+          getDeviceToken(),
+          object : Action {
+            override fun onSuccess() {
+              showMessage(rootView, getString(R.string.unregister_token_ok))
+            }
 
-                override fun onError(exception: MoneytreeLinkException) {
-                  showError(rootView, exception.message)
-                }
-              }
-            )
-        }
-      }
+            override fun onError(exception: MoneytreeLinkException) {
+              showError(rootView, exception.message)
+            }
+          }
+        )
+    }
   }
 }

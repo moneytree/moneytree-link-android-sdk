@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 
 /**
- * @author Moneyteee KK
+ * @author Moneytree KK
  */
 class KeyValueAdapter(
   context: Context,
