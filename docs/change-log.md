@@ -1,5 +1,9 @@
 # Change Log
 
+## v6.1.3
+
+- Fixes an issue with closing LINK Kit
+
 ## v6.1.2
 
 - Fixes an issue with OAuth including unnecessary parameters
