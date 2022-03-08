@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             // This is the event for a successful logout.
             // The extension function onLoggedOut is a shortcut of this.
           }
+          LinkEvent.WebAppLogout -> {}
         }
       }
       onError(context) { e ->

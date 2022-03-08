@@ -1,6 +1,23 @@
 ## LINK SDK 4 and 5 to LINK SDK 6
 
+## Integrating the SDK
+
+Since 6.0 the SDK is available via Maven Central as an Android AAR maven package.
+When installing SDK 6 you can omit the `@aar` suffix found in previous verions.
+
+Starting from `app.moneytree.link:core` 6.x sibling modules like  `link-kit`, previously `it`, have independent versioning. Including all packages from SDK 6.x would now look like this.
+
+```groovy
+implementation("app.moneytree.link:core:6.1.3")
+implementation("app.moneytree.link:link-kit:6.1.3")
+```
+
+> ⚠️ Please check what the actual latest version is and use that.
+
 Link SDK 6 or greater require Android 6+. So, you will need to update your minSdkVersion to 23 or greater.
+
+
+## Minimum Android SDK version
 
 ```groovy
 android {
@@ -24,19 +41,27 @@ android.useAndroidX=true
 android.enableJetifier=true
 ```
 
-`com.android.support` packages must be upgrade to AndroidX.
+`com.android.support` packages must be upgraded to AndroidX.
 
-## Download SDK
+## Changes to Manifest
 
-Since 6.0 the SDK is available via Bintray as an Android AAR maven package.
-When installing SDK 6 you can omit the `@aar` suffix found in previous verions.
+### Removing SchemeHandlerActivity
 
-Starting from `app.moneytree.link:core` 6.0 sibling modules like  `link-kit`, previously `it`, have independent versioning. Including all packages SDK 6.0 would now look like this.
+In SDK v4.x, it was necessary to include our `SchemeHandlerActivity` in your manifest to ensure that your application handled incoming links appropriately. This is now handled by the Moneytree LINK SDK. If you are upgrading from SDK v4.x, please check your `AndroidManifest.xml` for something similar to the declaration below and remove it.
 
-```groovy
-implementation("app.moneytree.link:core:6.0.1")
-implementation("app.moneytree.link:link-kit:1.0.1")
 ```
+<activity android:name="com.getmoneytree.auth.SchemeHandlerActivity">
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <!-- FIXME: Replace with your value -->
+        <data android:scheme="mtlinkxxxxx"/>
+    </intent-filter>
+</activity>
+```
+
+> :information: If you are adopting the Passwordless Signup and Login feature added in v6, you will need to add an intent filter on one of your own Activities. See the documentation on [Passwordless Signup and Login](../README.md#configuring-passwordless-sign-uplogin--login-link).
 
 ## MoneytreeLink
 
@@ -121,7 +146,7 @@ MoneytreeLink.getInstance().getToken(activity);
 
 ### getTokenInfo
 
-`getTokenInfo` was added in 6.0 and tells you what scopes and resourceServer a token has.
+`getTokenInfo` was added in 6.0 and _only_ contains metadata about the token, specifically, the `scopes` and `resourceServer`.
 
 ```java
  MoneytreeLink.getInstance().getTokenInfo(new OnTokenInfoCallback() {
@@ -154,6 +179,7 @@ errors are emitted via [OnLinkResult](../readme.md#sdk-callback-flow).
 `VaultOpenServicesOptions` is an optional argument that contains the data needed to deep-link to a page. See [Opening the Vault](../readme.md#opening-the-vault) for more details.
 
 ### MoneytreeAuthOptions
+
 `MoneytreeAuthOptions` is replaced by `LinkAuthOptions`.
 
 `LinkAuthOptions` is split into two sub-types.
