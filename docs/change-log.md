@@ -1,5 +1,11 @@
 # Change Log
 
+## v6.1.3
+
+- Fixes an issue with closing LINK Kit
+- Fixes an issue where opening a Login Link from email would fail to complete Code Grant auth flow
+- Fixes an issue where Universal Vault unexpectedly opened the Add Services screen instead of the Financial Services list. If your implementation expects the first screen shown to be Add Services by default, you will need to open vault with `openVaultServicesOptions` instead.
+
 ## v6.1.2
 
 - Fixes an issue with OAuth including unnecessary parameters

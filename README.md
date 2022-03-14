@@ -106,10 +106,14 @@ Of course, you can choose any ways to define the values above as you like.
 
 ### Configuring Passwordless Sign Up/Login & Login Link
 
-You need to add the following intent filter to an activity of your choice:
+If you choose to implement the optional Passwordless Sign Up and Login features, you need to add the following intent filter to an activity of your choice:
+
+> :warning: _Do not_ override any Moneytree LINK SDK activities. This should be added to the activity in your application used to manage the Moneytree LINK SDK.
+
+> :warning: If you are targeting Android 12 (API v31) and above, you will also need to include `android:autoVerify=true` as a property in your intent filter. [Web intent resolution in Android 12](https://developer.android.com/about/versions/12/behavior-changes-all#web-intent-resolution)
 
 ```xml
-<intent-filter>
+<intent-filter android:autoVerify=true>
     <action android:name="android.intent.action.VIEW" />
     <category android:name="android.intent.category.DEFAULT" />
     <category android:name="android.intent.category.BROWSABLE" />
@@ -128,6 +132,10 @@ You will finally need to add the `INTERNET` permission if you do not have it alr
 ```
 
 > :information_source: Complete configuration by contacting Moneytree with the information in *[Passwordless Sign Up/Login and Login Link](#passwordless-sign-uplogin-and-login-link)*
+
+### Configuring LINK Kit
+
+As of Android 12, for LINK Kit to integrate with your application as a trusted web activity that does not show browser UI, we must register your application in a digital asset links file hosted by Moneytree. In order to do so, we need your application ID (which looks something like `com.companyname.appname`) and your SHA-256 app signing fingerprints.
 
 ### Initializing the SDK
 
@@ -345,9 +353,9 @@ _Passwordless Sign Up/Login and Login Link_ are new secure, passwordless, email-
 > :warning: Passwordless Sign Up/Login is currently available _only_ for Core services. Login Link is available for _all_ services, including LINK Kit.
 > :warning: Please complete [Configuring Passwordless Sign Up/Login & Login Link](#configuring-passwordless-sign-uplogin--login-link) first.
 
-You must inform Moneytree's integration team if you want to support either or both Passwordless Sign Up/Login and Login Link. When doing so, please provide your client ID, the bundle ID of your iOS app and the SHA-1 fingerprint certificate of your Android app, as well as whether it is for the test environment, production, or both.
+You must inform Moneytree's integration team if you want to support either or both Passwordless Sign Up/Login and Login Link. When doing so, please provide your client ID, the bundle ID of your iOS app and the SHA-256 fingerprint certificate of your Android app, as well as whether it is for the test environment, production, or both.
 
-Your SHA-1 fingerprint certificate is necessary because Login Link uses _Android App Links_ for extra security. It verifies the connection between your app and the link received and send the intent directly to your app without showing the system's app selection sheet. To that effect you will need to provide us with your production key's fingerprint for your released app. If you want to be able to confirm this functionality on your debug artifact as well you will have to create a static debug signing key and provide its fingerprint too. You can learn more on App Links [here](https://developer.android.com/training/app-links/verify-site-associations)
+Your SHA-256 fingerprint certificate is necessary because Login Link uses _Android App Links_ for extra security. It verifies the connection between your app and the link received and send the intent directly to your app without showing the system's app selection sheet. To that effect you will need to provide us with your production key's fingerprint for your released app. If you want to be able to confirm this functionality on your debug artifact as well you will have to create a static debug signing key and provide its fingerprint too. You can learn more on App Links [here](https://developer.android.com/training/app-links/verify-site-associations)
 
 Once Moneytree completes the configuration of your app, your users will see the new registration and login screens. Note that these screens still provide the option to register or log in with a password if they prefer.
 
