@@ -22,6 +22,7 @@ import com.getmoneytree.MoneytreeLinkExtensions.onError
 import com.getmoneytree.MoneytreeLinkExtensions.onEvent
 import com.getmoneytree.MoneytreeLinkExtensions.onLoggedOut
 import com.getmoneytree.VaultOpenServicesOptions
+import com.getmoneytree.ClientAccessToken
 import com.getmoneytree.linkkit.LinkKit
 import com.getmoneytree.listener.Action
 import com.google.android.material.snackbar.Snackbar
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
       onAuthorized(context) { token ->
         if (token != null) {
           // If the token exists, it means you chose PKCE as the auth flow
-          showMessage(rootView, getString(R.string.token_message, token.value))
+          showMessage(rootView, getString(R.string.token_message, token.accessToken))
         } else {
           // Otherwise, it should be Code Grant
           showMessage(rootView, getString(R.string.code_grant_completion_message))
