@@ -1,5 +1,16 @@
 # Change Log
 
+## v6.2.0
+
+`ClientAccessToken` now exposes the full OAuth token response in a backward compatible way.
+New properties are:
+
+* `ClientAccessToken.accessToken` - same as `ClientAccessToken.value`
+* `ClientAccessToken.refreshToken` - use it for the OAuth `refresh` grant.
+* `ClientAccessToken.createdAt` and `ClientAccessToken.expiresIn` - inform you about the token's expiry.
+
+`ClientAccessToken.value` is deprecated in favor of `ClientAccessToken.accessToken`.
+
 ## v6.1.3
 
 - Fixes an issue with closing LINK Kit
