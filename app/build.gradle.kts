@@ -10,7 +10,6 @@ val awesomeIsProduction: String by project
 
 android {
   compileSdk = 31
-  buildToolsVersion = "32.0.0"
 
   buildFeatures {
     viewBinding = true
@@ -46,9 +45,8 @@ android {
 val sdkVersion: String by project
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
   implementation("androidx.appcompat:appcompat:1.4.1")
-  implementation("com.google.android.material:material:1.5.0")
+  implementation("com.google.android.material:material:1.6.0")
   // Moneytree LINK SDK
   implementation("app.moneytree.link:core:$sdkVersion")
   // LINK Kit (Optional)
