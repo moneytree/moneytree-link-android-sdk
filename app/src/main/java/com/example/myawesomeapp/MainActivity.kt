@@ -22,7 +22,6 @@ import com.getmoneytree.MoneytreeLinkExtensions.onError
 import com.getmoneytree.MoneytreeLinkExtensions.onEvent
 import com.getmoneytree.MoneytreeLinkExtensions.onLoggedOut
 import com.getmoneytree.VaultOpenServicesOptions
-import com.getmoneytree.ClientAccessToken
 import com.getmoneytree.linkkit.LinkKit
 import com.getmoneytree.listener.Action
 import com.google.android.material.snackbar.Snackbar
