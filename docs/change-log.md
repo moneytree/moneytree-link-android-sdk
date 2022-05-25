@@ -1,5 +1,9 @@
 # Change Log
 
+## v6.2.1
+
+- Fixes an issue where LINK Kit would close, instead of re-authenticating, if the token did not have sufficient scopes.
+
 ## v6.2.0
 
 `ClientAccessToken` now exposes the full OAuth token response in a backward compatible way.
@@ -27,6 +31,14 @@ New properties are:
 
 - Fixes an internal encoding that impacted authentication in some use cases
 - Improved documentation of Settings feature
+
+## v6.1.0
+
+Deprecates the following methods:
+- `MoneytreeLink.requestMagicLink`, use `MoneytreeLink.requestLoginLink` instead
+- `MoneytreeLink.consumeMagicLink`, use `MoneytreeLink.consumeLoginLink` instead
+- `MoneytreeLink.registerFcmToken`, use `MoneytreeLink.registerRemoteToken` instead
+- `MoneytreeLink.unregisterFcmToken`, use `MoneytreeLink.unregisterRemoteToken` instead
 
 ## v6.0.1
 
