@@ -381,13 +381,13 @@ MoneytreeLink.getInstance().onboard(activity, options)
 
 It has two main uses. Login and navigation.
 
-Login can be done through any of the normal auth flows. The user will be given the option to login through email link (Login Link) or using email and password.
+Login can be done through any of the normal auth flows. The user will be given the option to login through email link (login link) or using email and password.
 
-For requesting a Login Link navigation use `requestMagicLink(String, String, Action)`, where the parameters are:
+For requesting a Login Link navigation use `requestLoginLink(String, String, Action)`, where the parameters are:
 
 - `email`: the user's email used to locate the user requesting the link.
 - `destination`: the path that will be used to navigate to the requested account page
-- `listener`: of type `Action.OnCompletionListener`, tells us if requesting the Magic Link has succeeded or not.
+- `listener`: of type `Action.OnCompletionListener`, tells us if requesting the login link has succeeded or not.
 
 > :information_source: The destinations currently supported by login links are:
 >
@@ -400,13 +400,13 @@ For requesting a Login Link navigation use `requestMagicLink(String, String, Act
 > - `MoneytreeLink.ML_DESTINATION_UPDATE_PASSWORD`, navigating to the password update page of the user's account settings.
 
 After you request a Login Link flow you need to consume the incoming deep link.
-To do so, you need to capture the URI from the email using an [Intent Filter](#Manifest-entries-callbacks) and then provide it to the SDK using `consumeMagicLink(AppCompatActivity, Uri, Action)`.
+To do so, you need to capture the URI from the email using an [Intent Filter](#Manifest-entries-callbacks) and then provide it to the SDK using `consumeLoginLink(AppCompatActivity, Uri, Action)`.
 
-When you receive the intent in your activity call `consumeMagicLink(AppCompatActivity, Uri, Action)`
+When you receive the intent in your activity call `consumeLoginLink(AppCompatActivity, Uri, Action)`
 
 ```kotlin
 intent.data?.also { uri ->
-    MoneytreeLink.getInstance().consumeMagicLink(Activity, Uri)
+    MoneytreeLink.getInstance().consumeLoginLink(Activity, Uri)
 }
 ```
 
