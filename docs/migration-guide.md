@@ -8,21 +8,24 @@ When installing SDK 6 you can omit the `@aar` suffix found in previous verions.
 Starting from `app.moneytree.link:core` 6.x sibling modules like  `link-kit`, previously `it`, have independent versioning. Including all packages from SDK 6.x would now look like this.
 
 ```groovy
-implementation("app.moneytree.link:core:6.1.3")
-implementation("app.moneytree.link:link-kit:6.1.3")
+implementation("app.moneytree.link:core:6.2.1")
+implementation("app.moneytree.link:link-kit:6.2.1")
 ```
 
-> ⚠️ Please check what the actual latest version is and use that.
+> ⚠️ Please refer to the [release page](https://github.com/moneytree/moneytree-link-android-sdk/releases) for the latest version.
 
-Link SDK 6 or greater require Android 6+. So, you will need to update your minSdkVersion to 23 or greater.
+## SDK Requirements
 
-
-## Minimum Android SDK version
+Link SDK 6 or greater require Android 6+. So, you will need to update your `minSdk` to 23 or greater. Also, starting with 6.2.0, the library depends on `androidx.browser:browser:1.4+` and `androidx.core:core-ktx:1.7+`, as such, the `compileSdk` must be set to 31 and above.
 
 ```groovy
 android {
+
+  compileSdk = 31 // minimum requirement
+  
   defaultConfig {
-    minSdkVersion 23
+    targetSdk 31 // recommended, but it's required that targetSdk >= minSdk
+    minSdk 23
   }
 }
 ```
@@ -47,7 +50,7 @@ android.enableJetifier=true
 
 ### Removing SchemeHandlerActivity
 
-In SDK v4.x, it was necessary to include our `SchemeHandlerActivity` in your manifest to ensure that your application handled incoming links appropriately. This is now handled by the Moneytree LINK SDK. If you are upgrading from SDK v4.x, please check your `AndroidManifest.xml` for something similar to the declaration below and remove it.
+In SDK v4.x, it was necessary to include our `SchemeHandlerActivity` in your manifest to ensure that your application handled incoming links appropriately. This is now handled by the Moneytree LINK SDK. If you are upgrading from SDK v4.x, please check your `AndroidManifest.xml` for something similar to the declaration below and remove it, otherwise it will show warnings that this class cannot be found.
 
 ```
 <activity android:name="com.getmoneytree.auth.SchemeHandlerActivity">
@@ -61,7 +64,7 @@ In SDK v4.x, it was necessary to include our `SchemeHandlerActivity` in your man
 </activity>
 ```
 
-> :information: If you are adopting the Passwordless Signup and Login feature added in v6, you will need to add an intent filter on one of your own Activities. See the documentation on [Passwordless Signup and Login](../README.md#configuring-passwordless-sign-uplogin--login-link).
+> :information: If you are adopting the Passwordless Signup and Login feature added in v6, you will need to add an intent filter on one of your own Activities. See the documentation on [Passwordless Signup and Login](..#configuring-passwordless-sign-uplogin--login-link).
 
 ## MoneytreeLink
 
@@ -83,7 +86,7 @@ Most callbacks are now returned as event via the `OnLinkResult` listener. There 
 
 ### Init
 
-`MoneytreeLink.init` now takes a callback that will be passed ever `LinkResult` the SDK emits.
+`MoneytreeLink.init` now takes a callback that can listen to the `LinkResult` the SDK emits.
 
 ```java
   MoneytreeLink.init(this, configuration, (result) -> {
@@ -95,30 +98,29 @@ Most callbacks are now returned as event via the `OnLinkResult` listener. There 
 
 ### addOnLinkResult
 
-`addOnLinkResult(...)` is used to register listeners for SDK result events. We recommend registering any event listeners in you `Activity`'s or `Fragment`'s `onCreate`; You don't need to un-register the listener as the SDK uses LifecycleOwner to automatically execute an un-register step.
+`addOnLinkResult(...)` is used to register listeners for SDK result events. We recommend registering any event listeners in you `Activity`'s or `Fragment`'s `onCreate`. You don't need to un-register the listener as the SDK uses LifecycleOwner to automatically execute an un-register step.
 
 #### MoneytreeLinkExtensions
 
-`MoneytreeLinkExtensions` is a set of pre-configured `LinkResultListener` wrappers. These utility functions as `addOnLinkResult` should be used in `Activities` and `Fragments` in the `onCreate` function.
+`MoneytreeLinkExtensions` is a set of pre-configured `LinkResultListener` wrappers. These utility functions such as `addOnLinkResult` should be used in `Activities` and `Fragments` in the `onCreate` function.
 
-`onLoggedOut` - Is invoked when the SDK finished a logout flow.
-`onPkceAuthorized` - Is invoked when the SDK gets a new or updated `ClientAccessToken`.
-`onCodeGrantAuthorized` - Is invoked when the SDK has finished linking the user with your server and the user is connected.
-`onError` - Is invoked when any error occurs.
-`onEvent` - Is invoked when any event occurs.
+* `onLoggedOut` - Is invoked when the SDK finished a logout flow.
+* `onAuthorized` - Is invoked when the SDK gets a new or updated `ClientAccessToken` when PKCE is used as an auth flow. For Code Grant, it is invoked when the SDK has finished linking the user with your server and the user is connected, in which case the returned token will be null.
+* `onError` - Is invoked when any error occurs.
+* `onEvent` - Is invoked when any event occurs.
 
 
 `MoneytreeLinkExtensions` is a Kotlin first utility class with Java support.
-An example of using `onPkceAuthorized` would look like this in Kotlin and Java
+An example of using `onAuthorized` would look like this in Kotlin and Java
 
 ```kotlin
-linkClient.onPkceAuthorized(this) { token ->
+linkClient.onAuthorized(this) { token ->
   // do something with token
 }
 ```
 
 ```java
-MoneytreeLinkExtensions.onPkceAuthorized(linkClient, activity, (token) -> {
+MoneytreeLinkExtensions.onAuthorized(linkClient, activity, token -> {
   // do something with token
 });
 ```
@@ -167,16 +169,16 @@ MoneytreeLink.getInstance().getToken(activity);
 ### openVaultFrom
 
 ```java
-MoneytreeLink.getInstance().openVaultFrom()
+MoneytreeLink.getInstance().openVault()
 ```
 
 `openVaultFrom` has been renamed to `openVault`.
 
 `openVault` no longer accepts the `Authorization.OnCompletionListener` listener. Events like the Vault closing or
-errors are emitted via [OnLinkResult](../readme.md#sdk-callback-flow).
+errors are emitted via [OnLinkResult](..#sdk-callback-flow).
 
 `openVault` now allows for deep-linking to specific vault pages
-`VaultOpenServicesOptions` is an optional argument that contains the data needed to deep-link to a page. See [Opening the Vault](../readme.md#opening-the-vault) for more details.
+`VaultOpenServicesOptions` is an optional argument that contains the data needed to deep-link to a page. See [Opening the Vault](..#opening-the-vault) for more details.
 
 ### MoneytreeAuthOptions
 
@@ -184,7 +186,7 @@ errors are emitted via [OnLinkResult](../readme.md#sdk-callback-flow).
 
 `LinkAuthOptions` is split into two sub-types.
 - `LinkAuthOptions.Authorize` - Auth is required by `MoneytreeLink#authorize`, with the user email as an optional argument, when building `LinkAuthOptions.Authorize`.
-- `LinkAuthOptions.Onboarding` - Onboarding options are required by `MoneytreeLink#onboard` as onboarding requires an email address as create a password-less account for the user.
+- `LinkAuthOptions.Onboarding` - Onboarding options are required by `MoneytreeLink#onboard` as onboarding requires an email address to create a password-less account for the user.
 
 ### openSettingsFrom
 
@@ -202,7 +204,7 @@ errors are emitted via [OnLinkResult](../readme.md#sdk-callback-flow).
 ### unregisterDeviceTokenFrom
 
 `unregisterDeviceTokenFrom` is
-* renamed to `registerFcmToken`
+* renamed to `unregisterFcmToken`
 * No longer takes an activity
 * takes a new optional listener type `com.getmoneytree.listener.Action`
 
@@ -218,7 +220,7 @@ MoneytreeLinkExtensions.onLoggedOut(MoneytreeLink, this, () -> {
     // Logout success
 });
 // OR
-linkClient.addOnLinkResult(this, (result) -> {
+linkClient.addOnLinkResult(this, result -> {
     if (result instanceof LinkResult.Event && ((LinkResult.Event) result).getEvent() == LinkEvent.LoggedOut) {
         // Logout success
     }

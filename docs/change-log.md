@@ -1,5 +1,10 @@
 # Change Log
 
+## v6.3.0
+- Updating from ISTC to LINKIT will no longer require user to re-authenticate with login credentials. They will only need to grant consent to the new LINKIT scopes.
+- Remove `SchemeHandlerActivity` and internally replace it with `LinkHandlerActivity`
+- Finalize implementation of `updateConfiguration` by addressing some of it's internal issues
+
 ## v6.2.1
 
 - Fixes an issue where LINK Kit would close, instead of re-authenticating, if the token did not have sufficient scopes.
@@ -17,6 +22,7 @@ New properties are:
 
 ## v6.1.3
 
+- `SchemeHandlerActivity` is now `exported`, this fixes an issue when building with `targetSDKVersion` is `31`
 - Fixes an issue with closing LINK Kit
 - Fixes an issue where opening a Login Link from email would fail to complete Code Grant auth flow
 - Fixes an issue where Universal Vault unexpectedly opened the Add Services screen instead of the Financial Services list. If your implementation expects the first screen shown to be Add Services by default, you will need to open vault with `openVaultServicesOptions` instead.
