@@ -472,18 +472,20 @@ Generally, the pages you can navigate to are:
 
 - The top Vault page, where a list of your connected services and their top level information are displayed.
 - The details page of a specific service.
-- The settings page of a connected service, if for example you need to remove it from your account.
-- The services search screen. Search will be performed for the parameters provided in `vaultOpenServicesOptions(...)`.
+- The settings page of a connected service, if for example the user needs to remove it from their account.
+- The services list/search screen. Pre-search/filtering of the services can be performed depending on the configuration of `VaultOpenServicesOptions` provided in `vaultOpenServicesOptions(...)`.
 
-The search feature takes a `VaultOpenServicesOptions` object that can be constructed using its `Builder`
+The `VaultOpenServicesOptions` object can be constructed using its `Builder`:
 
 ```kotlin
 VaultOpenServicesOptions.Builder()
-    .type("bank") // the type of service you are looking for
-    .group("grouping_bank") // group the service belongs to
+    .type("bank") // filter the list for the type of service you are looking for
+    .group("grouping_bank") // filter the list by the group the service belongs to
     .search("aeon") // the actual term you are looking for (search bar contents)
     .build()
 ```
+
+All of `type`, `group`, `search` are optional. You can build an "empty" `VaultOpenServicesOptions.Builder().build()` to open the Vault directly in the services list without any filtering. The same effect can be achieved by adding the option with an empty string (`""`)
 
 > :information_source: The possible groups to search for are the following:
 >
