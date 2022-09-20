@@ -34,7 +34,7 @@ class AwesomeApplication : Application() {
         if (BuildConfig.isProduction) LinkEnvironment.Production
         else LinkEnvironment.Staging
       )
-      .clientId("[clientId]")
+      .clientId(BuildConfig.clientId)
       // TODO: Place the Client ID you received here
       // You can add scopes using String as well.
       // .scopes("customized_scope", "new_scope")
