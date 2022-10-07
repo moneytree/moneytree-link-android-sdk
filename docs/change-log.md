@@ -1,5 +1,25 @@
 # Change Log
 
+## v6.5.0
+- Deprecated all types related to the ability to select Code Grant (without PKCE) as your auth type. Code Grant without PKCE will be removed in upcoming versions.
+  - `LinkAuthOptions.Builder.auth()`
+  - `LinkAuthFlow`, `LinkAuthFlow.CodeGrant`, `LinkAuthFlow.Pkce`
+  - `MoneytreeLinkConfiguration.Builder.redirectUri()`
+  - `LinkError.FUNCTION_IS_NOT_AVAILABLE`
+
+## v6.4.0
+- Updated SDK's `compileSdk` to 33
+- Updated Sample App's `targetSDK` and `compileSDK` to 33
+- Changed in-app-browser handling to now allow use of any browser supporting the Custom Tabs framework.
+- Introduced further filtering for Trusted Web Activities (TWA) for LINK Kit. LINK Kit now requires a TWA capable browser to be available.
+  - Introduced a separate `LinkError.LINK_KIT_NOT_SUPPORTED` to notify the client app when Trusted Web Activity is not available.
+- The SDK will now open Custom Tabs in the following order:
+  - Chrome stable or beta version
+  - System default browser if TWA capable
+  - Any available TWA capable browser
+  - System default browser if Custom Tabs capable
+  - Any available Custom Tabs capable browser.
+
 ## v6.3.0
 - Updating from ISTC to LINKIT will no longer require user to re-authenticate with login credentials. They will only need to grant consent to the new LINKIT scopes.
 - Remove `SchemeHandlerActivity` and internally replace it with `LinkHandlerActivity`
