@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.myawesomeapp.databinding.ActivityMainBinding
-import com.getmoneytree.LinkAuthFlow
 import com.getmoneytree.LinkAuthOptions
 import com.getmoneytree.LinkError
 import com.getmoneytree.LinkEvent
@@ -25,7 +24,6 @@ import com.getmoneytree.VaultOpenServicesOptions
 import com.getmoneytree.linkkit.LinkKit
 import com.getmoneytree.listener.Action
 import com.google.android.material.snackbar.Snackbar
-import java.util.UUID
 
 /**
  * A reference app that introduces what the SDK can do.
@@ -41,10 +39,6 @@ class MainActivity : AppCompatActivity() {
     get() = LinkAuthOptions
       .builder()
       .forceLogout(binding.forceLogout.isChecked)
-      .auth(
-        if (BuildConfig.authType == AuthType.PKCE) LinkAuthFlow.Pkce.create()
-        else LinkAuthFlow.CodeGrant(state = UUID.randomUUID().toString().replace("_", "-"))
-      )
 
   private lateinit var binding: ActivityMainBinding
 
@@ -57,13 +51,7 @@ class MainActivity : AppCompatActivity() {
     val context = this
     with(MoneytreeLink.instance) {
       onAuthorized(context) { token ->
-        if (token != null) {
-          // If the token exists, it means you chose PKCE as the auth flow
-          showMessage(rootView, getString(R.string.token_message, token.accessToken))
-        } else {
-          // Otherwise, it should be Code Grant
-          showMessage(rootView, getString(R.string.code_grant_completion_message))
-        }
+        showMessage(rootView, getString(R.string.token_message, token?.accessToken))
       }
       onLoggedOut(context) {
         showMessage(rootView, getString(R.string.logout))
@@ -221,7 +209,7 @@ class MainActivity : AppCompatActivity() {
       MoneytreeLink.instance.authorize(
         this@MainActivity,
         baseAuthOptions
-          .presentSignup(true)
+          .presentSignup(false)
           .buildAuthorize(email = binding.authEmailEdit.text?.toString() ?: "")
       )
     }
@@ -305,7 +293,7 @@ class MainActivity : AppCompatActivity() {
 
     binding.resultText.text = getString(
       R.string.welcome,
-      if (BuildConfig.authType == AuthType.PKCE) "PKCE" else "Code Grant",
+      "PKCE",
       if (BuildConfig.isProduction) "Production" else "Staging"
     )
 
