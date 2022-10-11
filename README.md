@@ -1,5 +1,9 @@
 # Moneytree LINK SDK (Android)
 
+[![](https://img.shields.io/maven-central/v/app.moneytree.link/core?color=%2337AC49&label=maven%20central%20-%20core&style=for-the-badge)](https://search.maven.org/artifact/app.moneytree.link/core)
+
+[![](https://img.shields.io/maven-central/v/app.moneytree.link/core?color=%2337AC49&label=maven%20central%20-%20linkkit&style=for-the-badge)]([https://search.maven.org/artifact/app.moneytree.link/core](https://search.maven.org/artifact/app.moneytree.link/link-kit))
+
 The ***Moneytree Link SDK*** is a toolbox you can use to integrate with Moneytree's services.
 
 The SDK provides ways to authenticate, store tokens, and launch Moneytree Web Services. It also provides a plugin for ***LINK Kit***, a fully integrated web PFM solution.

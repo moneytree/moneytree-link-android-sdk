@@ -9,7 +9,7 @@ val awesomeAuthType: String by project
 val awesomeIsProduction: String by project
 
 android {
-  compileSdk = 31
+  compileSdk = 33
 
   buildFeatures {
     viewBinding = true
@@ -18,12 +18,16 @@ android {
   defaultConfig {
     applicationId = "com.example.myawesomeapp"
     minSdk = 23
-    targetSdk = 31
+    targetSdk = 33
     versionCode = 1
     versionName = "1.0"
 
+    // TODO: replace with your client ID
+    val clientId = "[clientId]"
+
     buildConfigField("com.example.myawesomeapp.AuthType", "authType", awesomeAuthType)
     buildConfigField("Boolean", "isProduction", awesomeIsProduction)
+    buildConfigField("String", "clientId", "\"${clientId}\"")
 
     val myaccount =
     if (awesomeIsProduction.toBoolean()) "myaccount"
@@ -31,8 +35,7 @@ android {
 
     manifestPlaceholders += mapOf(
       "linkHost" to "$myaccount.getmoneytree.com",
-      // TODO: Set first 5 chars of your client ID
-      "clientIdShort" to "[clientIdShort]"
+      "clientIdShort" to clientId.substring(0,5)
     )
   }
 
@@ -49,8 +52,8 @@ android {
 val sdkVersion: String by project
 
 dependencies {
-  implementation("androidx.appcompat:appcompat:1.4.1")
-  implementation("com.google.android.material:material:1.6.0")
+  implementation("androidx.appcompat:appcompat:1.5.1")
+  implementation("com.google.android.material:material:1.6.1")
   // Moneytree LINK SDK
   implementation("app.moneytree.link:core:$sdkVersion")
   // LINK Kit (Optional)
