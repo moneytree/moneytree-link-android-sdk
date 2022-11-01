@@ -21,7 +21,7 @@ The SDK provides ways to authenticate, store tokens, and launch Moneytree Web Se
     - [Configuring Passwordless Sign Up/Login & Login Link](#configuring-passwordless-sign-uplogin--login-link)
     - [Initializing the SDK](#initializing-the-sdk)
       - [Initializing Core for PKCE flow](#initializing-core-for-pkce-flow)
-      - [Initializing Core for Authorization Code Grant flow](#initializing-core-for-authorization-code-grant-flow)
+      - [Initializing Core for Authorization Code Grant flow (Deprecated)](#initializing-core-for-authorization-code-grant-flow-deprecated)
       - [Initializing LINK Kit](#initializing-link-kit)
     - [Account OAuth Access Scopes (User Access Permissions)](#account-oauth-access-scopes-user-access-permissions)
   - [Using the SDK](#using-the-sdk)
@@ -147,11 +147,11 @@ In this step you first need to choose an authorization type for your application
 
 The supported authorization flows are:
 
-| Module   | Authorization flow                                                                 | Notes                                                                                      |
-| -------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Core     | PKCE; Saves the user access token on device                                        |                                                                                            |
-| Core     | Authorization Code Grant Type; Saves the user access token in your external server | Since v4.0.0                                                                               |
-| LINK Kit | PKCE; Saves a token locally on device                                              | Using this module forces the PKCE flow as its purpose is to keep the implementation simple |
+| Module   | Authorization flow                                                                                | Notes                                                                                      |
+| -------- |---------------------------------------------------------------------------------------------------| ------------------------------------------------------------------------------------------ |
+| Core     | PKCE; Saves the user access token on device                                                       |                                                                                            |
+| Core     | Authorization Code Grant Type (**Deprecated**); Saves the user access token in your external server | Since v4.0.0                                                                               |
+| LINK Kit | PKCE; Saves a token locally on device                                                             | Using this module forces the PKCE flow as its purpose is to keep the implementation simple |
 
 #### Initializing Core for PKCE flow
 
@@ -178,7 +178,12 @@ The `scopes(...)` function used in the `Builder` above is basically a set of per
 
 > :information_source: As the SDK is a singleton and will most likely be used throughout your app we strongly recommend to do all initialization inside your `Application` class.
 
-#### Initializing Core for Authorization Code Grant flow
+#### Initializing Core for Authorization Code Grant flow (Deprecated)
+
+> :warning: Support for Authorization Code Grant has been deprecated and will be removed in future releases
+> 
+> Authorization Code Grant without PKCE creates important security concerns when used on mobile applications.
+> The flow offers no way to identify he requesting application allowing for potential interception of it.
 
 Authorization code grant is a type of auth flow that delegates the user access token exchange process to your server. That way you gain more control over the token's location, however, with some drawbacks.
 
@@ -550,7 +555,7 @@ To listen to these event you have 2 options:
         when {
             result is LinkResult.Authorized -> {
                 // Authorized and you token lives here: result.token?.value
-                // If null you are using Code Grant auth flow
+                // If null you are using Code Grant auth flow (Deprecated)
             }
             result is LinkResult.Event && result.event == LinkEvent.LoggedOut -> {
                 // Logged out
@@ -580,7 +585,7 @@ To listen to these event you have 2 options:
     with(MoneytreeLink.getInstance()) {
         onAuthorized(context) { token ->
             // PKCE auth flow completed if token != null, get your token here: token.value
-            // Otherwise, it should be Code Grant
+            // Otherwise, it should be Code Grant (Deprecated)
         }
         onLoggedOut(context) {
             // Logged out

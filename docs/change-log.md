@@ -1,5 +1,12 @@
 # Change Log
 
+## v6.5.0
+- Deprecated all types related to the ability to select Code Grant (without PKCE) as your auth type. Code Grant without PKCE will be removed in upcoming versions.
+  - `LinkAuthOptions.Builder.auth()`
+  - `LinkAuthFlow`, `LinkAuthFlow.CodeGrant`, `LinkAuthFlow.Pkce`
+  - `MoneytreeLinkConfiguration.Builder.redirectUri()`
+  - `LinkError.FUNCTION_IS_NOT_AVAILABLE`
+
 ## v6.4.0
 - Updated SDK's `compileSdk` to 33
 - Updated Sample App's `targetSDK` and `compileSDK` to 33

@@ -42,7 +42,6 @@
     <string name="device_token_error">Could not get an FCM token.</string>
     <string name="register_token_ok">Finished registration successfully.</string>
     <string name="unregister_token_ok">Finished de-registration successfully.</string>
-    <string name="code_grant_completion_message">Code Grant flow finished. Client server should have the user access token</string>
 
     <!-- placeholders -->
     <string name="onboard_placeholder">Your Email</string>
