@@ -5,8 +5,8 @@ plugins {
 
 apply(from = "../mtlink_version.gradle.kts")
 
-val awesomeAuthType: String by project
-val awesomeIsProduction: String by project
+val linkEnvironment: String by project
+val linkClientId: String by project
 
 android {
   compileSdk = 33
@@ -22,20 +22,18 @@ android {
     versionCode = 1
     versionName = "1.0"
 
-    // TODO: replace with your client ID
-    val clientId = "[clientId]"
-
-    buildConfigField("com.example.myawesomeapp.AuthType", "authType", awesomeAuthType)
-    buildConfigField("Boolean", "isProduction", awesomeIsProduction)
-    buildConfigField("String", "clientId", "\"${clientId}\"")
+    buildConfigField("Boolean", "isProduction", "${linkEnvironment == "production"}")
+    buildConfigField("String", "clientId", "\"${linkClientId}\"")
 
     val myaccount =
-    if (awesomeIsProduction.toBoolean()) "myaccount"
-    else "myaccount-staging"
+      when(linkEnvironment) {
+        "production" -> "myaccount"
+        else -> "myaccount-staging"
+      }
 
     manifestPlaceholders += mapOf(
       "linkHost" to "$myaccount.getmoneytree.com",
-      "clientIdShort" to clientId.substring(0,5)
+      "clientIdShort" to linkClientId.substring(0,5)
     )
   }
 
@@ -54,6 +52,7 @@ val sdkVersion: String by project
 dependencies {
   implementation("androidx.appcompat:appcompat:1.5.1")
   implementation("com.google.android.material:material:1.6.1")
+
   // Moneytree LINK SDK
   implementation("app.moneytree.link:core:$sdkVersion")
   // LINK Kit (Optional)
