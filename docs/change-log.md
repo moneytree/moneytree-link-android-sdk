@@ -1,5 +1,9 @@
 # Change Log
 
+## v6.5.1
+- Calling `MoneytreeLink#logout` will result to only one (instead of two) `LinkEvent.LoggedOut` event be sent to `LinkResultListener` listeners at the end of a successful logout flow.
+- This is to be consistent with previous versions of the SDK prior to version 6.
+
 ## v6.5.0
 - Deprecated all types related to the ability to select Code Grant (without PKCE) as your auth type. Code Grant without PKCE will be removed in upcoming versions.
   - `LinkAuthOptions.Builder.auth()`
