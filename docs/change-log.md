@@ -1,5 +1,9 @@
 # Change Log
 
+## v6.5.2
+
+Improved handling of app revocation for LINK Kit. If an end user has revoked authorization for your application, instead of returning an error, LINK Kit will automatically give the user an opportunity to re-authenticate and re-authorize. This reduces the need for error handling for LINK Kit implementations.
+
 ## v6.5.1
 - Calling `MoneytreeLink#logout` will result to only one (instead of two) `LinkEvent.LoggedOut` event be sent to `LinkResultListener` listeners at the end of a successful logout flow.
 - This is to be consistent with previous versions of the SDK prior to version 6.
