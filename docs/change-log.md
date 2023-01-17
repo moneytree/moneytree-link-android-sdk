@@ -1,5 +1,9 @@
 # Change Log
 
+## v6.5.4
+
+Added additional scope, `RequestRefresh`, to LINK Kit.
+
 ## v6.5.3
 
 Improved internal state (OAuth) handling. 
