@@ -272,6 +272,7 @@ LINK Kit has strict requirements and is always requesting the following scopes:
 - PointsRead
 - InvestmentAccountsRead
 - InvestmentTransactionsRead
+- RequestRefresh
 
 Contact our representative if you have questions about scopes.
 
