@@ -1,5 +1,20 @@
 # Change Log
 
+## v6.6.0
+
+We have introduced a new authentication configuration parameter that will allow you to choose your preferred mode (Authentication, Passwordless, Single Sign On) when the Moneytree authentication web page shows. This configuration does _not_ guarantee that the selected mode will be the one presented as the feature relies on the configuration of the client ID provided to you.
+
+If you do not provide the new configuration, the default order of available methods configured in you client ID will be used.
+
+For more on the feature and how it works, please refer to [Choosing your Authentication method](../README.md#choosing-your-authentication-method).
+
+### Added
+- `AuthenticationMethod` enum that allows to choose your preferred authentication mode.
+- `create` function in `LinkAuthOptions`'s `companion object` to provide a Kotlin friendly way to build the object.
+- `create` functions in `MoneytreeLinkConfiguration`'s `companion object` to provide a Kotlin friendly way to build the object. There is an overload of the function providing the ability to add scopes directly as `String`s or using the `MoneytreeLinkScope` enum.
+  - For Java user the overloads appear with the names `createWithStringScopes` and `createWithEnumScopes`.
+- `MoneytreeLinkConfiguration.Builder` now provides `authenticationMethod` with which you can set the authentication method.
+
 ## v6.5.4
 
 Added additional scope, `RequestRefresh`, to LINK Kit.

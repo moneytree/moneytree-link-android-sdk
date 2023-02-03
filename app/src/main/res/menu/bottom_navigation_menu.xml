@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/auth"
+        android:title="@string/moneytree_id.title"
+        android:icon="@drawable/outline_lock_24" />
+    <item
+        android:id="@+id/vault"
+        android:title="@string/services.title"
+        android:icon="@drawable/outline_list_alt_24" />
+    <item
+        android:id="@+id/link_kit"
+        android:title="@string/link_kit.title"
+        android:icon="@drawable/outline_web_24" />
+    <item
+        android:id="@+id/others"
+        android:title="@string/other_functions.title"
+        android:icon="@drawable/outline_build_24" />
+</menu>

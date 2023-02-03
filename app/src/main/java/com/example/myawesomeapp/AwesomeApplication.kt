@@ -2,6 +2,7 @@ package com.example.myawesomeapp
 
 import android.app.Application
 import android.util.Log
+import com.getmoneytree.AuthenticationMethod
 import com.getmoneytree.LinkEnvironment
 import com.getmoneytree.MoneytreeLink
 import com.getmoneytree.MoneytreeLinkConfiguration
@@ -30,6 +31,7 @@ class AwesomeApplication : Application() {
         MoneytreeLinkScope.AccountsRead,
         MoneytreeLinkScope.TransactionsRead
       )
+      .authenticationMethod(AuthenticationMethod.Credentials)
       .build()
 
     if (configuration.clientId == "[clientId]") {
