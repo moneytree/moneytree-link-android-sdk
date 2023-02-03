@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MoneytreeIdFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/moneytree_id.description" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/moneytree_id.authorize.title"
+                android:layout_width="wrap_content"
+                android:paddingTop="16dp"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/moneytree_id.authorize.description" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_authn_method"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleLine="true"
+                    app:singleSelection="true"
+                    app:selectionRequired="true"
+                    app:checkedChip="@id/chip_authn_method_credentials">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_authn_method_credentials"
+                        style="@style/Widget.Material3.Chip.Assist.Elevated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/moneytree_id.authorize.authentication_method.credentials"
+                        android:checkable="true"
+                        app:chipEndPadding="4dp"
+                        app:chipStartPadding="4dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_authn_method_passwordless"
+                        style="@style/Widget.Material3.Chip.Assist.Elevated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/moneytree_id.authorize.authentication_method.passwordless"
+                        android:checkable="true"
+                        app:chipEndPadding="4dp"
+                        app:chipStartPadding="4dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_authn_method_sso"
+                        style="@style/Widget.Material3.Chip.Assist.Elevated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/moneytree_id.authorize.authentication_method.sso"
+                        android:checkable="true"
+                        app:chipEndPadding="4dp"
+                        app:chipStartPadding="4dp" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/moneytree_id.authorize.email_optional_placeholder"
+                android:layout_marginBottom="16dp"
+                app:endIconMode="clear_text"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_optional"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/moneytree_id.authorize.force_logout.description" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_force_logout"
+                android:paddingVertical="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/moneytree_id.authorize.force_logout" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_create_mt_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/moneytree_id.authorize.create_moneytree_id" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_marginTop="8dp"
+                android:id="@+id/button_log_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/moneytree_id.authorize.log_in" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:textSize="24sp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/moneytree_id.onboarding.title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/moneytree_id.onboarding.description" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/general.email_required_placeholder"
+                android:layout_marginBottom="8dp"
+                app:endIconMode="clear_text"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_required"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_onboarding"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/moneytree_id.onboarding.passwordless_signup" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:textSize="24sp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/moneytree_id.logout" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/moneytree_id.logout.description" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_log_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#CC3A27"
+                android:text="@string/moneytree_id.logout" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

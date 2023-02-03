@@ -22,6 +22,7 @@ The SDK provides ways to authenticate, store tokens, and launch Moneytree Web Se
     - [Initializing the SDK](#initializing-the-sdk)
       - [Initializing Core for PKCE flow](#initializing-core-for-pkce-flow)
       - [Initializing Core for Authorization Code Grant flow (Deprecated)](#initializing-core-for-authorization-code-grant-flow-deprecated)
+      - [Choosing your Authentication method](#choosing-your-authentication-method)
       - [Initializing LINK Kit](#initializing-link-kit)
     - [Account OAuth Access Scopes (User Access Permissions)](#account-oauth-access-scopes-user-access-permissions)
   - [Using the SDK](#using-the-sdk)
@@ -168,6 +169,7 @@ override fun onCreate() {
         .linkEnvironment(LinkEnvironment.Staging)    // .Staging or .Production
         .clientId("1234567890abcde...")              // your ClientId
         .scopes(MoneyTreeLinkClient.GuestRead, ...)  // scope(s)
+        .authenticationMethod(AuthenticationMethod.Credentials) // Moneytree login page flow
         .build();
 
     MoneytreeLink.init(this, configuration)
@@ -176,7 +178,9 @@ override fun onCreate() {
 
 The `scopes(...)` function used in the `Builder` above is basically a set of permissions the user needs to provide to the accessing application to be able to get a user token. More on this in [Account OAuth Access Scopes (User Access Permissions)](#account-oauth-access-scopes-user-access-permissions).
 
-> :information_source: As the SDK is a singleton and will most likely be used throughout your app we strongly recommend to do all initialization inside your `Application` class.
+`authenticationMethod` gives you control over the kind of authentication flow you want to use before authorization. You can find more in [Choosing your Authentication method](#choosing-your-authentication-method).
+
+> :information_source: As the SDK configuration is mostly unique and will most likely be used throughout your app we strongly recommend to do all initialization inside your `Application` class.
 
 #### Initializing Core for Authorization Code Grant flow (Deprecated)
 
@@ -208,6 +212,60 @@ We add a call to `redirectUri(uri)` that takes the string URI of the endpoint co
 > - getToken
 > - registerRemoteToken
 > - unregisterRemoteToken
+
+#### Choosing your Authentication method
+
+The authentication method determines which Moneytree authentication page will appear. We provide three (3) authentication methods:
+- Credentials: You will see the usual page where you can sign up or log in using your email and password.
+- Passwordless: For log-in, the user needs to enter their email address where they will receive their authentication link. For sign-up the flow is executed by calling `onboard()` (see [Configuring Passwordless Sign Up/Login & Login Link](#configuring-passwordless-sign-uplogin--login-link)).
+- Single Sign On (SSO): When configured, your users will authenticate to Moneytree via the Identity Provider (IdP) that you have specified.
+
+> :warning: SSO requires configuration of the Identity Provider (IdP) you want to use, so that our system can connect to it. If you want to use SSO please contact our customer success team and they will work with you to get the needed configuration done.
+
+The authentication method selection can be done through the `MoneytreeLinkConfiguration` when initializing the SDK (or LINK Kit).
+
+```kotlin
+MoneytreeLinkConfiguration.create(
+    linkEnvironment = LinkEnvironment.Staging,
+    clientId = "[myClientId]",
+    scopes = setOf(
+        MoneytreeLinkScope.GuestRead,
+        MoneytreeLinkScope.AccountsRead,
+        MoneytreeLinkScope.TransactionsRead
+    ),
+    // You options are:
+    // AuthenticationMethod.Credentials
+    // AuthenticationMethod.Passwordless
+    // AuthenticationMethod.SingleSignOn
+    authenticationMethod = AuthenticationMethod.Credentials
+)
+```
+
+The same flow with the Java style builder:
+
+```kotlin
+MoneytreeLinkConfiguration.Builder()
+    .linkEnvironment(LinkEnvironment.Staging)
+    .clientId("[myClientId]")
+    .scopes(
+        MoneytreeLinkScope.GuestRead,
+        MoneytreeLinkScope.AccountsRead,
+        MoneytreeLinkScope.TransactionsRead
+    )
+    // You options are:
+    // AuthenticationMethod.Credentials
+    // AuthenticationMethod.Passwordless
+    // AuthenticationMethod.SingleSignOn
+    .authenticationMethod(AuthenticationMethod.Credentials)
+    .build()
+```
+
+> :information_source: As this is global SDK configuration the selection you make will take effect over all flows that have the potential to lead to an authentication flow. 
+> Those flows are:
+> - Authorization
+> - Opening the Moneytree Vault
+> - Opening the Moneytree Settings
+> - Starting LINK Kit
 
 #### Initializing LINK Kit
 
@@ -299,7 +357,7 @@ val authConfig = LinkAuthOptions
 MoneytreeLink.getInstance().authorize(activity, authConfig)
 ```
 
-***Authorization Code flow:***
+***Authorization Code flow (deprecated):***
 
 Similar to PKCE flow above. The main difference is that the `LinkAuthOptions.CodeGrant(String)` requires a state string for the OAuth process. This state needs to be unique per request. For more information refer to [the OAuth guidelines](https://www.oauth.com/oauth2-servers/server-side-apps/authorization-code/).
 
@@ -333,6 +391,11 @@ MoneytreeLink.getInstance().authorize(activity, authConfig)
 >    .buildOnboarding(String)
 >```
 
+> :warning: The `authorize()` flow has some combinations that force specific flows.
+> Specifically:
+> - When `presentSignup = true` and `authenticationMethod` is `Passwordless` then `authenticationMethod` is disregarded and you will still get the credentials screen. Passwordless Sign-up is handled by the `onboard()` entry point.
+> - When `authenticationMethod` is set to SSO then `authorize` flows disregard `presentSignup` as there is no concept of Signup or Login in the SSO method.
+
 ***LINK Kit flow:***
 
 LINK Kit enforces a PKCE flow behind the scenes as it needs to have the user token available to start properly scoped.
@@ -341,7 +404,8 @@ To start LINK Kit use:
 
 ```kotlin
 LinkKit.getInstance().launch(
-    activity,
+    activity = activity,
+    authenticationMethod = AuthenticationMethod.Credentials,
     object : LinkKit.LinkKitListener {
         override fun onLaunched() {
             // callback
@@ -356,18 +420,23 @@ LinkKit.getInstance().launch(
 
 `LinkKit.LinkKitListener` is not required if you do not need to get callbacks.
 
+> :warning: For more on the usage of `authenticationMethod = AuthenticationMethod.Credentials` in the code block above refer to [Choosing your Authentication Method](#choosing-your-authentication-method)
+
 ### Passwordless Sign Up/Login and Login Link
 
-_Passwordless Sign Up/Login and Login Link_ are new secure, passwordless, email-based registration and login features offered from v6 in order to allow your customers easier access to Moneytree services. These features are email based. When _Passwordless Sign Up/Login_ is requested, the user will receive a one-time url capable of creating an account. When _Login Link_ is requested, the user will receive a one-time url that can log them in or navigate to their account settings.
+_Passwordless Sign Up/Login and Login Link_ are new, secure, passwordless, email-based registration and login features offered from v6 in order to allow your customers easier access to Moneytree services. These features are email based. When _Passwordless Sign Up/Login_ is requested, the user will receive a one-time url capable of creating an account. When _Login Link_ is requested, the user will receive a one-time url that can log them in or navigate to their account settings.
 
-> :warning: Passwordless Sign Up/Login is currently available _only_ for Core services. Login Link is available for _all_ services, including LINK Kit.
-> :warning: Please complete [Configuring Passwordless Sign Up/Login & Login Link](#configuring-passwordless-sign-uplogin--login-link) first.
+> :warning: Please make sure to complete [Configuring Passwordless Sign Up/Login & Login Link](#configuring-passwordless-sign-uplogin--login-link) steps first.
 
-You must inform Moneytree's integration team if you want to support either or both Passwordless Sign Up/Login and Login Link. When doing so, please provide your client ID, the bundle ID of your iOS app and the SHA-256 fingerprint certificate of your Android app, as well as whether it is for the test environment, production, or both.
+You must inform Moneytree's customer success team if you want to support either or both Passwordless Sign Up/Login and Login Link. When doing so, please provide your client ID, the bundle ID of your iOS app and the SHA-256 fingerprint certificate of your Android app, as well as whether it is for the test environment, production, or both.
 
-Your SHA-256 fingerprint certificate is necessary because Login Link uses _Android App Links_ for extra security. It verifies the connection between your app and the link received and send the intent directly to your app without showing the system's app selection sheet. To that effect you will need to provide us with your production key's fingerprint for your released app. If you want to be able to confirm this functionality on your debug artifact as well you will have to create a static debug signing key and provide its fingerprint too. You can learn more on App Links [here](https://developer.android.com/training/app-links/verify-site-associations)
+Your SHA-256 fingerprint certificate is necessary because Login Link uses _Android App Links_ for extra security. It verifies the connection between your app and the link received and send the intent directly to your app without showing the system's app selection sheet. To that effect you will need to provide us with your production key's fingerprint for your released app. If you want to be able to confirm this functionality on your debug artifact as well you will have to create a static debug signing key and provide its fingerprint too. You can learn more on App Links [here](https://developer.android.com/training/app-links/verify-android-applinks).
 
 Once Moneytree completes the configuration of your app, your users will see the new registration and login screens. Note that these screens still provide the option to register or log in with a password if they prefer.
+
+> :warning: Passwordless Sign Up/Login requires further configuration and implementation. Specifically for signup, a different SDK API call is being used. 
+>
+> That makes it incompatible with the spirit of direct access of LINK Kit. However, if you want to use it with LINK Kit you can implement the required authorization flows manually and then call LINK Kit, to open it on top of the finished authorization.
 
 #### Passwordless Sign Up/Login
 
@@ -686,8 +755,9 @@ When using only LINK Kit and want to register for notification you can do a simi
 
 ```kotlin
 LinkKit.getInstance().launch(
-    activity,
-    object : LinkKit.LinkKitListener {
+    activity = activity,
+    authenticationMethod = AuthenticationMethod.Credentials,
+    listener = object : LinkKit.LinkKitListener {
         override fun onLaunched() {
             val deviceToken = yourMethodToGetDeviceToken()
             MoneytreeLink
