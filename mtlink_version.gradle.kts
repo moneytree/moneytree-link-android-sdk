@@ -1,1 +1,1 @@
-project.extra.set("sdkVersion", "6.6.0")
+project.extra.set("sdkVersion", "6.6.1")

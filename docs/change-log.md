@@ -1,5 +1,9 @@
 # Change Log
 
+## v6.6.1
+
+Hotfix, for an issue with Passwordless Login not working when opening the Moneytree Account settings. 
+
 ## v6.6.0
 
 We have introduced a new authentication configuration parameter that will allow you to choose your preferred mode (Authentication, Passwordless, Single Sign On) when the Moneytree authentication web page shows. This configuration does _not_ guarantee that the selected mode will be the one presented as the feature relies on the configuration of the client ID provided to you.
