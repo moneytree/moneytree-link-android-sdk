@@ -1,5 +1,10 @@
 # Change Log
 
+## v6.6.2
+
+- No changes to SDK.
+- Made corrections to the text of the sample app, "AwesomeApp."
+
 ## v6.6.1
 
 Hotfix, for an issue with Passwordless Login not working when opening the Moneytree Account settings. 

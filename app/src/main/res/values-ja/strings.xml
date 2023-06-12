@@ -50,7 +50,7 @@
   <string name="services.output.vault_opened">Vault を開きました</string>
   <string name="services.output.vault_closed">Vault を閉じました</string>
   <string name="services.title">Vault</string>
-  <string name="services.vault.title">禁輸サービス登録</string>
+  <string name="services.vault.title">金融サービス登録</string>
   <string name="services.vault.description">金融サービスをMoneytreeに登録して閲覧・管理する画面です。\n\nユーザーがログインしていない状態で金融サービス登録と管理ページを開くとMoneytree ログイン画面へ遷移します。</string>
   <string name="services.vault.open_vault">金融サービスを登録</string>
   <string name="services.list.title">金融サービスリスト</string>
@@ -65,7 +65,7 @@
   <string name="services.service_connection.connect_service">金融サービスを登録</string>
   <string name="services.connection_settings.title">金融サービス設定</string>
   <string name="services.connection_settings.description">Moneytree IDに登録された金融サービスの設定画面を開きます。本画面を開くにはアカウトグループの設定が必須です。</string>
-  <string name="services.connection_settings.account_group_placeholder">アカウントグループ (例:342229</string>
+  <string name="services.connection_settings.account_group_placeholder">アカウントグループ (例:342229）</string>
   <string name="services.connection_settings.open_connection_settings">金融サービス設定を開く</string>
   <string name="services.output.entity_key_required">エンティティキーを入力して次に進みます。</string>
   <string name="services.output.account_group_required">アカウントグループを指定して次に進みます。</string>
