@@ -118,7 +118,7 @@ If you choose to implement the optional Passwordless Sign Up and Login features,
 > :warning: If you are targeting Android 12 (API v31) and above, you will also need to include `android:autoVerify=true` as a property in your intent filter. [Web intent resolution in Android 12](https://developer.android.com/about/versions/12/behavior-changes-all#web-intent-resolution)
 
 ```xml
-<intent-filter android:autoVerify=true>
+<intent-filter android:autoVerify="true">
     <action android:name="android.intent.action.VIEW" />
     <category android:name="android.intent.category.DEFAULT" />
     <category android:name="android.intent.category.BROWSABLE" />
