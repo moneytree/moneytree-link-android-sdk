@@ -4,9 +4,9 @@
   <string name="general.output.message.default">Hello AwesomeApp!\nEnvironment: %1$s</string>
   <string name="general.output.title">Output:</string>
   <string name="moneytree_id.authorize.create_moneytree_id">Create Moneytree ID</string>
-  <string name="moneytree_id.authorize.description">Calls the authorization function. Sign up with an email and password, log in with email and password, or request an email with a login link. Email address will be pre-filled in the log in / sign up page if it is provided as parameter.\n\nSelect the authentication method. This option controls the way the Moneytree authentication web page shows.</string>
+  <string name="moneytree_id.authorize.description">Select one of the following authentication methods.\n\nCredentials: authenticate with username and password\n\nPasswordless: log in with a link sent to your email address. To sign up with passwordless, use the Onboarding feature below instead.\n\nSingle Sign-on: Authenticate seamlessly via your client app.</string>
   <string name="moneytree_id.authorize.email_optional_placeholder">Email (Optional)</string>
-  <string name="moneytree_id.authorize.force_logout.description">Activate this to log out automatically before proceeding.</string>
+  <string name="moneytree_id.authorize.force_logout.description">Enable this to log out automatically before logging in or creating a new account.</string>
   <string name="moneytree_id.authorize.force_logout">Force logout</string>
   <string name="moneytree_id.authorize.log_in">Log In</string>
   <string name="moneytree_id.authorize.title">Authorize</string>
@@ -16,7 +16,7 @@
   <string name="general.email_required_placeholder">Email (Required)</string>
   <string name="moneytree_id.onboarding.passwordless_signup">Passwordless Sign Up</string>
   <string name="moneytree_id.onboarding.title">Onboarding</string>
-  <string name="moneytree_id.title">Moneytree ID</string>
+  <string name="moneytree_id.title">Login</string>
   <string name="other_functions.title">Other</string>
   <string name="other_functions.get_token">Get Token</string>
   <string name="other_functions.customer_support.title">Customer Support</string>
@@ -54,7 +54,7 @@
   <string name="services.vault.description">This page allows guest users to register financial services on Moneytree and to view and manage their registered financial services.\n\nThe Financial Service Registration and Management page displays the Moneytree login screen if the guest user is not logged in.</string>
   <string name="services.vault.open_vault">Open Financial Services</string>
   <string name="services.list.title">Financial Services List</string>
-  <string name="services.list.description">Open the list of financial services page. Optionally define the filtering for the page by type, group, or search, in any combination.\n\nType is the financial institution ID and group refers to the account group.</string>
+  <string name="services.list.description">Open the list of financial services page. Optionally define the filtering for the page by type, group, or search, in any combination.\n\nType is the financial institution ID and group refers to the account group. Please refer to the API documentation for more details.</string>
   <string name="services.list.select_type">Select a type</string>
   <string name="services.list.select_group">Select a group</string>
   <string name="services.list.search_placeholder">Keyword e.g., Aeon</string>
@@ -64,7 +64,7 @@
   <string name="services.service_connection.entity_key_placeholder">Entity key e.g., mitsubishi_trust_bank</string>
   <string name="services.service_connection.connect_service">Connect Financial Service</string>
   <string name="services.connection_settings.title">Financial Service Settings</string>
-  <string name="services.connection_settings.description">Opens settings page for a financial service that is already connected to the Moneytree ID. Account group is required.</string>
+  <string name="services.connection_settings.description">Opens settings page for a financial service that is already connected to the Moneytree ID. Fetching the account_group from the API is required.</string>
   <string name="services.connection_settings.account_group_placeholder">Account group e.g., 342229</string>
   <string name="services.connection_settings.open_connection_settings">Open Financial Service Settings</string>
   <string name="services.output.entity_key_required">Input an entity key to proceed.</string>
@@ -73,12 +73,12 @@
   <string name="other_functions.login_link.select_destination">Select a destination</string>
   <string name="other_functions.login_link.requesting_login_link">Requesting link...</string>
   <string name="other_functions.settings.title">Moneytree Settings</string>
-  <string name="other_functions.settings.description">Calls the open settings function. Use this to navigate the user to Moneytree Settings page.</string>
+  <string name="other_functions.settings.description">Navigate to the Moneytree Settings screen.</string>
   <string name="other_functions.output.opened_settings">Opened Moneytree Settings</string>
   <string name="other_functions.settings.open_settings">Open Moneytree Settings</string>
   <string name="link_kit.description">Link Kit is a cost-effective, turn-key digital transformation tool, that supports Moneytree\'s full list of supported Financial Institutions.</string>
   <string name="other_functions.notifications.description">Send a request to the LINK API to register or unregister a device token. The user needs to be logged in to use this feature.</string>
-  <string name="other_functions.customer_support.description">Opens the customer support page where the user can directly chat with the support team. The user needs to be logged in to use this feature.</string>
+  <string name="other_functions.customer_support.description">Opens a customer support page where the user can communicate directly with the support team. This is an additional service, so please contact Moneytree directly if you need this feature.</string>
   <string name="other_functions.customer_support.open_customer_support">Open Customer Support</string>
   <string name="other_functions.output.opened_customer_support">Opened Customer Support</string>
   <string name="other_functions.get_token.description">Retrieves the token if the user is logged in.</string>
