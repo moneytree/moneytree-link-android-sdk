@@ -1,5 +1,10 @@
 # Change Log
 
+## v6.6.3
+
+- No changes to SDK.
+- Made corrections to the text of the sample app, "AwesomeApp."
+
 ## v6.6.2
 
 - No changes to SDK.
