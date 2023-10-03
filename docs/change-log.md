@@ -87,7 +87,9 @@ New properties are:
 
 `ClientAccessToken.value` is deprecated in favor of `ClientAccessToken.accessToken`.
 
-## v6.1.3
+## v6.1.3 [Deprecated]
+
+> :exclamation: This version has known delivery issues. We have requested its removal from Maven Central but unfortunately is still available. Please skip this version and update to the latest one if you need the fixes mentioned here!
 
 - `SchemeHandlerActivity` is now `exported`, this fixes an issue when building with `targetSDKVersion` is `31`
 - Fixes an issue with closing LINK Kit
