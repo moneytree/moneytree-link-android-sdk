@@ -1,5 +1,9 @@
 # Change Log
 
+## v6.6.4
+
+- Fixed issue with LINK Kit not respecting user logged in status when attempting to open the Vault from its settings.
+
 ## v6.6.3
 
 - No changes to SDK.
