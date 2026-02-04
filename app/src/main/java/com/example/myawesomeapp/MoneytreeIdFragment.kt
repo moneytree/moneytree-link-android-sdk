@@ -48,6 +48,9 @@ class MoneytreeIdFragment : BaseFragment() {
           binding.chipAuthnMethodPasswordless.id -> AuthenticationMethod.Passwordless.also {
             selectedChipText = binding.chipAuthnMethodPasswordless.text.toString()
           }
+          binding.chipAuthnMethodOtp.id -> AuthenticationMethod.Otp.also {
+            selectedChipText = binding.chipAuthnMethodOtp.text.toString()
+          }
           binding.chipAuthnMethodSso.id -> AuthenticationMethod.SingleSignOn.also {
             selectedChipText = binding.chipAuthnMethodSso.text.toString()
           }

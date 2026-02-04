@@ -73,6 +73,16 @@
                         app:chipStartPadding="4dp" />
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_authn_method_otp"
+                        style="@style/Widget.Material3.Chip.Assist.Elevated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/moneytree_id.authorize.authentication_method.otp"
+                        android:checkable="true"
+                        app:chipEndPadding="4dp"
+                        app:chipStartPadding="4dp" />
+
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/chip_authn_method_sso"
                         style="@style/Widget.Material3.Chip.Assist.Elevated"
                         android:layout_width="wrap_content"

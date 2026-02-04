@@ -1,5 +1,10 @@
 # Change Log
 
+## v6.7.0
+
+- Add "otp" as an accepted value for `AuthenticationMethod`
+- Use "otp" as an available `AuthenticationMethod` in the sample app, "AwesomeApp."
+
 ## v6.6.4
 
 - Fixed issue with LINK Kit not respecting user logged in status when attempting to open the Vault from its settings.
