@@ -10,6 +10,7 @@ import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.myawesomeapp.databinding.ActivityMainBinding
+import com.google.android.material.R as MaterialR
 import com.getmoneytree.LinkError
 import com.getmoneytree.LinkEvent
 import com.getmoneytree.MoneytreeLink
@@ -82,7 +83,7 @@ class MainActivity : AppCompatActivity() {
   @SuppressLint("SetTextI18n")
   fun setDebug(text: String, isError: Boolean = false) {
     val typedValue = TypedValue()
-    theme.resolveAttribute(R.attr.colorOnSurfaceVariant, typedValue, true)
+    theme.resolveAttribute(MaterialR.attr.colorOnSurfaceVariant, typedValue, true)
     val color = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       Color.valueOf(typedValue.data).toArgb()
     } else {

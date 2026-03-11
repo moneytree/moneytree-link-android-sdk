@@ -95,6 +95,7 @@
   <string name="link_kit.output.opening_link_kit">LINK Kitが展開中です</string>
   <string name="moneytree_id.authorize.authentication_method.credentials">Credentials</string>
   <string name="moneytree_id.authorize.authentication_method.passwordless">Passwordless</string>
+  <string name="moneytree_id.authorize.authentication_method.otp">OTP</string>
   <string name="moneytree_id.authorize.authentication_method.sso">Single Sign-On</string>
   <string name="moneytree_id.output.selected_authentication_method">認証方式を %1$s に変更しました</string>
 </resources>
