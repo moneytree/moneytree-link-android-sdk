@@ -38,10 +38,11 @@
                 android:layout_marginBottom="8dp"
                 android:text="@string/moneytree_id.authorize.description" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:scrollbars="none">
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/chip_group_authn_method"
@@ -94,7 +95,7 @@
 
                 </com.google.android.material.chip.ChipGroup>
 
-            </LinearLayout>
+            </HorizontalScrollView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

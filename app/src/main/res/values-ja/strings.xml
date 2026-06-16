@@ -4,7 +4,7 @@
   <string name="general.output.message.default">Hello AwesomeApp！\n環境：%1$s</string>
   <string name="general.output.title">出力：</string>
   <string name="moneytree_id.authorize.create_moneytree_id">Moneytree IDを新規作成</string>
-  <string name="moneytree_id.authorize.description">以下の認証方法から一つ選択してください。\n\nCredentials：メールアドレスとパスワードで認証可能です。\n\nPasswordless：メールに送信するリンクでログイン可能です。下の「オンボーディング」から新規作成できます。\n\nSingle Sign-On：クライアントアプリとシームレスにログインできます。</string>
+  <string name="moneytree_id.authorize.description">以下の認証方法から一つ選択してください。\n\nCredentials：メールアドレスとパスワードで認証可能です。\n\nPasswordless：メールに送信するリンクでログイン可能です。下の「オンボーディング」から新規作成できます。\n\nSingle Sign-On：クライアントアプリとシームレスにログインできます。\n\nOTP：メールに送信するワンタイムパスワードでログイン可能です。</string>
   <string name="moneytree_id.authorize.email_optional_placeholder">メールアドレス（任意）</string>
   <string name="moneytree_id.authorize.force_logout.description">チェックを入れると、ID新規作成やログイン時に強制ログアウトします。</string>
   <string name="moneytree_id.authorize.force_logout">強制ログアウト</string>
