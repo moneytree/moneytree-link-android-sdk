@@ -1,5 +1,11 @@
 # Change Log
 
+## v6.7.1
+
+- Declared the SDK's internal activities as `android:exported="false"` for correct behavior on apps targeting Android 12 (API 31) and above.
+- Replaced the deprecated `overridePendingTransition` with `overrideActivityTransition` on Android 14 (API 34) and above. No change to the transition behavior.
+- Updated the SDK to compile against Android SDK 35 and refreshed Gradle and library dependencies.
+
 ## v6.7.0
 
 - Add "otp" as an accepted value for `AuthenticationMethod`
@@ -21,7 +27,7 @@
 
 ## v6.6.1
 
-Hotfix, for an issue with Passwordless Login not working when opening the Moneytree Account settings. 
+Hotfix, for an issue with Passwordless Login not working when opening the Moneytree Account settings.
 
 ## v6.6.0
 
@@ -44,9 +50,9 @@ Added additional scope, `RequestRefresh`, to LINK Kit.
 
 ## v6.5.3
 
-Improved internal state (OAuth) handling. 
+Improved internal state (OAuth) handling.
 
-For Code Grant the SDK would require simple, unencoded strings to be provided. This change removes that requirement. 
+For Code Grant the SDK would require simple, unencoded strings to be provided. This change removes that requirement.
 
 ## v6.5.2
 

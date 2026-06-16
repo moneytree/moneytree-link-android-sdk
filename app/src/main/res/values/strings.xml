@@ -4,7 +4,7 @@
   <string name="general.output.message.default">Hello AwesomeApp!\nEnvironment: %1$s</string>
   <string name="general.output.title">Output:</string>
   <string name="moneytree_id.authorize.create_moneytree_id">Create Moneytree ID</string>
-  <string name="moneytree_id.authorize.description">Select one of the following authentication methods.\n\nCredentials: authenticate with username and password\n\nPasswordless: log in with a link sent to your email address. To sign up with passwordless, use the Onboarding feature below instead.\n\nSingle Sign-on: Authenticate seamlessly via your client app.</string>
+  <string name="moneytree_id.authorize.description">Select one of the following authentication methods.\n\nCredentials: Authenticate with username and password\n\nPasswordless: Log in with a link sent to your email address. To sign up with passwordless, use the Onboarding feature below instead.\n\nSingle Sign-on: Authenticate seamlessly via your client app.\n\nOTP: Log in with a one time password sent to your email address.</string>
   <string name="moneytree_id.authorize.email_optional_placeholder">Email (Optional)</string>
   <string name="moneytree_id.authorize.force_logout.description">Enable this to log out automatically before logging in or creating a new account.</string>
   <string name="moneytree_id.authorize.force_logout">Force logout</string>
