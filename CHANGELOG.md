@@ -1,5 +1,11 @@
 # Change Log
 
+## 6.8.0
+
+- Avoid sending `email` in query parameters
+
+All functions which open a web session and take `email` as an argument now first make an asynchronous call to replace `email` with an `emailToken` which is then included in the query parameters. This improves user privacy by not exposing their email address in logs or browser history.
+
 ## v6.7.1
 
 - Declared the SDK's internal activities as `android:exported="false"` for correct behavior on apps targeting Android 12 (API 31) and above.
