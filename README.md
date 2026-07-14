@@ -534,6 +534,7 @@ MoneytreeLink.getInstance().openVault(
 >    // MoneytreeLink.VAULT_SERVICE, opens the vault directly to a specific connected service.
 >    // MoneytreeLink.VAULT_SERVICE_SETTINGS, opens the vault to the settings of a specific connected service.
 >    // MoneytreeLink.VAULT_SUPPORT, opens the customer support page of the vault.
+>    // MoneytreeLink.VAULT_ONBOARDING, opens the custom onboarding flow of the vault if configured. Otherwise redirects to vault's homepage.
 >    // When vaultOpenServicesOptions() is used the path is overridden, using the proper path.
 >    .path(String)
 >    // if provided and unauthorized the login page will have the email field pre-filled.
@@ -553,6 +554,7 @@ Generally, the pages you can navigate to are:
 - The details page of a specific service.
 - The settings page of a connected service, if for example the user needs to remove it from their account.
 - The services list/search screen. Pre-search/filtering of the services can be performed depending on the configuration of `VaultOpenServicesOptions` provided in `vaultOpenServicesOptions(...)`.
+- The start of the custom onboarding flow configured for your client (if configured).
 
 The `VaultOpenServicesOptions` object can be constructed using its `Builder`:
 

@@ -98,4 +98,7 @@
   <string name="moneytree_id.authorize.authentication_method.otp">OTP</string>
   <string name="moneytree_id.authorize.authentication_method.sso">Single Sign-On</string>
   <string name="moneytree_id.output.selected_authentication_method">Authentication method changed to %1$s</string>
+    <string name="services.onboarding.title">Custom Onboarding Flow</string>
+    <string name="services.onboarding.description">Opens Vault to the start of the Custom Onboarding Flow configured for your client. The Custom Onboarding Flow must be enabled and configured by Moneytree before this can be used</string>
+    <string name="services.onboarding.open">Open Custom Onboarding Flow</string>
 </resources>
