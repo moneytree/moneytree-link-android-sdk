@@ -1,5 +1,11 @@
 # Change Log
 
+## 6.9.0
+
+- Add support for using the SDK to open the Universal Vault Custom Onboarding Flow
+  - Please reach out to Moneytree to configure this flow for your client
+  - If this flow is not configured for your client attempting to open it will redirect the user to the financial institution search page
+
 ## 6.8.0
 
 - Avoid sending `email` in query parameters

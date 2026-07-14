@@ -98,4 +98,7 @@
   <string name="moneytree_id.authorize.authentication_method.otp">OTP</string>
   <string name="moneytree_id.authorize.authentication_method.sso">Single Sign-On</string>
   <string name="moneytree_id.output.selected_authentication_method">認証方式を %1$s に変更しました</string>
+    <string name="services.onboarding.title">カスタムオンボーディングフロー</string>
+    <string name="services.onboarding.description">クライアント向けに設定されたカスタムオンボーディングフローの開始画面をVaultで開きます。この機能を使用するには、事前にMoneytreeによる有効化と設定が必要です。</string>
+    <string name="services.onboarding.open">カスタムオンボーディングフローを開く</string>
 </resources>

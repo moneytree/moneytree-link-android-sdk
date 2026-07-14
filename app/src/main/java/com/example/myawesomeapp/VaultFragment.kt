@@ -33,6 +33,7 @@ class VaultFragment : BaseFragment() {
 
     binding.connectServiceButton.setOnClickListener { sdkConnectService() }
     binding.connectionSettingsButton.setOnClickListener { sdkConnectionSettings() }
+    binding.onboardingFlowButton.setOnClickListener { onboardingFlow() }
   }
 
   override fun onDestroyView() {
@@ -151,6 +152,16 @@ class VaultFragment : BaseFragment() {
         .Builder()
         .path(MoneytreeLink.VAULT_SERVICE_SETTINGS)
         .pathSuffix(accountGroup)
+        .build()
+    )
+  }
+
+  private fun onboardingFlow() {
+    MoneytreeLink.instance.openVault(
+      activity = requireActivity(),
+      requestContext = LinkRequestContext
+        .Builder()
+        .path(MoneytreeLink.VAULT_ONBOARDING)
         .build()
     )
   }
